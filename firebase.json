@@ -1,0 +1,39 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "*.md",
+      ".git/**",
+      "node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**/*.html",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "X-Frame-Options", "value": "DENY" }
+        ]
+      },
+      {
+        "source": "**/*.mp4",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        ]
+      },
+      {
+        "source": "**/*.@(webp|jpg|jpeg|png|svg|gif|ico|woff2)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        ]
+      }
+    ],
+    "rewrites": [
+      { "source": "**", "destination": "/index.html" }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
+  }
+}
