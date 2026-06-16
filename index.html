@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!-- v3.2 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -198,7 +198,8 @@ img{max-width:100%}
 
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
-  .hero{padding:90px 16px 120px}
+  .hero{padding:90px 0 80px}
+  .hero-content{padding:0 16px;width:100%;box-sizing:border-box}
   .hero-ctas{flex-direction:column;align-items:stretch}
   .cta-call,.cta-wa{justify-content:center;font-size:1rem;padding:15px 24px}
   .quick-book-card{padding:24px 18px}
@@ -217,11 +218,12 @@ img{max-width:100%}
 }
 
 
-/* ══ ANIM SCENE v4 (video) ══ */
-.anim-scene{position:relative;max-width:900px;height:420px;border-radius:20px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.55);margin:0 auto;background:#e8e8e8}
-#hero-video{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}
+/* ══ ANIM SCENE v6 (responsive, edge-to-edge mobile) ══ */
+.anim-scene{position:relative;width:100%;max-width:900px;aspect-ratio:900/460;border-radius:20px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.55);margin:24px auto 0;background:#111}
+#hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center}
+@media(max-width:768px){.anim-scene{border-radius:0;box-shadow:none;width:100%;max-width:none;margin:16px 0 0}}
 .hero-vid-overlay{position:absolute;inset:0;pointer-events:none}
-.hero-vid-badge{position:absolute;bottom:18px;right:18px;background:rgba(14,31,61,0.72);backdrop-filter:blur(6px);border:1px solid rgba(240,165,0,0.5);border-radius:8px;padding:5px 14px;font-size:.72rem;color:rgba(255,255,255,.9);font-weight:700;letter-spacing:1.6px;font-family:Inter,Arial,sans-serif}
+.hero-vid-badge{position:absolute;top:14px;right:14px;background:rgba(14,31,61,0.72);backdrop-filter:blur(6px);border:1px solid rgba(240,165,0,0.5);border-radius:8px;padding:5px 14px;font-size:.72rem;color:rgba(255,255,255,.9);font-weight:700;letter-spacing:1.6px;font-family:Inter,Arial,sans-serif}
 
 
 
@@ -288,12 +290,12 @@ img{max-width:100%}
 
 <div class="anim-scene">
   <video id="hero-video" autoplay muted loop playsinline preload="auto">
-    <source src="./hero.mp4" type="video/mp4">
+    <source src="./hero_v4.mp4" type="video/mp4">
   </video>
   <!-- top gradient overlay keeps nav readable -->
   <div class="hero-vid-overlay" style="background:linear-gradient(180deg,rgba(14,31,61,0.08) 0%,transparent 30%,transparent 70%,rgba(14,31,61,0.15) 100%)"></div>
   <!-- badge -->
-  <div class="hero-vid-badge">ONE&#8209;WAY DROP TAXI &nbsp;·&nbsp; SOUTH INDIA</div>
+  <div class="hero-vid-badge">YOUR TRUSTED TRAVEL PARTNER &nbsp;•&nbsp; SOUTH INDIA</div>
 </div>
   </section>
 
