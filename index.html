@@ -1112,6 +1112,11 @@ const VEHICLE_CONFIG = {
 };
 
 // ── Date / time defaults ──────────────────────
+// Use LOCAL date string — avoids UTC offset bug (IST = UTC+5:30)
+function localDateStr(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
 function initDateTimeDefaults() {
   const now    = new Date();
   const dateEl = document.getElementById('qbDate');
@@ -1119,7 +1124,7 @@ function initDateTimeDefaults() {
   const minEl  = document.getElementById('qbMin');
   if (!dateEl || !hourEl || !minEl) return;
 
-  // Populate hour dropdown 0–23
+  // Populate hour dropdown 00–23
   for (let h = 0; h < 24; h++) {
     const opt = document.createElement('option');
     opt.value = String(h).padStart(2,'0');
@@ -1127,24 +1132,49 @@ function initDateTimeDefaults() {
     hourEl.appendChild(opt);
   }
 
-  // min date = today (greys out past in native calendar)
-  const todayStr = now.toISOString().split('T')[0];
+  // min date = today using LOCAL date (not UTC)
+  const todayStr = localDateStr(now);
   dateEl.min   = todayStr;
   dateEl.value = todayStr;
 
-  // Default time = now + 1h, rounded to nearest 15 min
+  // Default time = now + 1h, rounded UP to next 15-min slot
   const future  = new Date(now.getTime() + 60 * 60 * 1000);
   const rawMins = future.getHours() * 60 + future.getMinutes();
   const rounded = Math.ceil(rawMins / 15) * 15;
   const fh = Math.floor(rounded / 60) % 24;
   const fm = rounded % 60;
   hourEl.value = String(fh).padStart(2,'0');
-  minEl.value  = String(fm - (fm % 15)).padStart(2,'0'); // snap to valid option
+  minEl.value  = String(fm).padStart(2,'0');
 
-  // Clamp to future when date or time changes
-  dateEl.addEventListener('change', enforceFutureTime);
+  // Disable past hours for today
+  updateHourOptions();
+
+  // Listeners
+  dateEl.addEventListener('change', () => { updateHourOptions(); enforceFutureTime(); });
   hourEl.addEventListener('change', enforceFutureTime);
   minEl.addEventListener('change',  enforceFutureTime);
+}
+
+// Disable past hours in the hour dropdown when date = today
+function updateHourOptions() {
+  const dateEl = document.getElementById('qbDate');
+  const hourEl = document.getElementById('qbHour');
+  if (!dateEl || !hourEl) return;
+
+  const now      = new Date();
+  const todayStr = localDateStr(now);
+  const isToday  = dateEl.value === todayStr;
+  const curHour  = now.getHours();
+
+  Array.from(hourEl.options).forEach(opt => {
+    const h = parseInt(opt.value, 10);
+    opt.disabled = isToday && h < curHour;
+  });
+
+  // If selected hour is now disabled, bump to curHour
+  if (isToday && parseInt(hourEl.value, 10) < curHour) {
+    hourEl.value = String(curHour).padStart(2,'0');
+  }
 }
 
 function enforceFutureTime() {
@@ -1152,11 +1182,13 @@ function enforceFutureTime() {
   const hourEl = document.getElementById('qbHour');
   const minEl  = document.getElementById('qbMin');
   if (!dateEl || !hourEl || !minEl) return;
+
   const now      = new Date();
-  const todayStr = now.toISOString().split('T')[0];
-  if (dateEl.value !== todayStr) return; // future date, any time OK
+  const todayStr = localDateStr(now);
+  if (dateEl.value !== todayStr) return; // future date → any time allowed
+
   const selMins = parseInt(hourEl.value, 10) * 60 + parseInt(minEl.value, 10);
-  const minMins = now.getHours() * 60 + now.getMinutes() + 30;
+  const minMins = now.getHours() * 60 + now.getMinutes() + 30; // 30-min buffer
   if (selMins < minMins) {
     const clamped = Math.ceil(minMins / 15) * 15;
     const ch = Math.floor(clamped / 60) % 24;
@@ -1231,8 +1263,9 @@ function calcFare(distKm, vehicle, tripType, departureHour) {
   const driverDays   = (tripType === 'round' && distKm > 350) ? 2 : 1;
   const driverCharge = driverDays * DRIVER_CHARGE_DAY;
 
-  // Tolls: ₹0.8/km rounded to nearest ₹10
-  const tollEst = Math.round(distKm * TOLL_PER_KM / 10) * 10 || 0;
+  // Tolls: ₹0.8/km × 2 for round trip, rounded to nearest ₹10
+  const tollMult = tripType === 'round' ? 2 : 1;
+  const tollEst  = Math.round(distKm * TOLL_PER_KM * tollMult / 10) * 10 || 0;
 
   const total = fareBase + driverCharge + tollEst;
 
@@ -1289,7 +1322,8 @@ function renderFareCard(q) {
 
   document.getElementById('fare-driver-label').textContent = `👤 Driver Charge (${f.driverDays} day${f.driverDays > 1 ? 's' : ''})`;
   document.getElementById('fare-driver').textContent  = `₹${f.driverCharge.toLocaleString('en-IN')}`;
-  document.getElementById('fare-tolls').textContent   = `₹${f.tollEst.toLocaleString('en-IN')} (est.)`;
+  const tollLabel = q.tripType === 'round' ? '(est. both ways)' : '(est.)';
+  document.getElementById('fare-tolls').textContent = `₹${f.tollEst.toLocaleString('en-IN')} ${tollLabel}`;
   document.getElementById('fare-total').textContent   = `₹${f.total.toLocaleString('en-IN')}`;
 }
 
