@@ -106,6 +106,8 @@ img{max-width:100%}
 .fare-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.9rem;color:rgba(255,255,255,0.75)}
 .fare-row:last-child{border-bottom:none}
 .fare-total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0 0;font-size:1.3rem;font-weight:800;color:var(--gold)}
+.fare-discount-row{color:#5bd68a !important}
+.fare-discount-row span{color:#5bd68a !important}
 .fare-note{font-size:0.78rem;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px}
 /* Loading */
 .qf-loading{text-align:center;padding:28px;color:rgba(255,255,255,0.7);font-size:0.95rem}
@@ -473,11 +475,11 @@ img{max-width:100%}
           <div class="fare-row"><span>📏 Distance</span><span id="fare-dist"></span></div>
           <div class="fare-row"><span id="fare-vehicle-label">🚗 Sedan</span><span id="fare-rate"></span></div>
           <div class="fare-row"><span id="fare-ride-label">🚗 Ride Fare</span><span id="fare-base"></span></div>
-          <div class="fare-row" id="fare-night-row" style="display:none"><span>🌙 Night surcharge (+10%)</span><span id="fare-night"></span></div>
-          <div class="fare-row" id="fare-round-row" style="display:none"><span>🔄 Round trip subtotal (×1.8)</span><span id="fare-round-val"></span></div>
+          <div class="fare-row fare-discount-row" id="fare-round-row" style="display:none"><span>🔖 Round Trip Discount (−10%)</span><span id="fare-round-val"></span></div>
+          <div class="fare-row" id="fare-night-row" style="display:none"><span>🌙 Night Surcharge (+10%)</span><span id="fare-night"></span></div>
           <div class="fare-row"><span id="fare-driver-label">👤 Driver Charge</span><span id="fare-driver"></span></div>
-          <div class="fare-row"><span>🛣️ Tolls (est.)</span><span id="fare-tolls"></span></div>
-          <div class="fare-row" id="fare-permit-row" style="display:none"><span>📋 State Permit</span><span id="fare-permit"></span></div>
+          <div class="fare-row"><span id="fare-tolls-label">🛣️ Tolls (est.)</span><span id="fare-tolls"></span></div>
+          <div class="fare-row" id="fare-permit-row" style="display:none"><span id="fare-permit-label">📋 State Permit</span><span id="fare-permit"></span></div>
           <div class="fare-total-row"><span>💰 Grand Total</span><span id="fare-total"></span></div>
         </div>
         <p class="fare-note">* Tolls are estimates. Final fare confirmed on WhatsApp.</p>
@@ -1245,39 +1247,69 @@ function showStep1() {
 }
 
 // ── Fare calculation ──────────────────────────
+// DRIVER_MAX_KM_PER_DAY: driver covers max 400 KM/day
+const DRIVER_MAX_KM_DAY = 400;
+
 function calcFare(distKm, vehicle, tripType, departureHour, withinTN) {
-  const cfg = VEHICLE_CONFIG[vehicle];
+  const cfg    = VEHICLE_CONFIG[vehicle];
   if (cfg.isContact) return null;
 
-  const billedKm   = Math.max(distKm, MIN_BILLED_KM);
-  const minApplied = distKm < MIN_BILLED_KM;
+  const isRound = tripType === 'round';
 
-  const rideFare       = billedKm * cfg.ratePerKm;
+  // ── Distance ──────────────────────────────────────────
+  // One-way billed km: min 130 KM
+  const billedOneWayKm = Math.max(distKm, MIN_BILLED_KM);
+  const minApplied     = distKm < MIN_BILLED_KM;
+
+  // Total trip KM (for all distance-based costs)
+  const totalActualKm = isRound ? distKm * 2 : distKm;
+  const totalBilledKm = isRound ? billedOneWayKm * 2 : billedOneWayKm;
+
+  // ── Ride fare ─────────────────────────────────────────
+  // Full billed distance × rate (both legs shown for round trip)
+  const rideFare = totalBilledKm * cfg.ratePerKm;
+
+  // Round trip discount: 10% off the full round trip fare
+  const rtDiscount = isRound ? Math.round(rideFare * 0.10) : 0;
+
+  // Night surcharge: 10% on ONE-WAY leg only (departure time)
   const isNight        = departureHour >= 22 || departureHour < 6;
-  const nightSurcharge = isNight ? Math.round(rideFare * 0.1) : 0;
+  const nightSurcharge = isNight ? Math.round(billedOneWayKm * cfg.ratePerKm * 0.10) : 0;
 
-  // One-way subtotal before ×1.8
-  const onewaySubtotal = rideFare + nightSurcharge;
+  const rideSubtotal = rideFare - rtDiscount + nightSurcharge;
 
-  // Round trip: multiply ride portion ×1.8; extras (driver, tolls, permit) stay ×1
-  const fareBase = tripType === 'round'
-    ? Math.round(onewaySubtotal * 1.8)
-    : onewaySubtotal;
-
-  // Driver: 2 days if round trip AND distance > 350km; else 1 day
-  const driverDays   = (tripType === 'round' && distKm > 350) ? 2 : 1;
+  // ── Driver days ───────────────────────────────────────
+  // Based on total actual KM (not billed) — ceil(totalKm / 400)
+  const driverDays   = Math.ceil(totalActualKm / DRIVER_MAX_KM_DAY);
   const driverCharge = driverDays * DRIVER_CHARGE_DAY;
 
-  // Tolls: ₹0.8/km × 2 for round trip, rounded to nearest ₹10
-  const tollMult = tripType === 'round' ? 2 : 1;
-  const tollEst  = Math.round(distKm * TOLL_PER_KM * tollMult / 10) * 10 || 0;
+  // ── Tolls ─────────────────────────────────────────────
+  // ₹0.8/km on total actual KM, rounded to nearest ₹10
+  const tollEst = Math.round(totalActualKm * TOLL_PER_KM / 10) * 10 || 0;
 
-  // State permit: ₹500 if route crosses outside Tamil Nadu
-  const permitCharge = withinTN ? 0 : 500;
+  // ── State permit ──────────────────────────────────────
+  // ₹500 per state crossed (estimated: 1 state per ~400 KM, max 5 states)
+  const estimatedStates = withinTN ? 0 : Math.min(Math.ceil(distKm / 400), 5);
+  const permitCharge    = estimatedStates * 500;
 
-  const total = fareBase + driverCharge + tollEst + permitCharge;
+  const total = rideSubtotal + driverCharge + tollEst + permitCharge;
 
-  return { rideFare, onewaySubtotal, fareBase, nightSurcharge, driverCharge, driverDays, tollEst, permitCharge, total, isNight, billedKm, minApplied };
+  return {
+    rideFare,       // full distance fare before discount
+    rtDiscount,     // 10% off for round trip
+    nightSurcharge,
+    rideSubtotal,   // rideFare - rtDiscount + nightSurcharge
+    driverDays,
+    driverCharge,
+    tollEst,
+    estimatedStates,
+    permitCharge,
+    total,
+    isNight,
+    billedOneWayKm,
+    totalBilledKm,
+    minApplied,
+  };
 }
 
 // ── DOM render ────────────────────────────────
@@ -1286,35 +1318,54 @@ function renderFareCard(q) {
   document.getElementById('fare-standard-block').style.display = isPremium ? 'none' : '';
   document.getElementById('fare-premium-block').style.display  = isPremium ? ''     : 'none';
   document.getElementById('fare-wa-block').style.display       = isPremium ? 'none' : '';
-
   if (isPremium) return;
 
   const f    = q.fare;
   const vcfg = VEHICLE_CONFIG[q.vehicle];
+  const isRound = q.tripType === 'round';
 
   // Min KM notice
   const noticeEl = document.getElementById('fare-min-notice');
   if (f.minApplied) {
-    noticeEl.textContent = `Actual distance is ${q.distKm} KM. Minimum fare applies for ${MIN_BILLED_KM} KM.`;
+    noticeEl.textContent = `Actual distance is ${q.distKm} KM. Minimum fare applies for ${MIN_BILLED_KM} KM per leg.`;
     noticeEl.style.display = '';
   } else {
     noticeEl.style.display = 'none';
   }
 
+  // Route
   document.getElementById('fare-route').textContent = `${q.from}  →  ${q.to}`;
 
-  const distLabel = f.minApplied
-    ? `${q.distKm} KM (billed: ${MIN_BILLED_KM} KM min)`
-    : `${q.distKm} KM`;
-  document.getElementById('fare-dist').textContent = distLabel;
+  // Distance row: show total trip distance for round trip
+  if (isRound) {
+    const label = f.minApplied
+      ? `${q.distKm * 2} KM (${q.distKm} KM × 2, billed ${f.billedOneWayKm} KM × 2)`
+      : `${q.distKm * 2} KM (${q.distKm} KM × 2)`;
+    document.getElementById('fare-dist').textContent = label;
+  } else {
+    document.getElementById('fare-dist').textContent = f.minApplied
+      ? `${q.distKm} KM (billed: ${MIN_BILLED_KM} KM min)`
+      : `${q.distKm} KM`;
+  }
 
+  // Vehicle rate
   document.getElementById('fare-vehicle-label').textContent = vcfg.label;
   document.getElementById('fare-rate').textContent          = `₹${vcfg.ratePerKm}/km`;
 
-  // Ride fare row: label changes for round trip clarity
-  document.getElementById('fare-ride-label').textContent =
-    q.tripType === 'round' ? '🚗 One-way ride fare' : '🚗 Ride Fare';
+  // Ride fare label & value
+  document.getElementById('fare-ride-label').textContent = isRound
+    ? `🚗 Ride Fare (${f.totalBilledKm} KM)`
+    : `🚗 Ride Fare (${f.billedOneWayKm} KM)`;
   document.getElementById('fare-base').textContent = `₹${f.rideFare.toLocaleString('en-IN')}`;
+
+  // Round trip discount: −10%
+  const roundRow = document.getElementById('fare-round-row');
+  if (isRound) {
+    document.getElementById('fare-round-val').textContent = `−₹${f.rtDiscount.toLocaleString('en-IN')}`;
+    roundRow.style.display = '';
+  } else {
+    roundRow.style.display = 'none';
+  }
 
   // Night surcharge
   const nightRow = document.getElementById('fare-night-row');
@@ -1325,24 +1376,21 @@ function renderFareCard(q) {
     nightRow.style.display = 'none';
   }
 
-  // Round trip: show actual ×1.8 subtotal, not just "applied"
-  const roundRow = document.getElementById('fare-round-row');
-  if (q.tripType === 'round') {
-    document.getElementById('fare-round-val').textContent = `₹${f.fareBase.toLocaleString('en-IN')}`;
-    roundRow.style.display = '';
-  } else {
-    roundRow.style.display = 'none';
-  }
-
-  document.getElementById('fare-driver-label').textContent = `👤 Driver Charge (${f.driverDays} day${f.driverDays > 1 ? 's' : ''})`;
+  // Driver charge — days based on total KM ÷ 400
+  document.getElementById('fare-driver-label').textContent =
+    `👤 Driver Charge (${f.driverDays} day${f.driverDays > 1 ? 's' : ''} × ₹${DRIVER_CHARGE_DAY})`;
   document.getElementById('fare-driver').textContent = `₹${f.driverCharge.toLocaleString('en-IN')}`;
 
-  const tollLabel = q.tripType === 'round' ? '(est. both ways)' : '(est.)';
-  document.getElementById('fare-tolls').textContent = `₹${f.tollEst.toLocaleString('en-IN')} ${tollLabel}`;
+  // Tolls
+  const tollsLabel = isRound ? '🛣️ Tolls — both ways (est.)' : '🛣️ Tolls (est.)';
+  document.getElementById('fare-tolls-label').textContent = tollsLabel;
+  document.getElementById('fare-tolls').textContent = `₹${f.tollEst.toLocaleString('en-IN')}`;
 
-  // Permit
+  // State permit
   const permitRow = document.getElementById('fare-permit-row');
   if (f.permitCharge > 0) {
+    document.getElementById('fare-permit-label').textContent =
+      `📋 State Permit (~${f.estimatedStates} state${f.estimatedStates > 1 ? 's' : ''} × ₹500)`;
     document.getElementById('fare-permit').textContent = `₹${f.permitCharge.toLocaleString('en-IN')}`;
     permitRow.style.display = '';
   } else {
@@ -1488,11 +1536,13 @@ function sendQuoteWA() {
   if (f && f.minApplied) msg += ` (billed: ${MIN_BILLED_KM} km min)`;
   msg += `\n`;
   if (f) {
-    msg += `🚗 Ride fare: ₹${f.fareBase.toLocaleString('en-IN')}\n`;
-    if (f.isNight) msg += `🌙 Night surcharge: ₹${f.nightSurcharge.toLocaleString('en-IN')}\n`;
-    msg += `👤 Driver charge: ₹${f.driverCharge.toLocaleString('en-IN')} (${f.driverDays} day${f.driverDays>1?'s':''})\n`;
+    const tripKm = q.tripType === 'round' ? q.distKm * 2 : q.distKm;
+    msg += `🚗 Ride Fare (${tripKm} KM): ₹${f.rideFare.toLocaleString('en-IN')}\n`;
+    if (q.tripType === 'round') msg += `🔖 Round Trip Discount (−10%): −₹${f.rtDiscount.toLocaleString('en-IN')}\n`;
+    if (f.isNight) msg += `🌙 Night Surcharge: ₹${f.nightSurcharge.toLocaleString('en-IN')}\n`;
+    msg += `👤 Driver Charge (${f.driverDays} day${f.driverDays>1?'s':''}): ₹${f.driverCharge.toLocaleString('en-IN')}\n`;
     msg += `🛣️ Tolls (est.): ₹${f.tollEst.toLocaleString('en-IN')}\n`;
-    if (f.permitCharge > 0) msg += `📋 State permit: ₹${f.permitCharge.toLocaleString('en-IN')}\n`;
+    if (f.permitCharge > 0) msg += `📋 State Permit (~${f.estimatedStates} states): ₹${f.permitCharge.toLocaleString('en-IN')}\n`;
     msg += `💰 Grand Total: ₹${f.total.toLocaleString('en-IN')}\n`;
     msg += `🅿️ Parking charges (if any) to be paid by customer.\n`;
   }
