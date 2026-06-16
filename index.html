@@ -113,8 +113,23 @@ img{max-width:100%}
 @keyframes spin{to{transform:rotate(360deg)}}
 .qf-error{background:rgba(220,50,50,0.15);border:1px solid rgba(220,50,50,0.4);border-radius:10px;padding:12px 16px;color:#ff8080;font-size:0.88rem;margin:12px 0;text-align:center}
 .qf-back{background:none;border:none;color:rgba(255,255,255,0.55);font-size:0.85rem;cursor:pointer;padding:8px 0;text-decoration:underline;font-family:'Inter',sans-serif;margin-bottom:8px}
-.qf-back-big{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 20px;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.3);border-radius:14px;color:var(--white);font-size:1rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:18px;transition:all 0.2s;letter-spacing:0.3px}
-.qf-back-big:hover{background:rgba(255,255,255,0.18);border-color:var(--gold);color:var(--gold)}
+/* Edit button — compact, amber, top of step 2 */
+.qf-edit-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:#E8920A;border:none;border-radius:20px;color:var(--navy);font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:16px;transition:background 0.2s;letter-spacing:0.2px}
+.qf-edit-btn:hover{background:#d4820a}
+/* Floating action bar — mobile only, shows on step 2 */
+#qb-float-bar{display:none;position:fixed;bottom:62px;left:0;right:0;z-index:980;box-shadow:0 -2px 16px rgba(0,0,0,0.35)}
+@media(max-width:768px){#qb-float-bar.visible{display:flex}}
+.qb-float-edit{flex:0 0 auto;padding:16px 20px;background:#E8920A;border:none;color:var(--navy);font-size:0.9rem;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.qb-float-wa{flex:1;padding:16px 16px;background:var(--wa);border:none;color:var(--white);font-size:0.9rem;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px}
+/* Date+Time row stays side-by-side on mobile */
+.qf-datetime-row{display:flex;gap:10px}
+.qf-datetime-row .qf-field{flex:1;min-width:0}
+/* Custom time selects */
+.qf-time-selects{display:flex;align-items:center;gap:6px}
+.qf-select{flex:1;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:var(--white);padding:12px 10px;border-radius:10px;font-size:1rem;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s;box-sizing:border-box;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.5)' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
+.qf-select:focus{border-color:var(--gold)}
+.qf-select option{background:#0e1f3d;color:var(--white)}
+.qf-time-sep{color:rgba(255,255,255,0.6);font-size:1.2rem;font-weight:700;line-height:1}
 .wa-input-row{display:flex;gap:8px;align-items:stretch;margin-bottom:12px}
 .wa-prefix{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);border-radius:10px;padding:12px 12px;font-size:1rem;font-weight:700;white-space:nowrap;display:flex;align-items:center}
 /* Step 2 inline toggles */
@@ -376,13 +391,25 @@ img{max-width:100%}
           <label class="qf-label">📍 To City</label>
           <input class="qf-input" id="qbTo" type="text" placeholder="Madurai, Bangalore..."/>
         </div>
+      </div>
+      <!-- Date + Time always side-by-side -->
+      <div class="qf-datetime-row" style="margin-top:12px">
         <div class="qf-field">
           <label class="qf-label">📅 Date</label>
           <input class="qf-input" id="qbDate" type="date"/>
         </div>
         <div class="qf-field">
           <label class="qf-label">⏰ Time</label>
-          <input class="qf-input" id="qbTime" type="time" step="900"/>
+          <div class="qf-time-selects">
+            <select class="qf-select" id="qbHour"></select>
+            <span class="qf-time-sep">:</span>
+            <select class="qf-select" id="qbMin">
+              <option value="00">00</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="45">45</option>
+            </select>
+          </div>
         </div>
       </div>
       <div style="margin-top:16px">
@@ -415,7 +442,7 @@ img{max-width:100%}
 
     <!-- STEP 3: Fare Result -->
     <div id="qb-step2" style="display:none">
-      <button class="qf-back-big" onclick="showStep1()">✏️ Edit Trip Details</button>
+      <button class="qf-edit-btn" onclick="showStep1()">✏️ Edit Trip Details</button>
 
       <!-- Change vehicle / trip on result page -->
       <div class="s2-toggles">
@@ -485,6 +512,12 @@ img{max-width:100%}
     </div>
 
   </div>
+</div>
+
+<!-- Floating action bar for mobile step-2 -->
+<div id="qb-float-bar">
+  <button class="qb-float-edit" onclick="showStep1()">✏️ Edit</button>
+  <button class="qb-float-wa" onclick="sendQuoteWA()">💬 Send on WhatsApp</button>
 </div>
 
 <!-- ══ WHY DROPEZI ══ -->
@@ -1080,44 +1113,56 @@ const VEHICLE_CONFIG = {
 
 // ── Date / time defaults ──────────────────────
 function initDateTimeDefaults() {
-  const now  = new Date();
+  const now    = new Date();
   const dateEl = document.getElementById('qbDate');
-  const timeEl = document.getElementById('qbTime');
-  if (!dateEl || !timeEl) return;
+  const hourEl = document.getElementById('qbHour');
+  const minEl  = document.getElementById('qbMin');
+  if (!dateEl || !hourEl || !minEl) return;
 
-  // min = today
+  // Populate hour dropdown 0–23
+  for (let h = 0; h < 24; h++) {
+    const opt = document.createElement('option');
+    opt.value = String(h).padStart(2,'0');
+    opt.textContent = String(h).padStart(2,'0');
+    hourEl.appendChild(opt);
+  }
+
+  // min date = today (greys out past in native calendar)
   const todayStr = now.toISOString().split('T')[0];
   dateEl.min   = todayStr;
   dateEl.value = todayStr;
 
-  // default time = now + 1h, rounded to nearest 15 min
+  // Default time = now + 1h, rounded to nearest 15 min
   const future  = new Date(now.getTime() + 60 * 60 * 1000);
   const rawMins = future.getHours() * 60 + future.getMinutes();
   const rounded = Math.ceil(rawMins / 15) * 15;
   const fh = Math.floor(rounded / 60) % 24;
   const fm = rounded % 60;
-  timeEl.value = `${String(fh).padStart(2,'0')}:${String(fm).padStart(2,'0')}`;
+  hourEl.value = String(fh).padStart(2,'0');
+  minEl.value  = String(fm - (fm % 15)).padStart(2,'0'); // snap to valid option
 
-  // Prevent past time when today is selected
+  // Clamp to future when date or time changes
   dateEl.addEventListener('change', enforceFutureTime);
-  timeEl.addEventListener('change', enforceFutureTime);
+  hourEl.addEventListener('change', enforceFutureTime);
+  minEl.addEventListener('change',  enforceFutureTime);
 }
 
 function enforceFutureTime() {
   const dateEl = document.getElementById('qbDate');
-  const timeEl = document.getElementById('qbTime');
-  if (!dateEl || !timeEl) return;
-  const now     = new Date();
+  const hourEl = document.getElementById('qbHour');
+  const minEl  = document.getElementById('qbMin');
+  if (!dateEl || !hourEl || !minEl) return;
+  const now      = new Date();
   const todayStr = now.toISOString().split('T')[0];
-  if (dateEl.value !== todayStr) return; // future date — any time OK
-  const [h, m] = timeEl.value.split(':').map(Number);
-  const selMins = h * 60 + m;
-  const minMins = now.getHours() * 60 + now.getMinutes() + 30; // 30-min buffer
+  if (dateEl.value !== todayStr) return; // future date, any time OK
+  const selMins = parseInt(hourEl.value, 10) * 60 + parseInt(minEl.value, 10);
+  const minMins = now.getHours() * 60 + now.getMinutes() + 30;
   if (selMins < minMins) {
     const clamped = Math.ceil(minMins / 15) * 15;
     const ch = Math.floor(clamped / 60) % 24;
     const cm = clamped % 60;
-    timeEl.value = `${String(ch).padStart(2,'0')}:${String(cm).padStart(2,'0')}`;
+    hourEl.value = String(ch).padStart(2,'0');
+    minEl.value  = String(cm).padStart(2,'0');
   }
 }
 
@@ -1158,9 +1203,11 @@ function selectTrip2(t) {
 }
 
 function showStep1() {
-  document.getElementById('qb-step1').style.display = '';
-  document.getElementById('qb-step2').style.display = 'none';
+  document.getElementById('qb-step1').style.display   = '';
+  document.getElementById('qb-step2').style.display   = 'none';
   document.getElementById('qb-loading').style.display = 'none';
+  const fb = document.getElementById('qb-float-bar');
+  if (fb) fb.classList.remove('visible');
 }
 
 // ── Fare calculation ──────────────────────────
@@ -1252,6 +1299,8 @@ function recalcFromCache() {
   const fare = calcFare(q.distKm, _selectedVehicle, _selectedTrip, hour);
   _lastQuote = { ...q, vehicle: _selectedVehicle, tripType: _selectedTrip, fare };
   renderFareCard(_lastQuote);
+  const fb = document.getElementById('qb-float-bar');
+  if (fb) fb.classList.add('visible');
 }
 
 // ── Geocode + OSRM ───────────────────────────
@@ -1278,7 +1327,9 @@ async function calculateFare() {
   const from  = document.getElementById('qbFrom').value.trim();
   const to    = document.getElementById('qbTo').value.trim();
   const date  = document.getElementById('qbDate').value;
-  const time  = document.getElementById('qbTime').value || '09:00';
+  const hh    = document.getElementById('qbHour')?.value || '09';
+  const mm    = document.getElementById('qbMin')?.value  || '00';
+  const time  = `${hh}:${mm}`;
   const errEl = document.getElementById('qb-error');
   errEl.style.display = 'none';
 
@@ -1311,6 +1362,8 @@ async function calculateFare() {
     renderFareCard(_lastQuote);
     document.getElementById('qb-loading').style.display = 'none';
     document.getElementById('qb-step2').style.display   = '';
+    const fb = document.getElementById('qb-float-bar');
+    if (fb) fb.classList.add('visible');
 
   } catch(e) {
     document.getElementById('qb-loading').style.display = 'none';
