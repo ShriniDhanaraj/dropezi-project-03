@@ -113,8 +113,33 @@ img{max-width:100%}
 @keyframes spin{to{transform:rotate(360deg)}}
 .qf-error{background:rgba(220,50,50,0.15);border:1px solid rgba(220,50,50,0.4);border-radius:10px;padding:12px 16px;color:#ff8080;font-size:0.88rem;margin:12px 0;text-align:center}
 .qf-back{background:none;border:none;color:rgba(255,255,255,0.55);font-size:0.85rem;cursor:pointer;padding:8px 0;text-decoration:underline;font-family:'Inter',sans-serif;margin-bottom:8px}
+.qf-back-big{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 20px;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.3);border-radius:14px;color:var(--white);font-size:1rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:18px;transition:all 0.2s;letter-spacing:0.3px}
+.qf-back-big:hover{background:rgba(255,255,255,0.18);border-color:var(--gold);color:var(--gold)}
 .wa-input-row{display:flex;gap:8px;align-items:stretch;margin-bottom:12px}
 .wa-prefix{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);border-radius:10px;padding:12px 12px;font-size:1rem;font-weight:700;white-space:nowrap;display:flex;align-items:center}
+/* Step 2 inline toggles */
+.s2-toggles{display:flex;gap:10px;margin:10px 0 16px;flex-wrap:wrap}
+.s2-toggle-group{flex:1;min-width:120px}
+.s2-toggle-label{color:rgba(255,255,255,0.6);font-size:0.72rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;display:block}
+.s2-pills{display:flex;gap:6px;flex-wrap:wrap}
+.s2-pill{padding:7px 11px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7);font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.18s;font-family:'Inter',sans-serif;white-space:nowrap}
+.s2-pill.active{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+/* Minimum KM notice */
+.fare-notice{background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.3);border-radius:8px;padding:8px 14px;font-size:0.8rem;color:rgba(255,255,255,0.75);margin:0 0 10px;text-align:center}
+/* Consent checkbox */
+.consent-box{display:flex;align-items:flex-start;gap:12px;background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.35);border-radius:10px;padding:12px 16px;margin:12px 0;cursor:pointer}
+.consent-box input[type=checkbox]{width:20px;height:20px;flex-shrink:0;accent-color:var(--gold);margin-top:2px;cursor:pointer}
+.consent-box label{color:rgba(255,255,255,0.82);font-size:0.84rem;line-height:1.5;cursor:pointer;font-family:'Inter',sans-serif}
+.consent-box label strong{color:var(--gold)}
+.fare-contact-box{text-align:center;padding:24px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(240,165,0,0.3);border-radius:14px;margin:16px 0}
+.fare-contact-box p{color:rgba(255,255,255,0.75);font-size:0.95rem;margin-bottom:16px}
+/* Mobile alignment fix */
+@media(max-width:600px){
+  .quick-form{flex-direction:column}
+  .qf-field{width:100%;min-width:unset}
+  .s2-toggles{flex-direction:column;gap:8px}
+  .s2-toggle-group{min-width:unset}
+}
 
 /* ── SECTION COMMON ── */
 .section{padding:72px 20px}
@@ -344,20 +369,20 @@ img{max-width:100%}
     <div id="qb-step1">
       <div class="quick-form">
         <div class="qf-field">
-          <label class="qf-label" data-i18n="qb_from">From</label>
+          <label class="qf-label">📍 From City</label>
           <input class="qf-input" id="qbFrom" type="text" placeholder="Chennai, Coimbatore..."/>
         </div>
         <div class="qf-field">
-          <label class="qf-label" data-i18n="qb_to">To</label>
+          <label class="qf-label">📍 To City</label>
           <input class="qf-input" id="qbTo" type="text" placeholder="Madurai, Bangalore..."/>
         </div>
         <div class="qf-field">
-          <label class="qf-label">Date</label>
+          <label class="qf-label">📅 Date</label>
           <input class="qf-input" id="qbDate" type="date"/>
         </div>
         <div class="qf-field">
-          <label class="qf-label">Time</label>
-          <input class="qf-input" id="qbTime" type="time" value="09:00"/>
+          <label class="qf-label">⏰ Time</label>
+          <input class="qf-input" id="qbTime" type="time" step="900"/>
         </div>
       </div>
       <div style="margin-top:16px">
@@ -370,14 +395,14 @@ img{max-width:100%}
       <div style="margin-top:4px">
         <span class="qf-toggle-label">Vehicle</span>
         <div class="qf-toggle">
-          <div class="toggle-pill active" id="pill-sedan" onclick="selectVehicle('sedan')">🚗 Sedan<br/><small style="font-weight:400;font-size:0.75rem">₹12/km</small></div>
-          <div class="toggle-pill" id="pill-suv" onclick="selectVehicle('suv')">🚙 SUV<br/><small style="font-weight:400;font-size:0.75rem">₹16/km</small></div>
-          <div class="toggle-pill" id="pill-premium" onclick="selectVehicle('premium')">✨ Premium<br/><small style="font-weight:400;font-size:0.75rem">₹22/km</small></div>
+          <div class="toggle-pill active" id="pill-sedan" onclick="selectVehicle('sedan')">🚗 Sedan<br/><small style="font-weight:400;font-size:0.75rem">₹14/km</small></div>
+          <div class="toggle-pill" id="pill-suv" onclick="selectVehicle('suv')">🚙 SUV<br/><small style="font-weight:400;font-size:0.75rem">₹19/km</small></div>
+          <div class="toggle-pill" id="pill-premium" onclick="selectVehicle('premium')">✨ Premium<br/><small style="font-weight:400;font-size:0.75rem">Call us</small></div>
         </div>
       </div>
       <div id="qb-error" class="qf-error" style="display:none"></div>
       <button class="qf-btn qf-btn-gold" style="margin-top:16px" onclick="calculateFare()">
-        🔍 Calculate Fare
+        🔍 Get Instant Quote
       </button>
     </div>
 
@@ -390,26 +415,73 @@ img{max-width:100%}
 
     <!-- STEP 3: Fare Result -->
     <div id="qb-step2" style="display:none">
-      <button class="qf-back" onclick="showStep1()">← Modify trip</button>
-      <div class="fare-card">
-        <div class="fare-route" id="fare-route"></div>
-        <div class="fare-row"><span>📏 Distance</span><span id="fare-dist"></span></div>
-        <div class="fare-row"><span id="fare-vehicle-label">🚗 Sedan rate</span><span id="fare-rate"></span></div>
-        <div class="fare-row" id="fare-base-row"><span>⚡ Base fare</span><span id="fare-base"></span></div>
-        <div class="fare-row" id="fare-night-row" style="display:none"><span>🌙 Night surcharge</span><span id="fare-night"></span></div>
-        <div class="fare-row" id="fare-round-row" style="display:none"><span>🔄 Round trip (×1.8)</span><span id="fare-round-val"></span></div>
-        <div class="fare-total-row"><span>💰 Estimated Fare</span><span id="fare-total"></span></div>
+      <button class="qf-back-big" onclick="showStep1()">✏️ Edit Trip Details</button>
+
+      <!-- Change vehicle / trip on result page -->
+      <div class="s2-toggles">
+        <div class="s2-toggle-group">
+          <span class="s2-toggle-label">Trip</span>
+          <div class="s2-pills">
+            <div class="s2-pill active" id="s2-pill-oneway" onclick="selectTrip2('oneway')">🛣️ One-Way</div>
+            <div class="s2-pill" id="s2-pill-round" onclick="selectTrip2('round')">🔄 Round</div>
+          </div>
+        </div>
+        <div class="s2-toggle-group">
+          <span class="s2-toggle-label">Vehicle</span>
+          <div class="s2-pills">
+            <div class="s2-pill active" id="s2-pill-sedan" onclick="selectVehicle2('sedan')">🚗 Sedan</div>
+            <div class="s2-pill" id="s2-pill-suv" onclick="selectVehicle2('suv')">🚙 SUV</div>
+            <div class="s2-pill" id="s2-pill-premium" onclick="selectVehicle2('premium')">✨ Premium</div>
+          </div>
+        </div>
       </div>
-      <p class="fare-note">* Actual fare confirmed on WhatsApp. Tolls & state permits extra.</p>
-      <label class="qf-label" style="margin-top:16px;margin-bottom:6px">Your WhatsApp Number</label>
-      <div class="wa-input-row">
-        <div class="wa-prefix">🇮🇳 +91</div>
-        <input class="qf-input" id="qbPhone" type="tel" maxlength="10" placeholder="9876543210" style="flex:1"/>
+
+      <!-- Min KM notice (shown when actual < 130km) -->
+      <div id="fare-min-notice" class="fare-notice" style="display:none"></div>
+
+      <!-- Standard fare breakdown -->
+      <div id="fare-standard-block">
+        <div class="fare-card">
+          <div class="fare-route" id="fare-route"></div>
+          <div class="fare-row"><span>📏 Distance</span><span id="fare-dist"></span></div>
+          <div class="fare-row"><span id="fare-vehicle-label">🚗 Sedan</span><span id="fare-rate"></span></div>
+          <div class="fare-row"><span>🚗 Ride Fare</span><span id="fare-base"></span></div>
+          <div class="fare-row" id="fare-night-row" style="display:none"><span>🌙 Night surcharge (+10%)</span><span id="fare-night"></span></div>
+          <div class="fare-row" id="fare-round-row" style="display:none"><span>🔄 Round trip (×1.8)</span><span id="fare-round-val"></span></div>
+          <div class="fare-row"><span id="fare-driver-label">👤 Driver Charge</span><span id="fare-driver"></span></div>
+          <div class="fare-row"><span>🛣️ Tolls (est.)</span><span id="fare-tolls"></span></div>
+          <div class="fare-total-row"><span>💰 Grand Total</span><span id="fare-total"></span></div>
+        </div>
+        <p class="fare-note">* Tolls & state permits are estimates. Final fare confirmed on WhatsApp.</p>
       </div>
-      <div id="qb-phone-error" class="qf-error" style="display:none">Please enter a valid 10-digit number.</div>
-      <button class="qf-btn" onclick="sendQuoteWA()">
-        💬 Send Quote on WhatsApp
-      </button>
+
+      <!-- Premium contact block (shown when Premium selected) -->
+      <div id="fare-premium-block" style="display:none">
+        <div class="fare-contact-box">
+          <div style="font-size:2rem;margin-bottom:8px">✨</div>
+          <p>Premium vehicle pricing is personalised. Call or WhatsApp us for an instant quote.</p>
+          <a href="tel:+919876543210" class="qf-btn qf-btn-gold" style="text-decoration:none;display:flex;margin-bottom:10px">📞 Call Now</a>
+          <a href="https://wa.me/919876543210?text=Hi%20DROPeZi!%20I%27d%20like%20a%20quote%20for%20a%20Premium%20vehicle." target="_blank" class="qf-btn" style="text-decoration:none;display:flex">💬 WhatsApp Us</a>
+        </div>
+      </div>
+
+      <!-- WhatsApp section (hidden for Premium) -->
+      <div id="fare-wa-block">
+        <label class="qf-label" style="margin-top:16px;margin-bottom:6px">Your WhatsApp Number <span style="font-weight:400;text-transform:none;letter-spacing:0;color:rgba(255,255,255,0.45)">(optional — to receive quote)</span></label>
+        <div class="wa-input-row">
+          <div class="wa-prefix">🇮🇳 +91</div>
+          <input class="qf-input" id="qbPhone" type="tel" maxlength="10" placeholder="9876543210" style="flex:1" oninput="onPhoneInput()"/>
+        </div>
+        <div id="qb-phone-error" class="qf-error" style="display:none">Please enter a valid 10-digit number.</div>
+        <!-- Consent — shown only when phone entered -->
+        <div id="qb-consent-box" class="consent-box" style="display:none">
+          <input type="checkbox" id="qbConsent"/>
+          <label for="qbConsent">I allow <strong>DROPeZi</strong> to contact me on this number for my ride quote and follow-up booking. I consent to a callback.</label>
+        </div>
+        <button class="qf-btn" onclick="sendQuoteWA()">
+          💬 Send Quote on WhatsApp
+        </button>
+      </div>
     </div>
 
   </div>
@@ -994,14 +1066,62 @@ function setLang(lang) {
 // ══════════════════════════════════════════════
 let _selectedVehicle = 'sedan';
 let _selectedTrip    = 'oneway';
-let _lastQuote       = null; // store for WA send
+let _lastQuote       = null;
+
+const MIN_BILLED_KM      = 130;
+const DRIVER_CHARGE_DAY  = 300;
+const TOLL_PER_KM        = 0.8; // ₹0.8/km, rounded to nearest ₹10
 
 const VEHICLE_CONFIG = {
-  sedan:   { label:'🚗 Sedan',   ratePerKm:12, baseFare:400 },
-  suv:     { label:'🚙 SUV',     ratePerKm:16, baseFare:500 },
-  premium: { label:'✨ Premium', ratePerKm:22, baseFare:800 },
+  sedan:   { label:'🚗 Sedan',   ratePerKm:14, isContact:false },
+  suv:     { label:'🚙 SUV',     ratePerKm:19, isContact:false },
+  premium: { label:'✨ Premium', ratePerKm:0,  isContact:true  },
 };
 
+// ── Date / time defaults ──────────────────────
+function initDateTimeDefaults() {
+  const now  = new Date();
+  const dateEl = document.getElementById('qbDate');
+  const timeEl = document.getElementById('qbTime');
+  if (!dateEl || !timeEl) return;
+
+  // min = today
+  const todayStr = now.toISOString().split('T')[0];
+  dateEl.min   = todayStr;
+  dateEl.value = todayStr;
+
+  // default time = now + 1h, rounded to nearest 15 min
+  const future  = new Date(now.getTime() + 60 * 60 * 1000);
+  const rawMins = future.getHours() * 60 + future.getMinutes();
+  const rounded = Math.ceil(rawMins / 15) * 15;
+  const fh = Math.floor(rounded / 60) % 24;
+  const fm = rounded % 60;
+  timeEl.value = `${String(fh).padStart(2,'0')}:${String(fm).padStart(2,'0')}`;
+
+  // Prevent past time when today is selected
+  dateEl.addEventListener('change', enforceFutureTime);
+  timeEl.addEventListener('change', enforceFutureTime);
+}
+
+function enforceFutureTime() {
+  const dateEl = document.getElementById('qbDate');
+  const timeEl = document.getElementById('qbTime');
+  if (!dateEl || !timeEl) return;
+  const now     = new Date();
+  const todayStr = now.toISOString().split('T')[0];
+  if (dateEl.value !== todayStr) return; // future date — any time OK
+  const [h, m] = timeEl.value.split(':').map(Number);
+  const selMins = h * 60 + m;
+  const minMins = now.getHours() * 60 + now.getMinutes() + 30; // 30-min buffer
+  if (selMins < minMins) {
+    const clamped = Math.ceil(minMins / 15) * 15;
+    const ch = Math.floor(clamped / 60) % 24;
+    const cm = clamped % 60;
+    timeEl.value = `${String(ch).padStart(2,'0')}:${String(cm).padStart(2,'0')}`;
+  }
+}
+
+// ── Toggle state ─────────────────────────────
 function selectVehicle(v) {
   _selectedVehicle = v;
   ['sedan','suv','premium'].forEach(x => {
@@ -1018,40 +1138,142 @@ function selectTrip(t) {
   });
 }
 
+// Step-2 toggles: sync state + auto-recalculate
+function selectVehicle2(v) {
+  selectVehicle(v);
+  ['sedan','suv','premium'].forEach(x => {
+    const el = document.getElementById('s2-pill-'+x);
+    if (el) el.classList.toggle('active', x === v);
+  });
+  if (_lastQuote) recalcFromCache();
+}
+
+function selectTrip2(t) {
+  selectTrip(t);
+  ['oneway','round'].forEach(x => {
+    const el = document.getElementById('s2-pill-'+x);
+    if (el) el.classList.toggle('active', x === t);
+  });
+  if (_lastQuote) recalcFromCache();
+}
+
 function showStep1() {
   document.getElementById('qb-step1').style.display = '';
   document.getElementById('qb-step2').style.display = 'none';
   document.getElementById('qb-loading').style.display = 'none';
 }
 
+// ── Fare calculation ──────────────────────────
+function calcFare(distKm, vehicle, tripType, departureHour) {
+  const cfg = VEHICLE_CONFIG[vehicle];
+  if (cfg.isContact) return null;
+
+  const billedKm  = Math.max(distKm, MIN_BILLED_KM);
+  const minApplied = distKm < MIN_BILLED_KM;
+
+  const rideFare  = billedKm * cfg.ratePerKm;
+  const isNight   = departureHour >= 22 || departureHour < 6;
+  const nightSurcharge = isNight ? Math.round(rideFare * 0.1) : 0;
+
+  // Round trip: multiply ride portion ×1.8; extras stay ×1
+  const fareBase  = tripType === 'round'
+    ? Math.round((rideFare + nightSurcharge) * 1.8)
+    : rideFare + nightSurcharge;
+
+  // Driver: 2 days if round trip AND distance > 350km; else 1 day
+  const driverDays   = (tripType === 'round' && distKm > 350) ? 2 : 1;
+  const driverCharge = driverDays * DRIVER_CHARGE_DAY;
+
+  // Tolls: ₹0.8/km rounded to nearest ₹10
+  const tollEst = Math.round(distKm * TOLL_PER_KM / 10) * 10 || 0;
+
+  const total = fareBase + driverCharge + tollEst;
+
+  return { rideFare, fareBase, nightSurcharge, driverCharge, driverDays, tollEst, total, isNight, billedKm, minApplied };
+}
+
+// ── DOM render ────────────────────────────────
+function renderFareCard(q) {
+  const isPremium = VEHICLE_CONFIG[q.vehicle].isContact;
+  document.getElementById('fare-standard-block').style.display = isPremium ? 'none' : '';
+  document.getElementById('fare-premium-block').style.display  = isPremium ? ''     : 'none';
+  document.getElementById('fare-wa-block').style.display        = isPremium ? 'none' : '';
+
+  if (isPremium) return;
+
+  const f    = q.fare;
+  const vcfg = VEHICLE_CONFIG[q.vehicle];
+
+  // Min KM notice
+  const noticeEl = document.getElementById('fare-min-notice');
+  if (f.minApplied) {
+    noticeEl.textContent = `Actual distance is ${q.distKm} KM. Minimum one-way fare applies for ${MIN_BILLED_KM} KM.`;
+    noticeEl.style.display = '';
+  } else {
+    noticeEl.style.display = 'none';
+  }
+
+  document.getElementById('fare-route').textContent = `${q.from}  →  ${q.to}`;
+
+  const distLabel = f.minApplied
+    ? `${q.distKm} KM (billed: ${MIN_BILLED_KM} KM min)`
+    : `${q.distKm} KM`;
+  document.getElementById('fare-dist').textContent = distLabel;
+
+  document.getElementById('fare-vehicle-label').textContent = vcfg.label;
+  document.getElementById('fare-rate').textContent          = `₹${vcfg.ratePerKm}/km`;
+  document.getElementById('fare-base').textContent          = `₹${f.rideFare.toLocaleString('en-IN')}`;
+
+  const nightRow = document.getElementById('fare-night-row');
+  if (f.isNight) {
+    document.getElementById('fare-night').textContent = `₹${f.nightSurcharge.toLocaleString('en-IN')}`;
+    nightRow.style.display = '';
+  } else {
+    nightRow.style.display = 'none';
+  }
+
+  const roundRow = document.getElementById('fare-round-row');
+  if (q.tripType === 'round') {
+    document.getElementById('fare-round-val').textContent = `×1.8 applied`;
+    roundRow.style.display = '';
+  } else {
+    roundRow.style.display = 'none';
+  }
+
+  document.getElementById('fare-driver-label').textContent = `👤 Driver Charge (${f.driverDays} day${f.driverDays > 1 ? 's' : ''})`;
+  document.getElementById('fare-driver').textContent  = `₹${f.driverCharge.toLocaleString('en-IN')}`;
+  document.getElementById('fare-tolls').textContent   = `₹${f.tollEst.toLocaleString('en-IN')} (est.)`;
+  document.getElementById('fare-total').textContent   = `₹${f.total.toLocaleString('en-IN')}`;
+}
+
+function recalcFromCache() {
+  const q    = _lastQuote;
+  const hour = parseInt(q.time.split(':')[0], 10);
+  const fare = calcFare(q.distKm, _selectedVehicle, _selectedTrip, hour);
+  _lastQuote = { ...q, vehicle: _selectedVehicle, tripType: _selectedTrip, fare };
+  renderFareCard(_lastQuote);
+}
+
+// ── Geocode + OSRM ───────────────────────────
 async function geocode(city) {
   const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city+' India')}&format=json&limit=1`;
-  const r = await fetch(url, { headers: { 'Accept-Language':'en' } });
+  const r   = await fetch(url, { headers:{ 'Accept-Language':'en' } });
   const data = await r.json();
   if (!data || !data.length) throw new Error(`Could not locate "${city}". Try full city name.`);
   return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
 }
 
-async function getDistance(from, to) {
+async function getDistanceKm(from, to) {
   const f = await geocode(from);
   const t = await geocode(to);
   const url = `https://router.project-osrm.org/route/v1/driving/${f.lon},${f.lat};${t.lon},${t.lat}?overview=false`;
-  const r = await fetch(url);
+  const r   = await fetch(url);
   const data = await r.json();
   if (!data.routes || !data.routes.length) throw new Error('Could not calculate route. Check city names.');
-  return Math.round(data.routes[0].distance / 1000); // km
+  return Math.round(data.routes[0].distance / 1000);
 }
 
-function calcFare(distKm, vehicle, tripType, departureHour) {
-  const cfg = VEHICLE_CONFIG[vehicle];
-  const base = Math.max(cfg.baseFare, distKm * cfg.ratePerKm);
-  const isNight = departureHour >= 22 || departureHour < 6;
-  const nightSurcharge = isNight ? Math.round(base * 0.1) : 0;
-  const subtotal = base + nightSurcharge;
-  const total = tripType === 'round' ? Math.round(subtotal * 1.8) : subtotal;
-  return { base, nightSurcharge, total, isNight };
-}
-
+// ── Main calculate ────────────────────────────
 async function calculateFare() {
   const from  = document.getElementById('qbFrom').value.trim();
   const to    = document.getElementById('qbTo').value.trim();
@@ -1066,90 +1288,93 @@ async function calculateFare() {
     return;
   }
 
-  // Show loading
-  document.getElementById('qb-step1').style.display = 'none';
+  document.getElementById('qb-step1').style.display   = 'none';
   document.getElementById('qb-loading').style.display = 'block';
 
   try {
-    const distKm = await getDistance(from, to);
+    const distKm = await getDistanceKm(from, to);
     const hour   = parseInt(time.split(':')[0], 10);
     const fare   = calcFare(distKm, _selectedVehicle, _selectedTrip, hour);
-    const vcfg   = VEHICLE_CONFIG[_selectedVehicle];
 
-    // Store for WA send
-    _lastQuote = { from, to, date, time, distKm, vehicle: _selectedVehicle, tripType: _selectedTrip, ...fare };
+    _lastQuote = { from, to, date, time, distKm, vehicle: _selectedVehicle, tripType: _selectedTrip, fare };
 
-    // Populate fare card
-    document.getElementById('fare-route').textContent = `${from}  →  ${to}`;
-    document.getElementById('fare-dist').textContent  = `${distKm} km`;
-    document.getElementById('fare-vehicle-label').textContent = `${vcfg.label} rate`;
-    document.getElementById('fare-rate').textContent  = `₹${vcfg.ratePerKm}/km (min ₹${vcfg.baseFare})`;
-    document.getElementById('fare-base').textContent  = `₹${fare.base.toLocaleString('en-IN')}`;
+    // Sync step-2 toggles to current selection
+    ['sedan','suv','premium'].forEach(x => {
+      const el = document.getElementById('s2-pill-'+x);
+      if (el) el.classList.toggle('active', x === _selectedVehicle);
+    });
+    ['oneway','round'].forEach(x => {
+      const el = document.getElementById('s2-pill-'+x);
+      if (el) el.classList.toggle('active', x === _selectedTrip);
+    });
 
-    const nightRow = document.getElementById('fare-night-row');
-    if (fare.isNight) {
-      document.getElementById('fare-night').textContent = `₹${fare.nightSurcharge.toLocaleString('en-IN')} (+10%)`;
-      nightRow.style.display = '';
-    } else {
-      nightRow.style.display = 'none';
-    }
-
-    const roundRow = document.getElementById('fare-round-row');
-    if (_selectedTrip === 'round') {
-      document.getElementById('fare-round-val').textContent = `×1.8 applied`;
-      roundRow.style.display = '';
-    } else {
-      roundRow.style.display = 'none';
-    }
-
-    document.getElementById('fare-total').textContent = `₹${fare.total.toLocaleString('en-IN')}`;
-
-    // Show result
+    renderFareCard(_lastQuote);
     document.getElementById('qb-loading').style.display = 'none';
-    document.getElementById('qb-step2').style.display = '';
+    document.getElementById('qb-step2').style.display   = '';
 
   } catch(e) {
     document.getElementById('qb-loading').style.display = 'none';
-    document.getElementById('qb-step1').style.display = '';
+    document.getElementById('qb-step1').style.display   = '';
     errEl.textContent = e.message || 'Something went wrong. Please try again.';
     errEl.style.display = 'block';
   }
 }
 
-function sendQuoteWA() {
+// ── Phone / consent ───────────────────────────
+function onPhoneInput() {
   const phone = document.getElementById('qbPhone').value.trim();
-  const phoneErrEl = document.getElementById('qb-phone-error');
-  if (!phone || !/^\d{10}$/.test(phone)) {
-    phoneErrEl.style.display = 'block';
-    return;
-  }
-  phoneErrEl.style.display = 'none';
-
-  if (!_lastQuote) return;
-  const q = _lastQuote;
-  const vcfg = VEHICLE_CONFIG[q.vehicle];
-  const tripLabel = q.tripType === 'round' ? 'Round Trip' : 'One-Way';
-  const nightLine = q.isNight ? `\n🌙 Night surcharge: ₹${q.nightSurcharge.toLocaleString('en-IN')}` : '';
-
-  const msg =
-`Hello DROPeZi! Here is my fare quote:
-
-📍 From: ${q.from}
-📍 To: ${q.to}
-📅 Date: ${q.date || '—'}  ⏰ Time: ${q.time}
-🚗 Vehicle: ${vcfg.label}
-🛣️ Trip type: ${tripLabel}
-📏 Distance: ${q.distKm} km
-💵 Base fare: ₹${q.base.toLocaleString('en-IN')}${nightLine}
-💰 Estimated total: ₹${q.total.toLocaleString('en-IN')}
-
-Please confirm availability and final fare. Thank you!`;
-
-  const waUrl = `https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`;
-  window.open(waUrl, '_blank');
+  const box   = document.getElementById('qb-consent-box');
+  if (box) box.style.display = phone.length > 0 ? '' : 'none';
 }
 
-// Legacy alias (no longer in HTML but keep for safety)
+// ── Send on WhatsApp ──────────────────────────
+function sendQuoteWA() {
+  const phone    = document.getElementById('qbPhone').value.trim();
+  const consent  = document.getElementById('qbConsent');
+  const phoneErr = document.getElementById('qb-phone-error');
+
+  if (!phone || !/^\d{10}$/.test(phone)) {
+    phoneErr.textContent = 'Please enter a valid 10-digit number.';
+    phoneErr.style.display = 'block';
+    return;
+  }
+  phoneErr.style.display = 'none';
+
+  if (consent && !consent.checked) {
+    phoneErr.textContent = 'Please check the consent box to proceed.';
+    phoneErr.style.display = 'block';
+    return;
+  }
+  phoneErr.style.display = 'none';
+
+  if (!_lastQuote) return;
+  const q    = _lastQuote;
+  const f    = q.fare;
+  const vcfg = VEHICLE_CONFIG[q.vehicle];
+  const tripLabel = q.tripType === 'round' ? 'Round Trip' : 'One-Way';
+
+  let msg = `Hello DROPeZi! Here is my quote request:\n\n`;
+  msg += `📍 From: ${q.from}\n`;
+  msg += `📍 To: ${q.to}\n`;
+  msg += `📅 Date: ${q.date || '—'}  ⏰ Time: ${q.time}\n`;
+  msg += `🚗 Vehicle: ${vcfg.label}\n`;
+  msg += `🛣️ Trip: ${tripLabel}\n`;
+  msg += `📏 Distance: ${q.distKm} km`;
+  if (f && f.minApplied) msg += ` (billed: ${MIN_BILLED_KM} km min)`;
+  msg += `\n`;
+  if (f) {
+    msg += `🚗 Ride fare: ₹${f.fareBase.toLocaleString('en-IN')}\n`;
+    if (f.isNight) msg += `🌙 Night surcharge: ₹${f.nightSurcharge.toLocaleString('en-IN')}\n`;
+    msg += `👤 Driver charge: ₹${f.driverCharge.toLocaleString('en-IN')} (${f.driverDays} day${f.driverDays>1?'s':''})\n`;
+    msg += `🛣️ Tolls (est.): ₹${f.tollEst.toLocaleString('en-IN')}\n`;
+    msg += `💰 Grand Total: ₹${f.total.toLocaleString('en-IN')}\n`;
+  }
+  msg += `\nPlease confirm availability. Thank you!`;
+
+  window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// Legacy alias
 function sendQuickBookWA() { calculateFare(); }
 
 // ══════════════════════════════════════════════
@@ -1184,15 +1409,8 @@ function bookFleet(vehicle) {
 // INIT
 // ══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function() {
-  // Set default Tamil language WA links
   setLang('en');
-
-  // Set today as min date
-  const dateInput = document.getElementById('qbDate');
-  if (dateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.min = today;
-  }
+  initDateTimeDefaults();
 
   // Navbar scroll effect
   const navbar = document.querySelector('.navbar');
