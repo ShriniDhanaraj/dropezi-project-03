@@ -178,10 +178,12 @@ img{max-width:100%}
 .feature-desc{font-size:0.88rem;color:var(--text-mid);line-height:1.6;font-family:'Noto Sans Tamil','Inter',sans-serif}
 
 /* ── ROUTES ── */
-.routes-scroll{display:flex;gap:16px;overflow-x:auto;padding:4px 4px 16px;-ms-overflow-style:none;scrollbar-width:thin;scrollbar-color:var(--gold) transparent;max-width:1140px;margin:0 auto}
-.routes-scroll::-webkit-scrollbar{height:4px}
-.routes-scroll::-webkit-scrollbar-track{background:transparent}
-.routes-scroll::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+/* Routes carousel */
+.routes-carousel-outer{overflow:hidden;max-width:1140px;margin:0 auto;padding:4px 0 16px;cursor:grab}
+.routes-carousel-outer:active{cursor:grabbing}
+@keyframes routeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.routes-scroll{display:flex;gap:16px;width:max-content;animation:routeScroll 28s linear infinite;padding:4px 0}
+.routes-scroll:hover,.routes-scroll:focus-within{animation-play-state:paused}
 .route-card{flex-shrink:0;width:200px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid #e8e4d9;overflow:hidden;transition:transform 0.2s}
 .route-card:hover{transform:translateY(-3px)}
 .route-card-head{background:linear-gradient(135deg,var(--navy),var(--navy-light));padding:16px;text-align:center}
@@ -569,7 +571,9 @@ img{max-width:100%}
   <div class="container">
     <h2 class="section-title" data-i18n="routes_title">பிரபலமான வழிகள்</h2>
     <div class="section-accent"></div>
-    <div class="routes-scroll">
+    <div class="routes-carousel-outer" id="routesOuter">
+    <div class="routes-scroll" id="routesTrack">
+      <!-- Set 1 -->
       <div class="route-card">
         <div class="route-card-head">
           <div class="route-from">ONE WAY DROP</div>
@@ -650,6 +654,88 @@ img{max-width:100%}
           <button class="route-book" onclick="bookRoute('Coimbatore','Kerala')">Book 💬</button>
         </div>
       </div>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Madurai</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹4,200</span>
+          <button class="route-book" onclick="bookRoute('Chennai','Madurai')">Book 💬</button>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Coimbatore</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹4,800</span>
+          <button class="route-book" onclick="bookRoute('Chennai','Coimbatore')">Book 💬</button>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Bangalore</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹3,600</span>
+          <button class="route-book" onclick="bookRoute('Chennai','Bangalore')">Book 💬</button>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Coimbatore</span><span class="route-arrow">→</span><span>Bangalore</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹3,200</span>
+          <button class="route-book" onclick="bookRoute('Coimbatore','Bangalore')">Book 💬</button>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Madurai</span><span class="route-arrow">→</span><span>Chennai</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹4,200</span>
+          <button class="route-book" onclick="bookRoute('Madurai','Chennai')">Book 💬</button>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Trichy</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹2,800</span>
+          <button class="route-book" onclick="bookRoute('Chennai','Trichy')">Book 💬</button>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Pondicherry</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹1,800</span>
+          <button class="route-book" onclick="bookRoute('Chennai','Pondicherry')">Book 💬</button>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-card-head">
+          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-cities"><span>Coimbatore</span><span class="route-arrow">→</span><span>Kerala</span></div>
+        </div>
+        <div class="route-card-body">
+          <span class="route-price">~₹2,400</span>
+          <button class="route-book" onclick="bookRoute('Coimbatore','Kerala')">Book 💬</button>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1613,6 +1699,37 @@ function bookFleet(vehicle) {
 document.addEventListener('DOMContentLoaded', function() {
   setLang('en');
   initDateTimeDefaults();
+
+  // Routes carousel — drag to scroll + pause on drag
+  (function(){
+    const outer = document.getElementById('routesOuter');
+    const track = document.getElementById('routesTrack');
+    if (!outer || !track) return;
+    let isDragging = false, startX = 0, scrollLeft = 0;
+    outer.addEventListener('mousedown', e => {
+      isDragging = true; startX = e.pageX - outer.offsetLeft;
+      scrollLeft = outer.scrollLeft; outer.style.userSelect = 'none';
+      track.style.animationPlayState = 'paused';
+    });
+    outer.addEventListener('mouseleave', () => { isDragging = false; });
+    outer.addEventListener('mouseup',    () => { isDragging = false; outer.style.userSelect = ''; });
+    outer.addEventListener('mousemove',  e => {
+      if (!isDragging) return; e.preventDefault();
+      outer.scrollLeft = scrollLeft - (e.pageX - outer.offsetLeft - startX);
+    });
+    // Touch support
+    outer.addEventListener('touchstart', e => {
+      startX = e.touches[0].pageX - outer.offsetLeft;
+      scrollLeft = outer.scrollLeft;
+      track.style.animationPlayState = 'paused';
+    }, {passive:true});
+    outer.addEventListener('touchend', () => {
+      setTimeout(() => { track.style.animationPlayState = 'running'; }, 2000);
+    });
+    outer.addEventListener('touchmove', e => {
+      outer.scrollLeft = scrollLeft - (e.touches[0].pageX - outer.offsetLeft - startX);
+    }, {passive:true});
+  })();
 
   // Navbar scroll effect
   const navbar = document.querySelector('.navbar');
