@@ -1501,24 +1501,49 @@ function onPhoneInput() {
 }
 
 // ── Send on WhatsApp ──────────────────────────
+function scrollAndFocus(el) {
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  el.focus();
+  // Flash the element border gold to draw attention
+  el.style.borderColor = 'var(--gold)';
+  el.style.boxShadow   = '0 0 0 3px rgba(240,165,0,0.4)';
+  setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2500);
+}
+
 function sendQuoteWA() {
-  const phone    = document.getElementById('qbPhone').value.trim();
-  const consent  = document.getElementById('qbConsent');
-  const phoneErr = document.getElementById('qb-phone-error');
+  const phone     = document.getElementById('qbPhone').value.trim();
+  const consent   = document.getElementById('qbConsent');
+  const consentBox= document.getElementById('qb-consent-box');
+  const phoneEl   = document.getElementById('qbPhone');
+  const phoneErr  = document.getElementById('qb-phone-error');
 
   if (!phone || !/^\d{10}$/.test(phone)) {
-    phoneErr.textContent = 'Please enter a valid 10-digit number.';
+    phoneErr.textContent = '👆 Please enter your 10-digit WhatsApp number above to receive the quote.';
     phoneErr.style.display = 'block';
+    // Show consent box so it appears before error (in case phone was empty)
+    if (consentBox) consentBox.style.display = 'none';
+    scrollAndFocus(phoneEl);
     return;
   }
   phoneErr.style.display = 'none';
+  // Ensure consent box is visible now that phone is valid
+  if (consentBox) consentBox.style.display = '';
 
   if (consent && !consent.checked) {
-    phoneErr.textContent = 'Please check the consent box to proceed.';
+    phoneErr.textContent = '☝️ Please check the consent box above before sending.';
     phoneErr.style.display = 'block';
+    // Scroll to consent checkbox and highlight it
+    if (consentBox) {
+      consentBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      consentBox.style.border = '2px solid rgba(240,165,0,0.9)';
+      consentBox.style.boxShadow = '0 0 0 3px rgba(240,165,0,0.3)';
+      setTimeout(() => { consentBox.style.border = ''; consentBox.style.boxShadow = ''; }, 2500);
+    }
     return;
   }
   phoneErr.style.display = 'none';
+  if (consentBox) { consentBox.style.border = ''; consentBox.style.boxShadow = ''; }
 
   if (!_lastQuote) return;
   const q    = _lastQuote;
