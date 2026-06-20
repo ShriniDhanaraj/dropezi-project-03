@@ -240,6 +240,27 @@ img{max-width:100%}
 .testi-name{font-weight:700;color:var(--white);font-size:0.9rem;font-family:'Noto Sans Tamil','Inter',sans-serif}
 .testi-route{font-size:0.78rem;color:rgba(255,255,255,0.5)}
 
+/* ── FARE TABLE ── */
+.ft-table{width:100%;border-collapse:collapse;max-width:920px;margin:0 auto;border-radius:12px;overflow:hidden}
+.ft-table thead tr{background:var(--gold);color:var(--navy)}
+.ft-table thead th{padding:12px 16px;font-weight:700;font-size:.82rem;text-align:center;text-transform:uppercase;letter-spacing:.5px}
+.ft-table thead th:first-child{text-align:left}
+.ft-table tbody tr{border-bottom:1px solid rgba(255,255,255,.07);transition:background .15s}
+.ft-table tbody tr:hover{background:rgba(240,165,0,.07)}
+.ft-table tbody td{padding:12px 16px;font-size:.9rem;color:var(--off-white);text-align:center;vertical-align:middle}
+.ft-table tbody td:first-child{text-align:left;font-weight:600;color:#fff}
+.ft-fare{font-weight:700;font-size:1rem;color:var(--gold)}
+.ft-km{font-size:.72rem;color:#999;margin-top:3px}
+.ft-book-btn{background:var(--wa);color:#fff;border:none;border-radius:20px;padding:7px 14px;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.ft-book-btn:hover{opacity:.82}
+.ft-note{text-align:center;font-size:.78rem;color:rgba(255,255,255,.5);margin-top:20px;max-width:700px;margin-left:auto;margin-right:auto}
+@media(max-width:640px){
+  .ft-table thead th{padding:9px 6px;font-size:.72rem}
+  .ft-table tbody td{padding:9px 6px;font-size:.8rem}
+  .ft-fare{font-size:.88rem}
+  .ft-book-btn{padding:5px 9px;font-size:.72rem}
+}
+
 /* ── COVERAGE ── */
 .coverage-chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:700px;margin:0 auto}
 .chip{background:var(--white);border:2px solid var(--gold);color:var(--navy);font-weight:700;font-size:0.92rem;padding:10px 22px;border-radius:50px;display:flex;align-items:center;gap:8px;font-family:'Noto Sans Tamil','Inter',sans-serif}
@@ -747,6 +768,16 @@ img{max-width:100%}
   </div>
 </section>
 
+<!-- ══ FARE TABLE ══ -->
+<section class="section section-navy" id="fare-table">
+  <div class="container">
+    <h2 class="section-title" data-i18n="ft_title">Popular Route Fares</h2>
+    <div class="section-accent"></div>
+    <div id="ftTableWrap"></div>
+    <p class="ft-note" data-i18n="ft_note">★ Indicative fares. Toll &amp; permit included. Night surcharge +10% for departures between 10 PM – 6 AM.</p>
+  </div>
+</section>
+
 <!-- ══ FLEET ══ -->
 <section class="section" id="fleet">
   <div class="container">
@@ -986,7 +1017,11 @@ const i18n = {
     cov_sub:"உங்கள் வழி பட்டியலில் இல்லையா? அழைத்து கேளுங்கள் — நாங்கள் ஏற்பாடு செய்கிறோம்!",
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",
     float_call:"அழைக்க",float_wa:"WhatsApp",
-    wa_msg:`வணக்கம் DROPeZi! ஒரு திசை பயணம் முன்பதிவு செய்ய விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: \n📍 இறங்கும் இடம்: \n📅 தேதி & நேரம்: \n🚗 வாகனம்: Sedan / SUV / Premium\n\nகட்டணம் தெரிவிக்கவும்.`
+    wa_msg:`வணக்கம் DROPeZi! ஒரு திசை பயணம் முன்பதிவு செய்ய விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: \n📍 இறங்கும் இடம்: \n📅 தேதி & நேரம்: \n🚗 வாகனம்: Sedan / SUV / Premium\n\nகட்டணம் தெரிவிக்கவும்.`,
+    ft_title:"பிரபலமான வழிகளின் கட்டணம்",
+    ft_from:"ஏறும் இடம்",ft_to:"இறங்கும் இடம்",ft_km:"தூரம்",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp முன்பதிவு",
+    ft_note:"★ தோராய கட்டணங்கள். Toll & Permit சேர்க்கப்பட்டது. இரவு 10 மணி – காலை 6 மணிக்கு இடையே பயணத்திற்கு +10% இரவு கூட்டணி.",
+    ft_wa_msg:(from,to,km,sedan,suv)=>`வணக்கம் DROPeZi! கட்டண மதிப்பீட்டிற்கு விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: ${from}\n📍 இறங்கும் இடம்: ${to}\n📏 தூரம்: ${km} கி.மீ.\n\n🚗 Sedan தோராய கட்டணம்: ₹${sedan}\n🚙 SUV தோராய கட்டணம்: ₹${suv}\n\n(Toll & Permit சேர்க்கப்பட்டது. இறுதி கட்டணம் உறுதிப்படுத்தவும்.)`
   },
   en: {
     nav_call:"Call Now",
@@ -1032,7 +1067,11 @@ const i18n = {
     cov_sub:"Don't see your route? Call us — we'll arrange it!",
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",
     float_call:"Call",float_wa:"WhatsApp",
-    wa_msg:`Hello DROPeZi! I'd like to book a one-way taxi.\n\n📍 From: \n📍 To: \n📅 Date & Time: \n🚗 Vehicle: Sedan / SUV / Premium\n\nPlease share the fare.`
+    wa_msg:`Hello DROPeZi! I'd like to book a one-way taxi.\n\n📍 From: \n📍 To: \n📅 Date & Time: \n🚗 Vehicle: Sedan / SUV / Premium\n\nPlease share the fare.`,
+    ft_title:"Popular Route Fares",
+    ft_from:"From",ft_to:"To",ft_km:"Distance",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"Book on WhatsApp",
+    ft_note:"★ Indicative fares. Toll & permit included. Night surcharge +10% for departures between 10 PM – 6 AM.",
+    ft_wa_msg:(from,to,km,sedan,suv)=>`Hello DROPeZi! I'd like a fare estimate.\n\n📍 From: ${from}\n📍 To: ${to}\n📏 Distance: ${km} km\n\n🚗 Sedan (est.): ₹${sedan}\n🚙 SUV (est.): ₹${suv}\n\n(Toll & permit included. Please confirm final fare.)`
   },
   hi: {
     nav_call:"अभी कॉल करें",
@@ -1070,7 +1109,11 @@ const i18n = {
     testi3_text:'"मूल्य पूरी तरह पारदर्शी था। कोई छिपा शुल्क नहीं। DROPeZi पर भरोसा है!"',testi3_name:"अरुण वेलन",
     cov_title:"हम किन राज्यों में हैं",cov_sub:"आपका रूट नहीं दिख रहा? कॉल करें — हम व्यवस्था करेंगे!",
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",float_call:"कॉल",float_wa:"WhatsApp",
-    wa_msg:`नमस्ते DROPeZi! मैं एक तरफ टैक्सी बुक करना चाहता/चाहती हूँ।\n\n📍 कहाँ से: \n📍 कहाँ तक: \n📅 तारीख व समय: \n🚗 वाहन: Sedan / SUV / Premium\n\nकिराया बताएं।`
+    wa_msg:`नमस्ते DROPeZi! मैं एक तरफ टैक्सी बुक करना चाहता/चाहती हूँ।\n\n📍 कहाँ से: \n📍 कहाँ तक: \n📅 तारीख व समय: \n🚗 वाहन: Sedan / SUV / Premium\n\nकिराया बताएं।`,
+    ft_title:"लोकप्रिय रूट किराया",
+    ft_from:"कहाँ से",ft_to:"कहाँ तक",ft_km:"दूरी",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp बुकिंग",
+    ft_note:"★ अनुमानित किराया। Toll और Permit शामिल। रात 10 बजे – सुबह 6 बजे के बीच +10% रात्रि शुल्क।",
+    ft_wa_msg:(from,to,km,sedan,suv)=>`नमस्ते DROPeZi! मुझे किराया अनुमान चाहिए।\n\n📍 कहाँ से: ${from}\n📍 कहाँ तक: ${to}\n📏 दूरी: ${km} कि.मी.\n\n🚗 Sedan (अनुमान): ₹${sedan}\n🚙 SUV (अनुमान): ₹${suv}\n\n(Toll और Permit शामिल। कृपया अंतिम किराया बताएं।)`
   },
   kn: {
     nav_call:"ಈಗ ಕರೆ ಮಾಡಿ",
@@ -1108,7 +1151,11 @@ const i18n = {
     testi3_text:'"ಬೆಲೆ ಸಂಪೂರ್ಣ ಪಾರದರ್ಶಕ. ಯಾವುದೇ ಮರೆ ಶುಲ್ಕ ಇಲ್ಲ. DROPeZi ನಂಬಬಹುದು!"',testi3_name:"ಅರುಣ್ ವೇಲನ್",
     cov_title:"ನಾವು ಸೇವೆ ನೀಡುವ ರಾಜ್ಯಗಳು",cov_sub:"ನಿಮ್ಮ ಮಾರ್ಗ ಇಲ್ಲವೇ? ಕರೆ ಮಾಡಿ — ನಾವು ವ್ಯವಸ್ಥೆ ಮಾಡುತ್ತೇವೆ!",
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",float_call:"ಕರೆ",float_wa:"WhatsApp",
-    wa_msg:`ನಮಸ್ಕಾರ DROPeZi! ನಾನು ಒಂದು ಕಡೆ ಟ್ಯಾಕ್ಸಿ ಬುಕ್ ಮಾಡಬೇಕಾಗಿದೆ.\n\n📍 ಎಲ್ಲಿಂದ: \n📍 ಎಲ್ಲಿಗೆ: \n📅 ದಿನಾಂಕ & ಸಮಯ: \n🚗 ವಾಹನ: Sedan / SUV / Premium\n\nದರ ತಿಳಿಸಿ.`
+    wa_msg:`ನಮಸ್ಕಾರ DROPeZi! ನಾನು ಒಂದು ಕಡೆ ಟ್ಯಾಕ್ಸಿ ಬುಕ್ ಮಾಡಬೇಕಾಗಿದೆ.\n\n📍 ಎಲ್ಲಿಂದ: \n📍 ಎಲ್ಲಿಗೆ: \n📅 ದಿನಾಂಕ & ಸಮಯ: \n🚗 ವಾಹನ: Sedan / SUV / Premium\n\nದರ ತಿಳಿಸಿ.`,
+    ft_title:"ಜನಪ್ರಿಯ ಮಾರ್ಗ ದರಗಳು",
+    ft_from:"ಎಲ್ಲಿಂದ",ft_to:"ಎಲ್ಲಿಗೆ",ft_km:"ದೂರ",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp ಬುಕಿಂಗ್",
+    ft_note:"★ ಅಂದಾಜು ದರಗಳು. Toll ಮತ್ತು Permit ಸೇರಿದೆ. ರಾತ್ರಿ 10 – ಬೆಳಿಗ್ಗೆ 6 ಗಂಟೆ ನಡುವೆ +10% ರಾತ್ರಿ ಶುಲ್ಕ.",
+    ft_wa_msg:(from,to,km,sedan,suv)=>`ನಮಸ್ಕಾರ DROPeZi! ದರ ಅಂದಾಜು ಬೇಕು.\n\n📍 ಎಲ್ಲಿಂದ: ${from}\n📍 ಎಲ್ಲಿಗೆ: ${to}\n📏 ದೂರ: ${km} ಕಿ.ಮೀ.\n\n🚗 Sedan (ಅಂದಾಜು): ₹${sedan}\n🚙 SUV (ಅಂದಾಜು): ₹${suv}\n\n(Toll ಮತ್ತು Permit ಸೇರಿದೆ. ದಯವಿಟ್ಟು ಅಂತಿಮ ದರ ದೃಢೀಕರಿಸಿ.)`
   },
   ml: {
     nav_call:"ഇപ്പോൾ വിളിക്കൂ",
@@ -1146,7 +1193,11 @@ const i18n = {
     testi3_text:'"വില പൂർണ്ണ സുതാര്യം. ഒരു മറഞ്ഞ ചാർജും ഇല്ല. DROPeZi വിശ്വസ്തമാണ്!"',testi3_name:"അരുൺ വേലൻ",
     cov_title:"ഞങ്ങൾ സേവനം ചെയ്യുന്ന സംസ്ഥാനങ്ങൾ",cov_sub:"നിങ്ങളുടെ റൂട്ട് ഇല്ലേ? വിളിക്കൂ — ഞങ്ങൾ ക്രമീകരിക്കാം!",
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",float_call:"വിളിക്കൂ",float_wa:"WhatsApp",
-    wa_msg:`ഹലോ DROPeZi! എനിക്ക് ഒരു ഒറ്റ ദിശ ടാക്സി ബുക്ക് ചെയ്യണം.\n\n📍 എവിടെ നിന്ന്: \n📍 എവിടേക്ക്: \n📅 തീയതി & സമയം: \n🚗 വാഹനം: Sedan / SUV / Premium\n\nചാർജ് അറിയിക്കൂ.`
+    wa_msg:`ഹലോ DROPeZi! എനിക്ക് ഒരു ഒറ്റ ദിശ ടാക്സി ബുക്ക് ചെയ്യണം.\n\n📍 എവിടെ നിന്ന്: \n📍 എവിടേക്ക്: \n📅 തീയതി & സമയം: \n🚗 വാഹനം: Sedan / SUV / Premium\n\nചാർജ് അറിയിക്കൂ.`,
+    ft_title:"ജനപ്രിയ റൂട്ട് ചാർജുകൾ",
+    ft_from:"എവിടെ നിന്ന്",ft_to:"എവിടേക്ക്",ft_km:"ദൂരം",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp ബുക്കിംഗ്",
+    ft_note:"★ ഏകദേശ ചാർജുകൾ. Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. രാത്രി 10 PM – രാവിലെ 6 AM യാത്രകൾക്ക് +10% നൈറ്റ് ചാർജ്.",
+    ft_wa_msg:(from,to,km,sedan,suv)=>`ഹലോ DROPeZi! ചാർജ് കണക്കാക്കണം.\n\n📍 എവിടെ നിന്ന്: ${from}\n📍 എവിടേക്ക്: ${to}\n📏 ദൂരം: ${km} കി.മീ.\n\n🚗 Sedan (ഏകദേശം): ₹${sedan}\n🚙 SUV (ഏകദേശം): ₹${suv}\n\n(Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. അന്തിമ ചാർജ് ദയവായി സ്ഥിരീകരിക്കൂ.)`
   }
 };
 
@@ -1189,6 +1240,9 @@ function setLang(lang) {
 
   // Update html lang
   document.documentElement.lang = lang;
+
+  // Re-render fare table with new language
+  renderFareTable();
 }
 
 // ══════════════════════════════════════════════
@@ -1712,6 +1766,69 @@ function bookFleet(vehicle) {
     msg = `வணக்கம் DROPeZi! ${vehicle} வாகனத்தில் ஒரு திசை பயணம் முன்பதிவு செய்ய விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: \n📍 இறங்கும் இடம்: \n📅 தேதி & நேரம்: \n\nகட்டணம் தெரிவிக்கவும்.`;
   } else {
     msg = `Hello DROPeZi! I'd like to book a ${vehicle} for one-way drop.\n\n📍 From: \n📍 To: \n📅 Date & Time: \n\nPlease share the fare.`;
+  }
+  window.open(getWAUrl(msg), '_blank');
+}
+
+// ══════════════════════════════════════════════
+// POPULAR ROUTES FARE TABLE
+// ══════════════════════════════════════════════
+const POPULAR_ROUTES = [
+  // Within Tamil Nadu (permit ₹0)
+  { from:'Chennai',     to:'Pondicherry', km:170, sedan:3090,  suv:3940  },
+  { from:'Chennai',     to:'Vellore',     km:135, sedan:2535,  suv:3210  },
+  { from:'Chennai',     to:'Trichy',      km:330, sedan:5610,  suv:7260  },
+  { from:'Chennai',     to:'Salem',       km:340, sedan:5770,  suv:7470  },
+  { from:'Chennai',     to:'Madurai',     km:462, sedan:8100,  suv:10410 },
+  { from:'Madurai',     to:'Coimbatore',  km:215, sedan:3795,  suv:4870  },
+  { from:'Coimbatore',  to:'Ooty',        km:85,  sedan:2420,  suv:3070  },
+  { from:'Chennai',     to:'Coimbatore',  km:500, sedan:8700,  suv:11200 },
+  // Cross-state (TN → Other, permit ₹1,000)
+  { from:'Chennai',     to:'Bangalore',   km:360, sedan:7090,  suv:8890  },
+  { from:'Coimbatore',  to:'Bangalore',   km:360, sedan:7090,  suv:8890  },
+  { from:'Chennai',     to:'Tirupati',    km:140, sedan:3610,  suv:4310  },
+  // Within Karnataka (permit ₹0)
+  { from:'Bangalore',   to:'Mysore',      km:150, sedan:2770,  suv:3520  },
+];
+
+function fmt(n) { return n.toLocaleString('en-IN'); }
+
+function renderFareTable() {
+  const wrap = document.getElementById('ftTableWrap');
+  if (!wrap) return;
+  const t = i18n[currentLang] || i18n.en;
+
+  let rows = POPULAR_ROUTES.map(r => `
+    <tr>
+      <td>${r.from} → ${r.to}</td>
+      <td><div class="ft-km">${r.km} km</div></td>
+      <td><div class="ft-fare">₹${fmt(r.sedan)}</div></td>
+      <td><div class="ft-fare">₹${fmt(r.suv)}</div></td>
+      <td><button class="ft-book-btn" onclick="bookRouteWithFare('${r.from}','${r.to}',${r.km},${r.sedan},${r.suv})">💬 ${t.ft_book||'Book'}</button></td>
+    </tr>`).join('');
+
+  wrap.innerHTML = `
+    <table class="ft-table">
+      <thead>
+        <tr>
+          <th>${t.ft_from||'From'} → ${t.ft_to||'To'}</th>
+          <th>${t.ft_km||'Distance'}</th>
+          <th>🚗 ${t.ft_sedan||'Sedan'}</th>
+          <th>🚙 ${t.ft_suv||'SUV'}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function bookRouteWithFare(from, to, km, sedan, suv) {
+  const t = i18n[currentLang] || i18n.en;
+  let msg;
+  if (typeof t.ft_wa_msg === 'function') {
+    msg = t.ft_wa_msg(from, to, km, fmt(sedan), fmt(suv));
+  } else {
+    msg = `Hello DROPeZi! I'd like a fare estimate.\n\n📍 From: ${from}\n📍 To: ${to}\n📏 Distance: ${km} km\n\n🚗 Sedan (est.): ₹${fmt(sedan)}\n🚙 SUV (est.): ₹${fmt(suv)}\n\n(Toll & permit included. Please confirm final fare.)`;
   }
   window.open(getWAUrl(msg), '_blank');
 }
