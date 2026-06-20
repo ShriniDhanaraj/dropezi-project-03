@@ -1211,6 +1211,16 @@ function getWAUrl(msg) {
   return 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(msg);
 }
 
+function openWA(url) {
+  // On mobile, window.open() leaves a blank tab after iOS hands off to the WA app.
+  // window.location.href avoids this — WA opens and user presses Back to return.
+  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    window.location.href = url;
+  } else {
+    window.open(url, '_blank');
+  }
+}
+
 function setLang(lang) {
   currentLang = lang;
   const t = i18n[lang];
@@ -1736,7 +1746,7 @@ function sendQuoteWA() {
   }
   msg += `\nPlease confirm availability. Thank you!`;
 
-  window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  openWA(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`);
 }
 
 // Legacy alias
@@ -1753,7 +1763,7 @@ function bookRoute(from, to) {
   } else {
     msg = `Hello DROPeZi! I'd like to book a one-way taxi.\n\n📍 From: ${from}\n📍 To: ${to}\n📅 Date & Time: \n🚗 Vehicle: Sedan / SUV / Premium\n\nPlease share the fare.`;
   }
-  window.open(getWAUrl(msg), '_blank');
+  openWA(getWAUrl(msg));
 }
 
 // ══════════════════════════════════════════════
@@ -1767,7 +1777,7 @@ function bookFleet(vehicle) {
   } else {
     msg = `Hello DROPeZi! I'd like to book a ${vehicle} for one-way drop.\n\n📍 From: \n📍 To: \n📅 Date & Time: \n\nPlease share the fare.`;
   }
-  window.open(getWAUrl(msg), '_blank');
+  openWA(getWAUrl(msg));
 }
 
 // ══════════════════════════════════════════════
@@ -1830,7 +1840,7 @@ function bookRouteWithFare(from, to, km, sedan, suv) {
   } else {
     msg = `Hello DROPeZi! I'd like a fare estimate.\n\n📍 From: ${from}\n📍 To: ${to}\n📏 Distance: ${km} km\n\n🚗 Sedan (est.): ₹${fmt(sedan)}\n🚙 SUV (est.): ₹${fmt(suv)}\n\n(Toll & permit included. Please confirm final fare.)`;
   }
-  window.open(getWAUrl(msg), '_blank');
+  openWA(getWAUrl(msg));
 }
 
 // ══════════════════════════════════════════════
