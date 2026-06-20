@@ -433,8 +433,8 @@ img{max-width:100%}
       <div style="margin-top:4px">
         <span class="qf-toggle-label">Vehicle</span>
         <div class="qf-toggle">
-          <div class="toggle-pill active" id="pill-sedan" onclick="selectVehicle('sedan')">🚗 Sedan<br/><small style="font-weight:400;font-size:0.75rem">₹14/km</small></div>
-          <div class="toggle-pill" id="pill-suv" onclick="selectVehicle('suv')">🚙 SUV<br/><small style="font-weight:400;font-size:0.75rem">₹19/km</small></div>
+          <div class="toggle-pill active" id="pill-sedan" onclick="selectVehicle('sedan')">🚗 Sedan<br/><small style="font-weight:400;font-size:0.75rem">₹15/km</small></div>
+          <div class="toggle-pill" id="pill-suv" onclick="selectVehicle('suv')">🚙 SUV<br/><small style="font-weight:400;font-size:0.75rem">₹20/km</small></div>
           <div class="toggle-pill" id="pill-premium" onclick="selectVehicle('premium')">✨ Premium<br/><small style="font-weight:400;font-size:0.75rem">Call us</small></div>
         </div>
       </div>
@@ -757,7 +757,7 @@ img{max-width:100%}
         <div class="fleet-icon">🚗</div>
         <div class="fleet-name" data-i18n="fleet1_name">Sedan</div>
         <div class="fleet-pax">👥 1–4 <span data-i18n="pax">பயணிகள்</span></div>
-        <div class="fleet-price">₹14<span style="font-size:1rem;font-weight:500">/km</span></div>
+        <div class="fleet-price">₹15<span style="font-size:1rem;font-weight:500">/km</span></div>
         <div class="fleet-price-sub" data-i18n="fleet_inc">Toll + Parking <span data-i18n="included">சேர்க்கப்பட்டது</span></div>
         <ul class="fleet-features">
           <li data-i18n="fl1_f1">AC வசதி</li>
@@ -773,7 +773,7 @@ img{max-width:100%}
         <div class="fleet-icon">🚙</div>
         <div class="fleet-name" data-i18n="fleet2_name">SUV</div>
         <div class="fleet-pax">👥 1–6 <span data-i18n="pax">பயணிகள்</span></div>
-        <div class="fleet-price">₹19<span style="font-size:1rem;font-weight:500">/km</span></div>
+        <div class="fleet-price">₹20<span style="font-size:1rem;font-weight:500">/km</span></div>
         <div class="fleet-price-sub" data-i18n="fleet_inc">Toll + Parking <span data-i18n="included">சேர்க்கப்பட்டது</span></div>
         <ul class="fleet-features">
           <li data-i18n="fl2_f1">AC வசதி</li>
@@ -993,16 +993,16 @@ const i18n = {
     nav_home:"Home",nav_why:"Why DROPeZi",nav_routes:"Routes",nav_fleet:"Fleet",nav_how:"How it Works",nav_contact:"Contact",
     hero_badge:"🏆 South India's Trusted Taxi",
     hero_title:"Your Journey,<br/><span class='highlight'>One Way</span> — We Take You There",
-    hero_subtitle:"Zero Return Charge · WhatsApp Instant Booking · 500+ Routes",
+    hero_subtitle:"No Hidden Charges · WhatsApp Instant Booking · 500+ Routes",
     cta_call:"Call Now",
     cta_wa:"Book on WhatsApp",
-    trust_1:"₹0 Return Charge",trust_2:"24/7 Support",trust_3:"5★ Rated",trust_4:"500+ Routes",trust_5:"Verified Drivers",
+    trust_1:"No Hidden Charges",trust_2:"24/7 Support",trust_3:"5★ Rated",trust_4:"500+ Routes",trust_5:"Verified Drivers",
     qb_title:"Get Instant WhatsApp Quote",
     qb_sub:"Fill in your trip details and we'll quote in 2 minutes",
     qb_from:"From City",qb_to:"To City",qb_date:"Date & Time",qb_btn:"WhatsApp Quote",
     qb_from_ph:"Chennai, Coimbatore...",qb_to_ph:"Madurai, Bangalore...",
     why_title:"Why Choose DROPeZi?",
-    feat1_title:"One-Way Fare Only",feat1_desc:"Pay only for your ride. Zero return charge — ever.",
+    feat1_title:"Pay for Your Trip. Nothing More.",feat1_desc:"You pay only for the distance you travel. No surprise charges added — ever.",
     feat2_title:"WhatsApp Instant Booking",feat2_desc:"No complex forms. Message on WhatsApp and get confirmed in 2 minutes.",
     feat3_title:"No Hidden Charges",feat3_desc:"The quoted price is the final price. Zero surprises.",
     feat4_title:"24/7 Support",feat4_desc:"Call us any time, day or night. We're always here for you.",
@@ -1199,12 +1199,12 @@ let _selectedTrip    = 'oneway';
 let _lastQuote       = null;
 
 const MIN_BILLED_KM      = 130;
-const DRIVER_CHARGE_DAY  = 300;
+const DRIVER_CHARGE_DAY  = 400;
 const TOLL_PER_KM        = 0.8; // ₹0.8/km, rounded to nearest ₹10
 
 const VEHICLE_CONFIG = {
-  sedan:   { label:'🚗 Sedan',   ratePerKm:14, isContact:false },
-  suv:     { label:'🚙 SUV',     ratePerKm:19, isContact:false },
+  sedan:   { label:'🚗 Sedan',   ratePerKm:15, isContact:false },
+  suv:     { label:'🚙 SUV',     ratePerKm:20, isContact:false },
   premium: { label:'✨ Premium', ratePerKm:0,  isContact:true  },
 };
 
@@ -1343,7 +1343,7 @@ function showStep1() {
 // DRIVER_MAX_KM_PER_DAY: driver covers max 400 KM/day
 const DRIVER_MAX_KM_DAY = 400;
 
-function calcFare(distKm, vehicle, tripType, departureHour, withinTN) {
+function calcFare(distKm, vehicle, tripType, departureHour, fromTN, toTN) {
   const cfg    = VEHICLE_CONFIG[vehicle];
   if (cfg.isContact) return null;
 
@@ -1381,9 +1381,24 @@ function calcFare(distKm, vehicle, tripType, departureHour, withinTN) {
   const tollEst = Math.round(totalActualKm * TOLL_PER_KM / 10) * 10 || 0;
 
   // ── State permit ──────────────────────────────────────
-  // ₹500 per state crossed (estimated: 1 state per ~400 KM, max 5 states)
-  const estimatedStates = withinTN ? 0 : Math.min(Math.ceil(distKm / 400), 5);
-  const permitCharge    = estimatedStates * 500;
+  // TN → Other State : ₹1,000  |  Other State → TN : ₹800  |  No crossing : ₹0
+  // Round trip crossing = both legs = ₹1,000 + ₹800 = ₹1,800
+  let permitCharge = 0;
+  let permitDirection = '';
+  const crossesBorder = (fromTN && !toTN) || (!fromTN && toTN);
+  if (crossesBorder) {
+    if (isRound) {
+      permitCharge    = 1800; // outbound + return border crossing
+      permitDirection = 'both ways';
+    } else if (fromTN && !toTN) {
+      permitCharge    = 1000;
+      permitDirection = 'TN → Out of State';
+    } else {
+      permitCharge    = 800;
+      permitDirection = 'Into TN';
+    }
+  }
+  const estimatedStates = 0; // kept for legacy compat — not used in display
 
   const total = rideSubtotal + driverCharge + tollEst + permitCharge;
 
@@ -1397,6 +1412,7 @@ function calcFare(distKm, vehicle, tripType, departureHour, withinTN) {
     tollEst,
     estimatedStates,
     permitCharge,
+    permitDirection,
     total,
     isNight,
     billedOneWayKm,
@@ -1483,7 +1499,7 @@ function renderFareCard(q) {
   const permitRow = document.getElementById('fare-permit-row');
   if (f.permitCharge > 0) {
     document.getElementById('fare-permit-label').textContent =
-      `📋 State Permit (~${f.estimatedStates} state${f.estimatedStates > 1 ? 's' : ''} × ₹500)`;
+      `📋 State Permit (${f.permitDirection})`;
     document.getElementById('fare-permit').textContent = `₹${f.permitCharge.toLocaleString('en-IN')}`;
     permitRow.style.display = '';
   } else {
@@ -1496,7 +1512,7 @@ function renderFareCard(q) {
 function recalcFromCache() {
   const q    = _lastQuote;
   const hour = parseInt(q.time.split(':')[0], 10);
-  const fare = calcFare(q.distKm, _selectedVehicle, _selectedTrip, hour, q.withinTN);
+  const fare = calcFare(q.distKm, _selectedVehicle, _selectedTrip, hour, q.fromTN, q.toTN);
   _lastQuote = { ...q, vehicle: _selectedVehicle, tripType: _selectedTrip, fare };
   renderFareCard(_lastQuote);
   const fb = document.getElementById('qb-float-bar');
@@ -1523,9 +1539,9 @@ async function getDistanceKm(from, to) {
   const r   = await fetch(url);
   const data = await r.json();
   if (!data.routes || !data.routes.length) throw new Error('Could not calculate route. Check city names.');
-  const distKm  = Math.round(data.routes[0].distance / 1000);
+  const distKm   = Math.round(data.routes[0].distance / 1000);
   const withinTN = f.inTN && t.inTN;
-  return { distKm, withinTN };
+  return { distKm, withinTN, fromTN: f.inTN, toTN: t.inTN };
 }
 
 // ── Main calculate ────────────────────────────
@@ -1556,11 +1572,11 @@ async function calculateFare() {
   document.getElementById('qb-loading').style.display = 'block';
 
   try {
-    const { distKm, withinTN } = await getDistanceKm(from, to);
+    const { distKm, withinTN, fromTN, toTN } = await getDistanceKm(from, to);
     const hour = parseInt(time.split(':')[0], 10);
-    const fare = calcFare(distKm, _selectedVehicle, _selectedTrip, hour, withinTN);
+    const fare = calcFare(distKm, _selectedVehicle, _selectedTrip, hour, fromTN, toTN);
 
-    _lastQuote = { from, to, date, time, distKm, withinTN, vehicle: _selectedVehicle, tripType: _selectedTrip, fare };
+    _lastQuote = { from, to, date, time, distKm, withinTN, fromTN, toTN, vehicle: _selectedVehicle, tripType: _selectedTrip, fare };
 
     // Sync step-2 toggles to current selection
     ['sedan','suv','premium'].forEach(x => {
