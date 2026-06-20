@@ -1,4 +1,4 @@
-# DROPeZi Website — Chat Handoff (Session 4)
+# DROPeZi Website — Chat Handoff (Session 5)
 
 ## Project Overview
 **Brand:** DROPeZi — One-Way Drop Taxi, South India  
@@ -198,6 +198,38 @@ i18n object in JS: `i18n.ta`, `i18n.en`, `i18n.kn`, `i18n.ml`, `i18n.hi`
 **For v1.0 (static site):** DPDP risk is low — no personal data collected or stored.
 
 **When login/registration is added:** MUST use AWS Mumbai (`ap-south-1`) or GCP Mumbai (`asia-south1`). Consider replacing Nominatim/OSRM with Indian alternatives (MapMyIndia/OlaMap API).
+
+---
+
+## Session 4 — What Was Done
+
+### dropezi.com → GitHub Pages (LIVE)
+- Created `CNAME` file with `dropezi.com` in Project-03 repo root
+- Committed + pushed (user ran `git push` from Terminal)
+- GitHub Pages Settings → Custom Domain → `dropezi.com` set by user
+- Squarespace DNS updated by user:
+  - Deleted old A record `199.36.158.100` and TXT `hosting-site=dropezi-website`
+  - Added 4 GitHub Pages A records (185.199.108-111.153)
+  - Added CNAME `www` → `shrinidhanaraj.github.io`
+  - Left `_domainconnect` CNAME untouched
+- SSL/TLS certificate issued via Let's Encrypt (auto-provisioned by GitHub)
+- **Enforce HTTPS ✅ checked and active**
+- **`https://dropezi.com` is LIVE** ✅
+
+### Popular Routes — Auto-Loop Carousel
+- Replaced static horizontal scroll with CSS `@keyframes routeScroll` marquee
+- Cards duplicated (Set 1 + Set 2) for seamless infinite loop
+- Auto-scroll: 28s per full cycle, left-to-right
+- Hover → pauses; Drag (mouse/touch) → manual scroll, resumes after 2s
+- Outer wrapper: `overflow:hidden` + `cursor:grab`
+- **Committed, pending `git push` by user** ⚠️
+
+### Pending git push (user must run from Terminal)
+```bash
+rm ~/Claude/Projects/DROPeZi-Project-03/.git/HEAD.lock   # if needed
+cd ~/Claude/Projects/DROPeZi-Project-03
+git push origin main
+```
 
 ---
 
