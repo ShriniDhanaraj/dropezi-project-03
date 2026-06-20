@@ -1407,8 +1407,8 @@ function showStep1() {
 }
 
 // ── Fare calculation ──────────────────────────
-// DRIVER_MAX_KM_PER_DAY: driver covers max 400 KM/day
-const DRIVER_MAX_KM_DAY = 400;
+// Avg speed for driver-day estimation: 45 km/h (blended: highways 80 + city/remote 40–50)
+const AVG_SPEED_KMH = 45;
 
 function calcFare(distKm, vehicle, tripType, departureHour, fromTN, toTN) {
   const cfg    = VEHICLE_CONFIG[vehicle];
@@ -1439,8 +1439,9 @@ function calcFare(distKm, vehicle, tripType, departureHour, fromTN, toTN) {
   const rideSubtotal = rideFare - rtDiscount + nightSurcharge;
 
   // ── Driver days ───────────────────────────────────────
-  // Based on total actual KM (not billed) — ceil(totalKm / 400)
-  const driverDays   = Math.ceil(totalActualKm / DRIVER_MAX_KM_DAY);
+  // Time-based: estimate travel hours at 45 km/h avg, then count 24h blocks
+  const travelHours  = totalActualKm / AVG_SPEED_KMH;
+  const driverDays   = Math.floor(travelHours / 24) + 1;
   const driverCharge = driverDays * DRIVER_CHARGE_DAY;
 
   // ── Tolls ─────────────────────────────────────────────
@@ -1792,10 +1793,10 @@ const POPULAR_ROUTES = [
   { from:'Chennai',     to:'Vellore',     km:135, sedan:2535,  suv:3210  },
   { from:'Chennai',     to:'Trichy',      km:330, sedan:5610,  suv:7260  },
   { from:'Chennai',     to:'Salem',       km:340, sedan:5770,  suv:7470  },
-  { from:'Chennai',     to:'Madurai',     km:462, sedan:8100,  suv:10410 },
+  { from:'Chennai',     to:'Madurai',     km:462, sedan:7700,  suv:10010 },
   { from:'Madurai',     to:'Coimbatore',  km:215, sedan:3795,  suv:4870  },
   { from:'Coimbatore',  to:'Ooty',        km:85,  sedan:2420,  suv:3070  },
-  { from:'Chennai',     to:'Coimbatore',  km:500, sedan:8700,  suv:11200 },
+  { from:'Chennai',     to:'Coimbatore',  km:500, sedan:8300,  suv:10800 },
   // Cross-state (TN → Other, permit ₹1,000)
   { from:'Chennai',     to:'Bangalore',   km:360, sedan:7090,  suv:8890  },
   { from:'Coimbatore',  to:'Bangalore',   km:360, sedan:7090,  suv:8890  },
