@@ -1547,14 +1547,6 @@ function renderFareCard(q) {
     roundRow.style.display = 'none';
   }
 
-  // Night surcharge
-  const nightRow = document.getElementById('fare-night-row');
-  if (f.isNight) {
-    document.getElementById('fare-night').textContent = `₹${f.nightSurcharge.toLocaleString('en-IN')}`;
-    nightRow.style.display = '';
-  } else {
-    nightRow.style.display = 'none';
-  }
 
   // Driver charge — days based on total KM ÷ 400
   document.getElementById('fare-driver-label').textContent =
