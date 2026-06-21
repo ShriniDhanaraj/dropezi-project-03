@@ -1739,6 +1739,7 @@ function sendQuoteWA() {
   const tripLabel = q.tripType === 'round' ? 'Round Trip' : 'One-Way';
 
   let msg = `Hello DROPeZi! Here is my quote request:\n\n`;
+  msg += `📞 My WhatsApp: +91${phone}\n`;
   msg += `📍 From: ${q.from}\n`;
   msg += `📍 To: ${q.to}\n`;
   msg += `📅 Date: ${q.date || '—'}  ⏰ Time: ${q.time}\n`;
@@ -1760,7 +1761,7 @@ function sendQuoteWA() {
   }
   msg += `\nPlease confirm availability. Thank you!`;
 
-  openWA(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`);
+  openWA(getWAUrl(msg));
 }
 
 // Legacy alias
