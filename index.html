@@ -513,7 +513,6 @@ img{max-width:100%}
           <div class="fare-row"><span id="fare-vehicle-label">🚗 Sedan</span><span id="fare-rate"></span></div>
           <div class="fare-row"><span id="fare-ride-label">🚗 Ride Fare</span><span id="fare-base"></span></div>
           <div class="fare-row fare-discount-row" id="fare-round-row" style="display:none"><span>🔖 Round Trip Discount (−10%)</span><span id="fare-round-val"></span></div>
-          <div class="fare-row" id="fare-night-row" style="display:none"><span>🌙 Night Surcharge (+10%)</span><span id="fare-night"></span></div>
           <div class="fare-row"><span id="fare-driver-label">👤 Driver Charge</span><span id="fare-driver"></span></div>
           <div class="fare-row"><span id="fare-tolls-label">🛣️ Tolls (est.)</span><span id="fare-tolls"></span></div>
           <div class="fare-row" id="fare-permit-row" style="display:none"><span id="fare-permit-label">📋 State Permit</span><span id="fare-permit"></span></div>
@@ -781,7 +780,7 @@ img{max-width:100%}
     <h2 class="section-title" data-i18n="ft_title">Popular Route Fares</h2>
     <div class="section-accent"></div>
     <div id="ftTableWrap"></div>
-    <p class="ft-note" data-i18n="ft_note">★ Indicative fares. Toll &amp; permit included. Night surcharge +10% for departures between 10 PM – 6 AM.</p>
+    <p class="ft-note" data-i18n="ft_note">★ Indicative fares. Toll &amp; permit included.</p>
   </div>
 </section>
 
@@ -1027,7 +1026,7 @@ const i18n = {
     wa_msg:`வணக்கம் DROPeZi! ஒரு வழி பயணம் முன்பதிவு செய்ய விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: \n📍 இறங்கும் இடம்: \n📅 தேதி & நேரம்: \n🚗 வாகனம்: Sedan / SUV / Premium\n\nகட்டணம் தெரிவிக்கவும்.`,
     ft_title:"பிரபலமான வழிகளின் கட்டணம்",
     ft_from:"ஏறும் இடம்",ft_to:"இறங்கும் இடம்",ft_km:"தூரம்",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp முன்பதிவு",
-    ft_note:"★ தோராய கட்டணங்கள். Toll & Permit சேர்க்கப்பட்டது. இரவு 10 மணி – காலை 6 மணிக்கு இடையே பயணத்திற்கு +10% இரவு கூட்டணி. உங்கள் சரியான இடங்களுக்கு மேலே உள்ள கட்டண மதிப்பீட்டை பயன்படுத்தவும்.",
+    ft_note:"★ தோராய கட்டணங்கள். Toll & Permit சேர்க்கப்பட்டது. உங்கள் சரியான இடங்களுக்கு மேலே உள்ள கட்டண மதிப்பீட்டை பயன்படுத்தவும்.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`வணக்கம் DROPeZi! கட்டண மதிப்பீட்டிற்கு விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: ${from}\n📍 இறங்கும் இடம்: ${to}\n📏 தூரம்: ${km} கி.மீ.\n\n🚗 Sedan தோராய கட்டணம்: ₹${sedan}\n🚙 SUV தோராய கட்டணம்: ₹${suv}\n\n(Toll & Permit சேர்க்கப்பட்டது. இறுதி கட்டணம் உறுதிப்படுத்தவும்.)`
   },
   en: {
@@ -1077,7 +1076,7 @@ const i18n = {
     wa_msg:`Hello DROPeZi! I'd like to book a one-way taxi.\n\n📍 From: \n📍 To: \n📅 Date & Time: \n🚗 Vehicle: Sedan / SUV / Premium\n\nPlease share the fare.`,
     ft_title:"Popular Route Fares",
     ft_from:"From",ft_to:"To",ft_km:"Distance",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"Book on WhatsApp",
-    ft_note:"★ Indicative fares. Toll & permit included. Night surcharge +10% for departures between 10 PM – 6 AM. Use the fare estimator above for exact pricing based on your locations.",
+    ft_note:"★ Indicative fares. Toll & permit included. Use the fare estimator above for exact pricing based on your locations.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`Hello DROPeZi! I'd like a fare estimate.\n\n📍 From: ${from}\n📍 To: ${to}\n📏 Distance: ${km} km\n\n🚗 Sedan (est.): ₹${sedan}\n🚙 SUV (est.): ₹${suv}\n\n(Toll & permit included. Please confirm final fare.)`
   },
   hi: {
@@ -1119,7 +1118,7 @@ const i18n = {
     wa_msg:`नमस्ते DROPeZi! मैं एक तरफ टैक्सी बुक करना चाहता/चाहती हूँ।\n\n📍 कहाँ से: \n📍 कहाँ तक: \n📅 तारीख व समय: \n🚗 वाहन: Sedan / SUV / Premium\n\nकिराया बताएं।`,
     ft_title:"लोकप्रिय रूट किराया",
     ft_from:"कहाँ से",ft_to:"कहाँ तक",ft_km:"दूरी",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp बुकिंग",
-    ft_note:"★ अनुमानित किराया। Toll और Permit शामिल। रात 10 बजे – सुबह 6 बजे के बीच +10% रात्रि शुल्क। सटीक किराये के लिए ऊपर दिए गए Fare Estimator का उपयोग करें।",
+    ft_note:"★ अनुमानित किराया। Toll और Permit शामिल। सटीक किराये के लिए ऊपर दिए गए Fare Estimator का उपयोग करें।",
     ft_wa_msg:(from,to,km,sedan,suv)=>`नमस्ते DROPeZi! मुझे किराया अनुमान चाहिए।\n\n📍 कहाँ से: ${from}\n📍 कहाँ तक: ${to}\n📏 दूरी: ${km} कि.मी.\n\n🚗 Sedan (अनुमान): ₹${sedan}\n🚙 SUV (अनुमान): ₹${suv}\n\n(Toll और Permit शामिल। कृपया अंतिम किराया बताएं।)`
   },
   kn: {
@@ -1161,7 +1160,7 @@ const i18n = {
     wa_msg:`ನಮಸ್ಕಾರ DROPeZi! ನಾನು ಒಂದು ಕಡೆ ಟ್ಯಾಕ್ಸಿ ಬುಕ್ ಮಾಡಬೇಕಾಗಿದೆ.\n\n📍 ಎಲ್ಲಿಂದ: \n📍 ಎಲ್ಲಿಗೆ: \n📅 ದಿನಾಂಕ & ಸಮಯ: \n🚗 ವಾಹನ: Sedan / SUV / Premium\n\nದರ ತಿಳಿಸಿ.`,
     ft_title:"ಜನಪ್ರಿಯ ಮಾರ್ಗ ದರಗಳು",
     ft_from:"ಎಲ್ಲಿಂದ",ft_to:"ಎಲ್ಲಿಗೆ",ft_km:"ದೂರ",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp ಬುಕಿಂಗ್",
-    ft_note:"★ ಅಂದಾಜು ದರಗಳು. Toll ಮತ್ತು Permit ಸೇರಿದೆ. ರಾತ್ರಿ 10 – ಬೆಳಿಗ್ಗೆ 6 ಗಂಟೆ ನಡುವೆ +10% ರಾತ್ರಿ ಶುಲ್ಕ. ನಿಖರ ದರಕ್ಕಾಗಿ ಮೇಲಿನ Fare Estimator ಬಳಸಿ.",
+    ft_note:"★ ಅಂದಾಜು ದರಗಳು. Toll ಮತ್ತು Permit ಸೇರಿದೆ. ನಿಖರ ದರಕ್ಕಾಗಿ ಮೇಲಿನ Fare Estimator ಬಳಸಿ.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`ನಮಸ್ಕಾರ DROPeZi! ದರ ಅಂದಾಜು ಬೇಕು.\n\n📍 ಎಲ್ಲಿಂದ: ${from}\n📍 ಎಲ್ಲಿಗೆ: ${to}\n📏 ದೂರ: ${km} ಕಿ.ಮೀ.\n\n🚗 Sedan (ಅಂದಾಜು): ₹${sedan}\n🚙 SUV (ಅಂದಾಜು): ₹${suv}\n\n(Toll ಮತ್ತು Permit ಸೇರಿದೆ. ದಯವಿಟ್ಟು ಅಂತಿಮ ದರ ದೃಢೀಕರಿಸಿ.)`
   },
   ml: {
@@ -1203,7 +1202,7 @@ const i18n = {
     wa_msg:`ഹലോ DROPeZi! എനിക്ക് ഒരു ഒറ്റ ദിശ ടാക്സി ബുക്ക് ചെയ്യണം.\n\n📍 എവിടെ നിന്ന്: \n📍 എവിടേക്ക്: \n📅 തീയതി & സമയം: \n🚗 വാഹനം: Sedan / SUV / Premium\n\nചാർജ് അറിയിക്കൂ.`,
     ft_title:"ജനപ്രിയ റൂട്ട് ചാർജുകൾ",
     ft_from:"എവിടെ നിന്ന്",ft_to:"എവിടേക്ക്",ft_km:"ദൂരം",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp ബുക്കിംഗ്",
-    ft_note:"★ ഏകദേശ ചാർജുകൾ. Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. രാത്രി 10 PM – രാവിലെ 6 AM യാത്രകൾക്ക് +10% നൈറ്റ് ചാർജ്. കൃത്യമായ നിരക്കിന് മുകളിലുള്ള Fare Estimator ഉപയോഗിക്കുക.",
+    ft_note:"★ ഏകദേശ ചാർജുകൾ. Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. കൃത്യമായ നിരക്കിന് മുകളിലുള്ള Fare Estimator ഉപയോഗിക്കുക.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`ഹലോ DROPeZi! ചാർജ് കണക്കാക്കണം.\n\n📍 എവിടെ നിന്ന്: ${from}\n📍 എവിടേക്ക്: ${to}\n📏 ദൂരം: ${km} കി.മീ.\n\n🚗 Sedan (ഏകദേശം): ₹${sedan}\n🚙 SUV (ഏകദേശം): ₹${suv}\n\n(Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. അന്തിമ ചാർജ് ദയവായി സ്ഥിരീകരിക്കൂ.)`
   }
 };
@@ -1436,9 +1435,9 @@ function calcFare(distKm, vehicle, tripType, departureHour, fromTN, toTN) {
   // Round trip discount: 10% off the full round trip fare
   const rtDiscount = isRound ? Math.round(rideFare * 0.10) : 0;
 
-  // Night surcharge: 10% on ONE-WAY leg only (departure time)
-  const isNight        = departureHour >= 22 || departureHour < 6;
-  const nightSurcharge = isNight ? Math.round(billedOneWayKm * cfg.ratePerKm * 0.10) : 0;
+  // Night surcharge removed
+  const isNight        = false;
+  const nightSurcharge = 0;
 
   const rideSubtotal = rideFare - rtDiscount + nightSurcharge;
 
