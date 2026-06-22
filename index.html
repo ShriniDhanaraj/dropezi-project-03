@@ -60,7 +60,8 @@ img{max-width:100%}
 .nav-wa:hover{background:var(--wa-dark)}
 .nav-nri{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.8);font-size:0.78rem;font-weight:600;padding:6px 12px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;white-space:nowrap;transition:all 0.2s;letter-spacing:0.3px}
 .nav-nri:hover{color:var(--gold);border-color:rgba(240,165,0,0.5)}
-@media(max-width:768px){.nav-nri{display:none}}
+.nav-nri .nri-label{display:inline}
+@media(max-width:768px){.nav-nri{padding:6px 8px;font-size:1.15rem;border-radius:8px;gap:0}.nav-nri .nri-label{display:none}}
 
 /* ── HERO ── */
 .hero{min-height:100vh;background:linear-gradient(160deg,#0e1f3d 0%,#1a3260 45%,#0d3320 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 20px 60px;position:relative;overflow:hidden}
@@ -355,7 +356,7 @@ img{max-width:100%}
         <option value="kn">ಕನ್ನಡ</option>
         <option value="ml">മലയാളം</option>
       </select>
-      <a href="https://dropezi.com/nri" class="nav-nri">🌍 NRI Families</a>
+      <a href="https://dropezi.com/nri" class="nav-nri">🌍<span class="nri-label">&nbsp;NRI Families</span></a>
       <a href="tel:+916382624456" class="nav-call">
         <span>📞</span><span class="call-text" data-i18n="nav_call">Call Now</span>
       </a>
