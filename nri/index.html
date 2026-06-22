@@ -168,13 +168,21 @@ img{max-width:100%}
 .final-cta-sub{margin-top:18px;font-size:0.8rem;color:rgba(255,255,255,0.4);letter-spacing:0.5px}
 
 /* ── FOOTER ── */
-.footer{background:var(--navy);padding:28px 20px;text-align:center;border-top:1px solid rgba(240,165,0,0.15)}
-.footer-logo{color:var(--white);font-weight:800;font-size:1.1rem;margin-bottom:6px}
-.footer-logo span{color:var(--gold)}
-.footer-links{display:flex;gap:20px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
-.footer-links a{color:rgba(255,255,255,0.5);font-size:0.8rem;transition:color 0.2s}
+.footer{background:var(--navy);padding:48px 20px 40px;border-top:1px solid rgba(240,165,0,0.2)}
+.footer-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.footer-logo img{height:36px}
+.footer-tagline{color:rgba(255,255,255,0.55);font-size:0.85rem;margin-bottom:20px}
+.footer-wa-btn{display:inline-flex;align-items:center;gap:10px;background:var(--wa);color:var(--white);font-weight:800;font-size:1.05rem;padding:12px 24px;border-radius:10px;margin-bottom:16px;transition:background 0.2s}
+.footer-wa-btn:hover{background:var(--wa-dark)}
+.footer-social{display:flex;gap:10px}
+.social-btn{width:42px;height:42px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--white);transition:border-color 0.2s}
+.social-btn:hover{border-color:var(--gold)}
+.footer-links{display:flex;flex-direction:column;gap:10px;text-align:right}
+.footer-links a{color:rgba(255,255,255,0.6);font-size:0.88rem;transition:color 0.2s}
 .footer-links a:hover{color:var(--gold)}
-.footer-copy{color:rgba(255,255,255,0.3);font-size:0.75rem}
+.footer-copy{max-width:1140px;margin:32px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);font-size:0.78rem;text-align:center}
+@media(max-width:600px){.footer-inner{grid-template-columns:1fr}.footer-links{text-align:left}}
 
 /* ── SHARED SECTION HELPERS ── */
 .section-navy .section-title{color:var(--white)}
@@ -204,8 +212,9 @@ img{max-width:100%}
 <nav class="navbar">
   <div class="nav-inner">
     <a href="https://dropezi.com" class="nav-logo">
-      <div class="nav-logo-text">DROP<span>EZi</span></div>
-      <div class="nav-back">← Back to dropezi.com</div>
+      <img src="https://dropezi-website.web.app/logo.webp" alt="DROPeZi Logo" onerror="this.style.display='none'"/>
+      <img src="../navbar-logo-crop.png" alt="DROPeZi"/>
+      <div class="nav-back" style="display:block;font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:2px;">← dropezi.com</div>
     </a>
     <div class="nav-actions">
       <a href="https://wa.me/916382624456" class="nav-wa" target="_blank" rel="noopener" style="width:auto;padding:8px 16px;gap:8px;font-size:0.85rem;font-weight:700;">💬 &nbsp;WhatsApp Us</a>
@@ -257,7 +266,6 @@ img{max-width:100%}
         <label class="country-label" for="c-uk">
           <div class="country-flag">🇬🇧</div>
           <div class="country-name">United Kingdom</div>
-          <div class="country-tagline">London · Leicester · Birmingham</div>
         </label>
       </div>
       <div class="country-card">
@@ -265,7 +273,6 @@ img{max-width:100%}
         <label class="country-label" for="c-uae">
           <div class="country-flag">🇦🇪</div>
           <div class="country-name">UAE</div>
-          <div class="country-tagline">Dubai · Sharjah · Abu Dhabi</div>
         </label>
       </div>
       <div class="country-card">
@@ -273,15 +280,13 @@ img{max-width:100%}
         <label class="country-label" for="c-sg">
           <div class="country-flag">🇸🇬</div>
           <div class="country-name">Singapore</div>
-          <div class="country-tagline">Largest Tamil diaspora in SE Asia</div>
         </label>
       </div>
       <div class="country-card">
         <input type="radio" name="country" id="c-us" value="us"/>
         <label class="country-label" for="c-us">
-          <div class="country-flag">🇺🇸</div>
+          <div class="country-flag">🇺🇸&nbsp;🇨🇦</div>
           <div class="country-name">USA / Canada</div>
-          <div class="country-tagline">NJ · CA · TX · Toronto</div>
         </label>
       </div>
       <div class="country-card">
@@ -289,7 +294,6 @@ img{max-width:100%}
         <label class="country-label" for="c-my">
           <div class="country-flag">🇲🇾</div>
           <div class="country-name">Malaysia</div>
-          <div class="country-tagline">KL · Penang · Ipoh</div>
         </label>
       </div>
       <div class="country-card">
@@ -297,7 +301,6 @@ img{max-width:100%}
         <label class="country-label" for="c-other">
           <div class="country-flag">🌍</div>
           <div class="country-name">Other Country</div>
-          <div class="country-tagline">Anywhere in the world</div>
         </label>
       </div>
     </div>
@@ -409,7 +412,7 @@ img{max-width:100%}
       <div class="trust-card">
         <div class="trust-icon">🗺️</div>
         <div class="trust-title">South India Coverage</div>
-        <div class="trust-desc">All major routes across <span class="trust-highlight">Tamil Nadu, Karnataka, Kerala, AP & Telangana.</span> 50+ cities covered. See dropezi.com for route-wise fares.</div>
+        <div class="trust-desc">All major routes across <span class="trust-highlight">Tamil Nadu, Karnataka, Kerala, AP & Telangana.</span> If your city isn't listed, just ask — we'll sort it. <a href="https://dropezi.com" style="color:var(--gold);font-weight:600;">See fares & routes →</a></div>
       </div>
     </div>
   </div>
@@ -505,7 +508,7 @@ img{max-width:100%}
           <span class="faq-chevron">▼</span>
         </div>
         <div class="faq-a">
-          <div class="faq-a-inner">We cover all major routes across Tamil Nadu, Karnataka, Kerala, Andhra Pradesh, and Telangana — including Chennai, Coimbatore, Madurai, Trichy, Salem, Bangalore, Mysore, Kochi, Trivandrum, Tirupati, and more. Visit dropezi.com for a full fare table.</div>
+          <div class="faq-a-inner">We cover South India — Tamil Nadu, Karnataka, Kerala, Andhra Pradesh, and Telangana. If you're not sure whether we cover your route, just WhatsApp us and we'll confirm. <a href="https://dropezi.com" style="color:var(--navy);font-weight:600;">Check fares at dropezi.com →</a></div>
         </div>
       </div>
 
@@ -526,15 +529,29 @@ img{max-width:100%}
 </section>
 
 <!-- ── FOOTER ── -->
-<footer class="footer">
-  <div class="footer-logo">DROP<span>EZi</span></div>
-  <div class="footer-links">
-    <a href="https://dropezi.com">Home</a>
-    <a href="https://dropezi.com/#estimator">Fare Estimator</a>
-    <a href="https://dropezi.com/#routes">Popular Routes</a>
-    <a href="tel:+916382624456">+91 63826 24456</a>
+<footer class="footer" id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="https://dropezi-website.web.app/logo.webp" alt="DROPeZi" onerror="this.style.display='none'"/>
+        <img src="../navbar-logo-crop.png" alt="DROPeZi"/>
+      </div>
+      <p class="footer-tagline">Endless Reach & Exceptional Care — TRUSTED</p>
+      <a href="https://wa.me/916382624456" target="_blank" class="footer-wa-btn">💬 &nbsp;WhatsApp Us</a>
+      <div class="footer-social">
+        <a href="https://wa.me/916382624456" target="_blank" class="social-btn" title="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="https://dropezi.com">Home</a>
+      <a href="https://dropezi.com/#estimator">Fare Estimator</a>
+      <a href="https://dropezi.com/#routes">Popular Routes</a>
+      <a href="https://dropezi.com/#fleet">Fleet</a>
+      <a href="https://dropezi.com/#how">How It Works</a>
+      <a href="https://dropezi.com/#contact">Contact</a>
+    </div>
   </div>
-  <div class="footer-copy">© 2024 DROPeZi. All rights reserved. &nbsp;·&nbsp; Tamil Nadu Drop Taxi Service</div>
+  <div class="footer-copy">© 2025 DROPeZi. All rights reserved. &nbsp;·&nbsp; South India Drop Taxi Service &nbsp;·&nbsp; DPDP Act Compliant</div>
 </footer>
 
 <script>
@@ -674,11 +691,12 @@ function selectCountry(val) {
   document.getElementById('dyn-wa-btn').href = buildWAUrl(data.waMsg);
 
   const block = document.getElementById('dyn-block');
-  if (!block.classList.contains('visible')) {
-    block.classList.add('visible');
-    // Smooth scroll to it
-    setTimeout(() => block.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
-  }
+  const wasHidden = !block.classList.contains('visible');
+  block.classList.add('visible');
+  // Always scroll panel into view on selection
+  setTimeout(function() {
+    block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, wasHidden ? 120 : 60);
 }
 
 document.querySelectorAll('input[name="country"]').forEach(function(radio) {
@@ -708,13 +726,17 @@ function toggleFaq(qEl) {
 }
 
 /* ─────────────────────────────────────────
-   HERO CTA — scroll to country selector
+   HERO CTA + FINAL CTA — scroll to country selector
 ───────────────────────────────────────── */
+function scrollToCountry(e) {
+  e.preventDefault();
+  var target = document.getElementById('country-selector');
+  var offset = 72; // navbar height
+  var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+}
 document.querySelectorAll('a[href="#country-selector"]').forEach(function(el) {
-  el.addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('country-selector').scrollIntoView({ behavior: 'smooth' });
-  });
+  el.addEventListener('click', scrollToCountry);
 });
 </script>
 </body>
