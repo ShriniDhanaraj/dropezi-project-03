@@ -4,11 +4,11 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>DROPeZi — ஒரு வழி டிராப் டாக்சி | South India</title>
-<meta name="description" content="DROPeZi – One-way drop taxi across Tamil Nadu, Karnataka &amp; Kerala. No return fare. 500+ routes including Chennai to Bangalore, Coimbatore, Madurai, airport drops. Book instantly on WhatsApp: +91 63826 24456.">
+<meta name="description" content="DROPeZi – One-way drop taxi across Tamil Nadu, Karnataka &amp; Kerala. No return fare. Routes including Chennai to Bangalore, Coimbatore, Madurai, airport drops. Book instantly on WhatsApp: +91 63826 24456.">
 <meta name="keywords" content="one way drop taxi, outstation drop taxi, drop taxi cab, single hire drop taxi, outstation cab, best drop taxi, one way drop fare, one way cab Tamil Nadu, Chennai to Bangalore drop taxi, Bangalore to Chennai drop taxi, Chennai to Coimbatore taxi, Trichy to Chennai drop taxi, Trichy to Chennai drop cab, Coimbatore to Chennai drop cab, Chennai to Madurai drop taxi, drop taxi Tamil Nadu, outstation one way cab, airport drop taxi Chennai, one way taxi booking South India, drop cab service Tamil Nadu, outstation taxi one way, ஒரு வழி டிராப் டாக்சி, dropezi, drop ezi taxi">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="DROPeZi — One Way Drop Taxi | South India">
-<meta property="og:description" content="No return fare. 500+ routes across Tamil Nadu, Karnataka &amp; Kerala. Book on WhatsApp instantly.">
+<meta property="og:description" content="No return fare. Tamil Nadu, Karnataka &amp; Kerala — tell us your route, we confirm in 2 minutes. Book on WhatsApp instantly.">
 <meta property="og:url" content="https://dropezi.com">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://dropezi.com">
@@ -141,6 +141,11 @@ img{max-width:100%}
 .qf-select{flex:1;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:var(--white);padding:12px 10px;border-radius:10px;font-size:1rem;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s;box-sizing:border-box;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.5)' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
 .qf-select:focus{border-color:var(--gold)}
 .qf-select option{background:#0e1f3d;color:var(--white)}
+/* ── CITY AUTOCOMPLETE ── */
+.city-dropdown{display:none;position:absolute;top:100%;left:0;right:0;background:#1a3260;border:1px solid rgba(240,165,0,0.45);border-top:none;border-radius:0 0 10px 10px;z-index:300;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.35)}
+.city-option{padding:10px 14px;color:rgba(255,255,255,0.85);font-size:0.88rem;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.07);font-family:'Inter',sans-serif;transition:background 0.15s}
+.city-option:last-child{border-bottom:none}
+.city-option:hover,.city-option.focused{background:rgba(240,165,0,0.18);color:var(--white)}
 .qf-time-sep{color:rgba(255,255,255,0.6);font-size:1.2rem;font-weight:700;line-height:1}
 .wa-input-row{display:flex;gap:8px;align-items:stretch;margin-bottom:12px}
 .wa-prefix{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);border-radius:10px;padding:12px 12px;font-size:1rem;font-weight:700;white-space:nowrap;display:flex;align-items:center}
@@ -258,6 +263,7 @@ img{max-width:100%}
 .ft-book-btn{background:var(--wa);color:#fff;border:none;border-radius:20px;padding:7px 14px;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .2s}
 .ft-book-btn:hover{opacity:.82}
 .ft-note{text-align:center;font-size:.78rem;color:rgba(255,255,255,.5);margin-top:20px;max-width:700px;margin-left:auto;margin-right:auto}
+.ft-disclaimer{background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.35);border-radius:8px;padding:9px 16px;font-size:.8rem;color:rgba(255,255,255,.75);margin-bottom:14px;text-align:center;max-width:920px;margin-left:auto;margin-right:auto}
 @media(max-width:640px){
   .ft-table thead th{padding:9px 6px;font-size:.72rem}
   .ft-table tbody td{padding:9px 6px;font-size:.8rem}
@@ -378,7 +384,7 @@ img{max-width:100%}
   <div class="hero-content">
     <div class="hero-badge" data-i18n="hero_badge">🏆 தென் இந்தியாவின் நம்பகமான டாக்சி</div>
     <h1 class="hero-title tamil" data-i18n="hero_title">உங்கள் பயணம்<br/><span class="highlight">ஒரே வழியில்</span> — எங்கும் சேர்க்கிறோம்</h1>
-    <p class="hero-subtitle tamil" data-i18n="hero_subtitle">திரும்பி வரும் கட்டணம் இல்லை · WhatsApp-ல் உடனே முன்பதிவு · 500+ வழிகள்</p>
+    <p class="hero-subtitle tamil" data-i18n="hero_subtitle">திரும்பி வரும் கட்டணம் இல்லை · WhatsApp-ல் உடனே முன்பதிவு · TN · KA · KL · AP · TS &amp; அதிகம்</p>
     <div class="hero-ctas">
       <a href="tel:+916382624456" class="cta-call">
         <span>📞</span><span class="tamil" data-i18n="cta_call">இப்போது அழைக்க</span>
@@ -404,8 +410,7 @@ img{max-width:100%}
   <div class="trust-inner">
     <div class="trust-item"><span class="trust-icon">₹</span><span data-i18n="trust_1">₹0 திரும்பி வரும் கட்டணம்</span></div>
     <div class="trust-item"><span class="trust-icon">🕐</span><span data-i18n="trust_2">24/7 ஆதரவு</span></div>
-    <div class="trust-item"><span class="trust-icon">⭐</span><span data-i18n="trust_3">5★ மதிப்பீடு</span></div>
-    <div class="trust-item"><span class="trust-icon">🗺️</span><span data-i18n="trust_4">500+ வழிகள்</span></div>
+    <div class="trust-item"><span class="trust-icon">🗺️</span><span data-i18n="trust_4">TN · KA · KL · AP · TS &amp; அதிகம்</span></div>
     <div class="trust-item"><span class="trust-icon">✅</span><span data-i18n="trust_5">சரிபார்க்கப்பட்ட ஓட்டுனர்கள்</span></div>
   </div>
 </div>
@@ -610,162 +615,162 @@ img{max-width:100%}
       <!-- Set 1 -->
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Madurai</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹4,200</span>
+          <span class="route-price">~₹7,700</span>
           <button class="route-book" onclick="bookRoute('Chennai','Madurai')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Coimbatore</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹4,800</span>
+          <span class="route-price">~₹8,300</span>
           <button class="route-book" onclick="bookRoute('Chennai','Coimbatore')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Bangalore</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹3,600</span>
+          <span class="route-price">~₹7,090</span>
           <button class="route-book" onclick="bookRoute('Chennai','Bangalore')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Coimbatore</span><span class="route-arrow">→</span><span>Bangalore</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹3,200</span>
+          <span class="route-price">~₹7,090</span>
           <button class="route-book" onclick="bookRoute('Coimbatore','Bangalore')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Madurai</span><span class="route-arrow">→</span><span>Chennai</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹4,200</span>
+          <span class="route-price">~₹7,700</span>
           <button class="route-book" onclick="bookRoute('Madurai','Chennai')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Trichy</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹2,800</span>
+          <span class="route-price">~₹5,610</span>
           <button class="route-book" onclick="bookRoute('Chennai','Trichy')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Pondicherry</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹1,800</span>
+          <span class="route-price">~₹3,090</span>
           <button class="route-book" onclick="bookRoute('Chennai','Pondicherry')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Coimbatore</span><span class="route-arrow">→</span><span>Kerala</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹2,400</span>
+          <span class="route-price">~₹4,000</span>
           <button class="route-book" onclick="bookRoute('Coimbatore','Kerala')">Book 💬</button>
         </div>
       </div>
       <!-- Set 2 (duplicate for seamless loop) -->
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Madurai</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹4,200</span>
+          <span class="route-price">~₹7,700</span>
           <button class="route-book" onclick="bookRoute('Chennai','Madurai')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Coimbatore</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹4,800</span>
+          <span class="route-price">~₹8,300</span>
           <button class="route-book" onclick="bookRoute('Chennai','Coimbatore')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Bangalore</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹3,600</span>
+          <span class="route-price">~₹7,090</span>
           <button class="route-book" onclick="bookRoute('Chennai','Bangalore')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Coimbatore</span><span class="route-arrow">→</span><span>Bangalore</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹3,200</span>
+          <span class="route-price">~₹7,090</span>
           <button class="route-book" onclick="bookRoute('Coimbatore','Bangalore')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Madurai</span><span class="route-arrow">→</span><span>Chennai</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹4,200</span>
+          <span class="route-price">~₹7,700</span>
           <button class="route-book" onclick="bookRoute('Madurai','Chennai')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Trichy</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹2,800</span>
+          <span class="route-price">~₹5,610</span>
           <button class="route-book" onclick="bookRoute('Chennai','Trichy')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Chennai</span><span class="route-arrow">→</span><span>Pondicherry</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹1,800</span>
+          <span class="route-price">~₹3,090</span>
           <button class="route-book" onclick="bookRoute('Chennai','Pondicherry')">Book 💬</button>
         </div>
       </div>
       <div class="route-card">
         <div class="route-card-head">
-          <div class="route-from">ONE WAY DROP</div>
+          <div class="route-from">SEDAN · ONE WAY</div>
           <div class="route-cities"><span>Coimbatore</span><span class="route-arrow">→</span><span>Kerala</span></div>
         </div>
         <div class="route-card-body">
-          <span class="route-price">~₹2,400</span>
+          <span class="route-price">~₹4,000</span>
           <button class="route-book" onclick="bookRoute('Coimbatore','Kerala')">Book 💬</button>
         </div>
       </div>
@@ -780,7 +785,6 @@ img{max-width:100%}
     <h2 class="section-title" data-i18n="ft_title">Popular Route Fares</h2>
     <div class="section-accent"></div>
     <div id="ftTableWrap"></div>
-    <p class="ft-note" data-i18n="ft_note">★ Indicative fares. Toll &amp; permit included.</p>
   </div>
 </section>
 
@@ -877,48 +881,7 @@ img{max-width:100%}
   </div>
 </section>
 
-<!-- ══ TESTIMONIALS ══ -->
-<section class="section section-navy" id="reviews" style="padding-top:0">
-  <div class="container">
-    <h2 class="section-title" data-i18n="testi_title">வாடிக்கையாளர்கள் கூறுவது</h2>
-    <div class="section-accent"></div>
-    <div class="testimonials-grid">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-i18n="testi1_text">"Chennai-லிருந்து Madurai-க்கு சென்றோம். திரும்பி வரும் கட்டணம் இல்லாதது மிகவும் சிறந்தது! ஓட்டுனர் சரியான நேரத்தில் வந்தார்."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">ரா</div>
-          <div>
-            <div class="testi-name" data-i18n="testi1_name">ராஜேஷ் குமார்</div>
-            <div class="testi-route">Chennai → Madurai</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-i18n="testi2_text">"WhatsApp-ல் 5 நிமிடத்தில் booking confirm ஆனது. Coimbatore-லிருந்து Bangalore வரை மிகவும் சுகமான பயணம்."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">ப</div>
-          <div>
-            <div class="testi-name" data-i18n="testi2_name">பிரியா மோகன்</div>
-            <div class="testi-route">Coimbatore → Bangalore</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text" data-i18n="testi3_text">"Rate transparent-ஆக இருந்தது. மறைக்கப்பட்ட கட்டணங்கள் எதுவும் இல்லை. DROPeZi-யை நம்பலாம்!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">அ</div>
-          <div>
-            <div class="testi-name" data-i18n="testi3_name">அருண் வேலன்</div>
-            <div class="testi-route">Chennai → Trichy</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ══ TESTIMONIALS — hidden until Google/JustDial reviews available ══ -->
 
 <!-- ══ COVERAGE ══ -->
 <section class="section section-alt" id="coverage">
@@ -984,10 +947,10 @@ const i18n = {
     nav_home:"முகப்பு",nav_why:"ஏன் DROPeZi",nav_routes:"வழிகள்",nav_fleet:"வாகனங்கள்",nav_how:"எப்படி?",nav_contact:"தொடர்பு",
     hero_badge:"🏆 தென் இந்தியாவின் நம்பகமான டாக்சி",
     hero_title:"உங்கள் பயணம்<br/><span class='highlight'>ஒரே வழியில்</span> — எங்கும் சேர்க்கிறோம்",
-    hero_subtitle:"திரும்பி வரும் கட்டணம் இல்லை · WhatsApp-ல் உடனே முன்பதிவு · 500+ வழிகள்",
+    hero_subtitle:"திரும்பி வரும் கட்டணம் இல்லை · WhatsApp-ல் உடனே முன்பதிவு · TN · KA · KL · AP · TS &amp; அதிகம்",
     cta_call:"இப்போது அழைக்க",
     cta_wa:"WhatsApp முன்பதிவு",
-    trust_1:"₹0 திரும்பி வரும் கட்டணம்",trust_2:"24/7 ஆதரவு",trust_3:"5★ மதிப்பீடு",trust_4:"500+ வழிகள்",trust_5:"சரிபார்க்கப்பட்ட ஓட்டுனர்கள்",
+    trust_1:"₹0 திரும்பி வரும் கட்டணம்",trust_2:"24/7 ஆதரவு",trust_3:"5★ மதிப்பீடு",trust_4:"TN · KA · KL · AP · TS &amp; அதிகம்",trust_5:"சரிபார்க்கப்பட்ட ஓட்டுனர்கள்",
     qb_title:"உடனே WhatsApp மேற்கோள் பெறுங்கள்",
     qb_sub:"உங்கள் பயண விவரங்களை பூர்த்தி செய்து அனுப்புங்கள்",
     qb_from:"ஏறும் இடம்",qb_to:"இறங்கும் இடம்",qb_date:"தேதி & நேரம்",qb_btn:"WhatsApp மேற்கோள்",
@@ -1025,8 +988,8 @@ const i18n = {
     float_call:"அழைக்க",float_wa:"WhatsApp",
     wa_msg:`வணக்கம் DROPeZi! ஒரு வழி பயணம் முன்பதிவு செய்ய விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: \n📍 இறங்கும் இடம்: \n📅 தேதி & நேரம்: \n🚗 வாகனம்: Sedan / SUV / Premium\n\nகட்டணம் தெரிவிக்கவும்.`,
     ft_title:"பிரபலமான வழிகளின் கட்டணம்",
-    ft_from:"ஏறும் இடம்",ft_to:"இறங்கும் இடம்",ft_km:"தூரம்",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp முன்பதிவு",
-    ft_note:"★ தோராய கட்டணங்கள். Toll & Permit சேர்க்கப்பட்டது. உங்கள் சரியான இடங்களுக்கு மேலே உள்ள கட்டண மதிப்பீட்டை பயன்படுத்தவும்.",
+    ft_from:"ஏறும் இடம்",ft_to:"இறங்கும் இடம்",ft_km:"தூரம்",ft_sedan:"Sedan",ft_sedan_from:"Sedan (தொடக்கம்)",ft_suv:"SUV",ft_suv_from:"SUV (தொடக்கம்)",ft_book:"WhatsApp மூலம் விலை கேளுங்கள்",
+    ft_note:"தோராய கட்டணங்கள். Toll & Permit சேர்க்கப்பட்டது. இறுதி கட்டணம் ஏறும் & இறங்கும் இடத்திற்கு ஏற்ப மாறலாம் — WhatsApp-ல் உறுதிப்படுத்தப்படும்.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`வணக்கம் DROPeZi! கட்டண மதிப்பீட்டிற்கு விரும்புகிறேன்.\n\n📍 ஏறும் இடம்: ${from}\n📍 இறங்கும் இடம்: ${to}\n📏 தூரம்: ${km} கி.மீ.\n\n🚗 Sedan தோராய கட்டணம்: ₹${sedan}\n🚙 SUV தோராய கட்டணம்: ₹${suv}\n\n(Toll & Permit சேர்க்கப்பட்டது. இறுதி கட்டணம் உறுதிப்படுத்தவும்.)`
   },
   en: {
@@ -1034,10 +997,10 @@ const i18n = {
     nav_home:"Home",nav_why:"Why DROPeZi",nav_routes:"Routes",nav_fleet:"Fleet",nav_how:"How it Works",nav_contact:"Contact",
     hero_badge:"🏆 South India's Trusted Taxi",
     hero_title:"Your Journey,<br/><span class='highlight'>One Way</span> — We Take You There",
-    hero_subtitle:"No Hidden Charges · WhatsApp Instant Booking · 500+ Routes",
+    hero_subtitle:"No Hidden Charges · WhatsApp Instant Booking · TN · KA · KL · AP · TS &amp; More",
     cta_call:"Call Now",
     cta_wa:"Book on WhatsApp",
-    trust_1:"No Hidden Charges",trust_2:"24/7 Support",trust_3:"5★ Rated",trust_4:"500+ Routes",trust_5:"Verified Drivers",
+    trust_1:"No Hidden Charges",trust_2:"24/7 Support",trust_3:"5★ Rated",trust_4:"TN · KA · KL · AP · TS &amp; More",trust_5:"Verified Drivers",
     qb_title:"Get Instant WhatsApp Quote",
     qb_sub:"Fill in your trip details and we'll quote in 2 minutes",
     qb_from:"From City",qb_to:"To City",qb_date:"Date & Time",qb_btn:"WhatsApp Quote",
@@ -1075,8 +1038,8 @@ const i18n = {
     float_call:"Call",float_wa:"WhatsApp",
     wa_msg:`Hello DROPeZi! I'd like to book a one-way taxi.\n\n📍 From: \n📍 To: \n📅 Date & Time: \n🚗 Vehicle: Sedan / SUV / Premium\n\nPlease share the fare.`,
     ft_title:"Popular Route Fares",
-    ft_from:"From",ft_to:"To",ft_km:"Distance",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"Book on WhatsApp",
-    ft_note:"★ Indicative fares. Toll & permit included. Use the fare estimator above for exact pricing based on your locations.",
+    ft_from:"From",ft_to:"To",ft_km:"Distance",ft_sedan:"Sedan",ft_sedan_from:"Sedan (from)",ft_suv:"SUV",ft_suv_from:"SUV (from)",ft_book:"Get Quote on WhatsApp",
+    ft_note:"Indicative fares. Toll & permit included. Final fare subject to change based on pickup & drop location — confirmed on WhatsApp.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`Hello DROPeZi! I'd like a fare estimate.\n\n📍 From: ${from}\n📍 To: ${to}\n📏 Distance: ${km} km\n\n🚗 Sedan (est.): ₹${sedan}\n🚙 SUV (est.): ₹${suv}\n\n(Toll & permit included. Please confirm final fare.)`
   },
   hi: {
@@ -1084,9 +1047,9 @@ const i18n = {
     nav_home:"होम",nav_why:"क्यों DROPeZi",nav_routes:"रूट",nav_fleet:"वाहन",nav_how:"कैसे?",nav_contact:"संपर्क",
     hero_badge:"🏆 दक्षिण भारत की भरोसेमंद टैक्सी",
     hero_title:"आपकी यात्रा,<br/><span class='highlight'>एक तरफ</span> — हम पहुंचाते हैं",
-    hero_subtitle:"रिटर्न चार्ज ₹0 · WhatsApp पर तुरंत बुकिंग · 500+ रूट",
+    hero_subtitle:"रिटर्न चार्ज ₹0 · WhatsApp पर तुरंत बुकिंग · TN · KA · KL · AP · TS &amp; अधिक",
     cta_call:"अभी कॉल करें",cta_wa:"WhatsApp बुकिंग",
-    trust_1:"₹0 रिटर्न चार्ज",trust_2:"24/7 सहायता",trust_3:"5★ रेटिंग",trust_4:"500+ रूट",trust_5:"सत्यापित ड्राइवर",
+    trust_1:"₹0 रिटर्न चार्ज",trust_2:"24/7 सहायता",trust_3:"5★ रेटिंग",trust_4:"TN · KA · KL · AP · TS &amp; अधिक",trust_5:"सत्यापित ड्राइवर",
     qb_title:"तुरंत WhatsApp कोटेशन पाएं",qb_sub:"अपना ट्रिप विवरण भरें",
     qb_from:"कहाँ से",qb_to:"कहाँ तक",qb_date:"तारीख व समय",qb_btn:"WhatsApp कोटेशन",
     qb_from_ph:"Chennai, Coimbatore...",qb_to_ph:"Madurai, Bangalore...",
@@ -1117,8 +1080,8 @@ const i18n = {
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",float_call:"कॉल",float_wa:"WhatsApp",
     wa_msg:`नमस्ते DROPeZi! मैं एक तरफ टैक्सी बुक करना चाहता/चाहती हूँ।\n\n📍 कहाँ से: \n📍 कहाँ तक: \n📅 तारीख व समय: \n🚗 वाहन: Sedan / SUV / Premium\n\nकिराया बताएं।`,
     ft_title:"लोकप्रिय रूट किराया",
-    ft_from:"कहाँ से",ft_to:"कहाँ तक",ft_km:"दूरी",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp बुकिंग",
-    ft_note:"★ अनुमानित किराया। Toll और Permit शामिल। सटीक किराये के लिए ऊपर दिए गए Fare Estimator का उपयोग करें।",
+    ft_from:"कहाँ से",ft_to:"कहाँ तक",ft_km:"दूरी",ft_sedan:"Sedan",ft_sedan_from:"Sedan (से)",ft_suv:"SUV",ft_suv_from:"SUV (से)",ft_book:"WhatsApp पर किराया जानें",
+    ft_note:"अनुमानित किराया। Toll और Permit शामिल। अंतिम किराया पिकअप व ड्रॉप स्थान के अनुसार बदल सकता है — WhatsApp पर पुष्टि की जाएगी।",
     ft_wa_msg:(from,to,km,sedan,suv)=>`नमस्ते DROPeZi! मुझे किराया अनुमान चाहिए।\n\n📍 कहाँ से: ${from}\n📍 कहाँ तक: ${to}\n📏 दूरी: ${km} कि.मी.\n\n🚗 Sedan (अनुमान): ₹${sedan}\n🚙 SUV (अनुमान): ₹${suv}\n\n(Toll और Permit शामिल। कृपया अंतिम किराया बताएं।)`
   },
   kn: {
@@ -1126,9 +1089,9 @@ const i18n = {
     nav_home:"ಮನೆ",nav_why:"ಏಕೆ DROPeZi",nav_routes:"ಮಾರ್ಗಗಳು",nav_fleet:"ವಾಹನಗಳು",nav_how:"ಹೇಗೆ?",nav_contact:"ಸಂಪರ್ಕ",
     hero_badge:"🏆 ದಕ್ಷಿಣ ಭಾರತದ ವಿಶ್ವಾಸಾರ್ಹ ಟ್ಯಾಕ್ಸಿ",
     hero_title:"ನಿಮ್ಮ ಪ್ರಯಾಣ,<br/><span class='highlight'>ಒಂದು ದಿಕ್ಕಿನಲ್ಲಿ</span> — ನಾವು ತಲುಪಿಸುತ್ತೇವೆ",
-    hero_subtitle:"ಮರಳುವ ಶುಲ್ಕ ₹0 · WhatsApp ತಕ್ಷಣ ಬುಕಿಂಗ್ · 500+ ಮಾರ್ಗಗಳು",
+    hero_subtitle:"ಮರಳುವ ಶುಲ್ಕ ₹0 · WhatsApp ತಕ್ಷಣ ಬುಕಿಂಗ್ · TN · KA · KL · AP · TS &amp; ಹೆಚ್ಚು",
     cta_call:"ಈಗ ಕರೆ ಮಾಡಿ",cta_wa:"WhatsApp ಬುಕಿಂಗ್",
-    trust_1:"₹0 ಮರಳು ಶುಲ್ಕ",trust_2:"24/7 ಬೆಂಬಲ",trust_3:"5★ ರೇಟಿಂಗ್",trust_4:"500+ ಮಾರ್ಗ",trust_5:"ಪರಿಶೀಲಿಸಿದ ಚಾಲಕರು",
+    trust_1:"₹0 ಮರಳು ಶುಲ್ಕ",trust_2:"24/7 ಬೆಂಬಲ",trust_3:"5★ ರೇಟಿಂಗ್",trust_4:"TN · KA · KL · AP · TS &amp; ಹೆಚ್ಚು",trust_5:"ಪರಿಶೀಲಿಸಿದ ಚಾಲಕರು",
     qb_title:"ತಕ್ಷಣ WhatsApp ಕೋಟ್ ಪಡೆಯಿರಿ",qb_sub:"ನಿಮ್ಮ ಪ್ರಯಾಣ ವಿವರ ತುಂಬಿ",
     qb_from:"ಎಲ್ಲಿಂದ",qb_to:"ಎಲ್ಲಿಗೆ",qb_date:"ದಿನಾಂಕ & ಸಮಯ",qb_btn:"WhatsApp ಕೋಟ್",
     qb_from_ph:"Chennai, Coimbatore...",qb_to_ph:"Madurai, Bangalore...",
@@ -1159,8 +1122,8 @@ const i18n = {
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",float_call:"ಕರೆ",float_wa:"WhatsApp",
     wa_msg:`ನಮಸ್ಕಾರ DROPeZi! ನಾನು ಒಂದು ಕಡೆ ಟ್ಯಾಕ್ಸಿ ಬುಕ್ ಮಾಡಬೇಕಾಗಿದೆ.\n\n📍 ಎಲ್ಲಿಂದ: \n📍 ಎಲ್ಲಿಗೆ: \n📅 ದಿನಾಂಕ & ಸಮಯ: \n🚗 ವಾಹನ: Sedan / SUV / Premium\n\nದರ ತಿಳಿಸಿ.`,
     ft_title:"ಜನಪ್ರಿಯ ಮಾರ್ಗ ದರಗಳು",
-    ft_from:"ಎಲ್ಲಿಂದ",ft_to:"ಎಲ್ಲಿಗೆ",ft_km:"ದೂರ",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp ಬುಕಿಂಗ್",
-    ft_note:"★ ಅಂದಾಜು ದರಗಳು. Toll ಮತ್ತು Permit ಸೇರಿದೆ. ನಿಖರ ದರಕ್ಕಾಗಿ ಮೇಲಿನ Fare Estimator ಬಳಸಿ.",
+    ft_from:"ಎಲ್ಲಿಂದ",ft_to:"ಎಲ್ಲಿಗೆ",ft_km:"ದೂರ",ft_sedan:"Sedan",ft_sedan_from:"Sedan (ಆರಂಭ)",ft_suv:"SUV",ft_suv_from:"SUV (ಆರಂಭ)",ft_book:"WhatsApp-ಲ್ಲಿ ದರ ತಿಳಿಯಿರಿ",
+    ft_note:"ಅಂದಾಜು ದರಗಳು. Toll ಮತ್ತು Permit ಸೇರಿದೆ. ಅಂತಿಮ ದರ ಪಿಕಪ್ & ಡ್ರಾಪ್ ಸ್ಥಳಕ್ಕೆ ಅನುಗುಣವಾಗಿ ಬದಲಾಗಬಹುದು — WhatsApp-ನಲ್ಲಿ ದೃಢೀಕರಿಸಲಾಗುತ್ತದೆ.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`ನಮಸ್ಕಾರ DROPeZi! ದರ ಅಂದಾಜು ಬೇಕು.\n\n📍 ಎಲ್ಲಿಂದ: ${from}\n📍 ಎಲ್ಲಿಗೆ: ${to}\n📏 ದೂರ: ${km} ಕಿ.ಮೀ.\n\n🚗 Sedan (ಅಂದಾಜು): ₹${sedan}\n🚙 SUV (ಅಂದಾಜು): ₹${suv}\n\n(Toll ಮತ್ತು Permit ಸೇರಿದೆ. ದಯವಿಟ್ಟು ಅಂತಿಮ ದರ ದೃಢೀಕರಿಸಿ.)`
   },
   ml: {
@@ -1168,9 +1131,9 @@ const i18n = {
     nav_home:"ഹോം",nav_why:"എന്തുകൊണ്ട് DROPeZi",nav_routes:"റൂട്ടുകൾ",nav_fleet:"വാഹനങ്ങൾ",nav_how:"എങ്ങനെ?",nav_contact:"ബന്ധപ്പെടുക",
     hero_badge:"🏆 ദക്ഷിണ ഇന്ത്യയിലെ വിശ്വസ്ത ടാക്സി",
     hero_title:"നിങ്ങളുടെ യാത്ര,<br/><span class='highlight'>ഒരു ദിശയിൽ</span> — ഞങ്ങൾ എത്തിക്കും",
-    hero_subtitle:"മടക്ക ചാർജ് ₹0 · WhatsApp ഇൻസ്റ്റന്റ് ബുക്കിംഗ് · 500+ റൂട്ടുകൾ",
+    hero_subtitle:"മടക്ക ചാർജ് ₹0 · WhatsApp ഇൻസ്റ്റന്റ് ബുക്കിംഗ് · TN · KA · KL · AP · TS &amp; കൂടുതൽ",
     cta_call:"ഇപ്പോൾ വിളിക്കൂ",cta_wa:"WhatsApp ബുക്കിംഗ്",
-    trust_1:"₹0 മടക്ക ചാർജ്",trust_2:"24/7 പിന്തുണ",trust_3:"5★ റേറ്റിംഗ്",trust_4:"500+ റൂട്ട്",trust_5:"പരിശോധിച്ച ഡ്രൈവർമാർ",
+    trust_1:"₹0 മടക്ക ചാർജ്",trust_2:"24/7 പിന്തുണ",trust_3:"5★ റേറ്റിംഗ്",trust_4:"TN · KA · KL · AP · TS &amp; കൂടുതൽ",trust_5:"പരിശോധിച്ച ഡ്രൈവർമാർ",
     qb_title:"ഉടനടി WhatsApp ക്വോട്ട് നേടൂ",qb_sub:"യാത്ര വിവരങ്ങൾ നൽകൂ",
     qb_from:"എവിടെ നിന്ന്",qb_to:"എവിടേക്ക്",qb_date:"തീയതി & സമയം",qb_btn:"WhatsApp ക്വോട്ട്",
     qb_from_ph:"Chennai, Coimbatore...",qb_to_ph:"Madurai, Bangalore...",
@@ -1201,8 +1164,8 @@ const i18n = {
     footer_tagline:"Endless Reach & Exceptional Care — TRUSTED",float_call:"വിളിക്കൂ",float_wa:"WhatsApp",
     wa_msg:`ഹലോ DROPeZi! എനിക്ക് ഒരു ഒറ്റ ദിശ ടാക്സി ബുക്ക് ചെയ്യണം.\n\n📍 എവിടെ നിന്ന്: \n📍 എവിടേക്ക്: \n📅 തീയതി & സമയം: \n🚗 വാഹനം: Sedan / SUV / Premium\n\nചാർജ് അറിയിക്കൂ.`,
     ft_title:"ജനപ്രിയ റൂട്ട് ചാർജുകൾ",
-    ft_from:"എവിടെ നിന്ന്",ft_to:"എവിടേക്ക്",ft_km:"ദൂരം",ft_sedan:"Sedan",ft_suv:"SUV",ft_book:"WhatsApp ബുക്കിംഗ്",
-    ft_note:"★ ഏകദേശ ചാർജുകൾ. Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. കൃത്യമായ നിരക്കിന് മുകളിലുള്ള Fare Estimator ഉപയോഗിക്കുക.",
+    ft_from:"എവിടെ നിന്ന്",ft_to:"എവിടേക്ക്",ft_km:"ദൂരം",ft_sedan:"Sedan",ft_sedan_from:"Sedan (തുടക്കം)",ft_suv:"SUV",ft_suv_from:"SUV (തുടക്കം)",ft_book:"WhatsApp-ൽ നിരക്ക് അന്വേഷിക്കൂ",
+    ft_note:"ഏകദേശ ചാർജുകൾ. Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. അന്തിമ നിരക്ക് പിക്കപ്പ് & ഡ്രോപ്പ് സ്ഥലം അനുസരിച്ച് മാറാം — WhatsApp-ൽ സ്ഥിരീകരിക്കും.",
     ft_wa_msg:(from,to,km,sedan,suv)=>`ഹലോ DROPeZi! ചാർജ് കണക്കാക്കണം.\n\n📍 എവിടെ നിന്ന്: ${from}\n📍 എവിടേക്ക്: ${to}\n📏 ദൂരം: ${km} കി.മീ.\n\n🚗 Sedan (ഏകദേശം): ₹${sedan}\n🚙 SUV (ഏകദേശം): ₹${suv}\n\n(Toll & Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. അന്തിമ ചാർജ് ദയവായി സ്ഥിരീകരിക്കൂ.)`
   }
 };
@@ -1582,14 +1545,83 @@ function recalcFromCache() {
   if (fb) fb.classList.add('visible');
 }
 
+// ── Hardcoded city coordinates (bypasses Nominatim for known cities) ──
+// inTN = true means no state permit charged (within TN or Puducherry UT)
+const HARDCODED_CITIES = {
+  // Tamil Nadu
+  'chennai':           { lat:13.0827, lon:80.2707, inTN:true  },
+  'madras':            { lat:13.0827, lon:80.2707, inTN:true  },
+  'madurai':           { lat:9.9252,  lon:78.1198, inTN:true  },
+  'coimbatore':        { lat:11.0168, lon:76.9558, inTN:true  },
+  'cbe':               { lat:11.0168, lon:76.9558, inTN:true  },
+  'trichy':            { lat:10.7905, lon:78.7047, inTN:true  },
+  'tiruchirappalli':   { lat:10.7905, lon:78.7047, inTN:true  },
+  'tiruchi':           { lat:10.7905, lon:78.7047, inTN:true  },
+  'salem':             { lat:11.6643, lon:78.1460, inTN:true  },
+  'vellore':           { lat:12.9165, lon:79.1325, inTN:true  },
+  'ooty':              { lat:11.4064, lon:76.6932, inTN:true  },
+  'udhagamandalam':    { lat:11.4064, lon:76.6932, inTN:true  },
+  'thanjavur':         { lat:10.7870, lon:79.1378, inTN:true  },
+  'tanjore':           { lat:10.7870, lon:79.1378, inTN:true  },
+  'tirunelveli':       { lat:8.7139,  lon:77.7567, inTN:true  },
+  'kanyakumari':       { lat:8.0883,  lon:77.5385, inTN:true  },
+  'erode':             { lat:11.3410, lon:77.7172, inTN:true  },
+  'tiruppur':          { lat:11.1075, lon:77.3398, inTN:true  },
+  'dindigul':          { lat:10.3673, lon:77.9803, inTN:true  },
+  'nagercoil':         { lat:8.1833,  lon:77.4119, inTN:true  },
+  'cuddalore':         { lat:11.7480, lon:79.7714, inTN:true  },
+  'kumbakonam':        { lat:10.9617, lon:79.3788, inTN:true  },
+  'karur':             { lat:10.9601, lon:78.0766, inTN:true  },
+  'namakkal':          { lat:11.2194, lon:78.1675, inTN:true  },
+  // Puducherry (Union Territory — no state permit per business decision)
+  'pondicherry':       { lat:11.9342, lon:79.8299, inTN:true  },
+  'puducherry':        { lat:11.9342, lon:79.8299, inTN:true  },
+  'pondi':             { lat:11.9342, lon:79.8299, inTN:true  },
+  // Karnataka
+  'bangalore':         { lat:12.9716, lon:77.5946, inTN:false },
+  'bengaluru':         { lat:12.9716, lon:77.5946, inTN:false },
+  'blr':               { lat:12.9716, lon:77.5946, inTN:false },
+  'mysore':            { lat:12.2958, lon:76.6394, inTN:false },
+  'mysuru':            { lat:12.2958, lon:76.6394, inTN:false },
+  'mangalore':         { lat:12.8703, lon:74.8429, inTN:false },
+  'mangaluru':         { lat:12.8703, lon:74.8429, inTN:false },
+  'hubli':             { lat:15.3647, lon:75.1240, inTN:false },
+  'dharwad':           { lat:15.4589, lon:75.0078, inTN:false },
+  // Kerala
+  'kochi':             { lat:9.9312,  lon:76.2673, inTN:false },
+  'cochin':            { lat:9.9312,  lon:76.2673, inTN:false },
+  'ernakulam':         { lat:9.9312,  lon:76.2673, inTN:false },
+  'trivandrum':        { lat:8.5241,  lon:76.9366, inTN:false },
+  'thiruvananthapuram':{ lat:8.5241,  lon:76.9366, inTN:false },
+  'kozhikode':         { lat:11.2588, lon:75.7804, inTN:false },
+  'calicut':           { lat:11.2588, lon:75.7804, inTN:false },
+  'thrissur':          { lat:10.5276, lon:76.2144, inTN:false },
+  'palakkad':          { lat:10.7867, lon:76.6548, inTN:false },
+  'kollam':            { lat:8.8932,  lon:76.6141, inTN:false },
+  'alappuzha':         { lat:9.4981,  lon:76.3388, inTN:false },
+  'alleppy':           { lat:9.4981,  lon:76.3388, inTN:false },
+  'kannur':            { lat:11.8745, lon:75.3704, inTN:false },
+  // Andhra Pradesh / Telangana
+  'tirupati':          { lat:13.6288, lon:79.4192, inTN:false },
+  'hyderabad':         { lat:17.3850, lon:78.4867, inTN:false },
+  'vijayawada':        { lat:16.5062, lon:80.6480, inTN:false },
+  'vizag':             { lat:17.6868, lon:83.2185, inTN:false },
+  'visakhapatnam':     { lat:17.6868, lon:83.2185, inTN:false },
+  'guntur':            { lat:16.3067, lon:80.4365, inTN:false },
+};
+
 // ── Geocode + OSRM ───────────────────────────
 async function geocode(city) {
-  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city+' India')}&format=json&limit=1&addressdetails=1`;
+  // 1. Check hardcoded list first (fast, reliable, no API call)
+  const key = city.trim().toLowerCase();
+  if (HARDCODED_CITIES[key]) return HARDCODED_CITIES[key];
+
+  // 2. Fallback to Nominatim for unlisted cities
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city.trim() + ', India')}&format=json&limit=1&addressdetails=1&countrycodes=in`;
   const r   = await fetch(url, { headers:{ 'Accept-Language':'en' } });
   const data = await r.json();
-  if (!data || !data.length) throw new Error(`Could not locate "${city}". Try full city name.`);
+  if (!data || !data.length) throw new Error(`Could not find "${city}". Try a nearby major city.`);
   const result = data[0];
-  // Detect Tamil Nadu from address fields or display_name
   const stateName = (result.address?.state || result.display_name || '').toLowerCase();
   const inTN = stateName.includes('tamil nadu');
   return { lat: parseFloat(result.lat), lon: parseFloat(result.lon), inTN };
@@ -1687,6 +1719,91 @@ function swapCities() {
   const f = document.getElementById('qbFrom');
   const t = document.getElementById('qbTo');
   const tmp = f.value; f.value = t.value; t.value = tmp;
+}
+
+// ── City Autocomplete ────────────────────────
+function setupCityAutocomplete(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  // Dropdown container — sits inside the .qf-field wrapper
+  const wrapper = input.parentNode;
+  wrapper.style.position = 'relative';
+  const dropdown = document.createElement('div');
+  dropdown.className = 'city-dropdown';
+  wrapper.appendChild(dropdown);
+
+  let debounceTimer;
+  let currentFocus = -1;
+
+  function hideDropdown() {
+    dropdown.innerHTML = '';
+    dropdown.style.display = 'none';
+    currentFocus = -1;
+  }
+
+  function renderOptions(suggestions) {
+    if (!suggestions.length) { hideDropdown(); return; }
+    dropdown.innerHTML = suggestions.map((s, i) =>
+      `<div class="city-option" data-value="${s.value}" data-index="${i}">📍 ${s.display}</div>`
+    ).join('');
+    dropdown.style.display = 'block';
+    currentFocus = -1;
+    dropdown.querySelectorAll('.city-option').forEach(opt => {
+      opt.addEventListener('mousedown', e => {
+        e.preventDefault();
+        input.value = opt.getAttribute('data-value');
+        hideDropdown();
+      });
+    });
+  }
+
+  input.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    const query = this.value.trim();
+    if (query.length < 3) { hideDropdown(); return; }
+    debounceTimer = setTimeout(async () => {
+      try {
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' India')}&format=json&limit=7&addressdetails=1&countrycodes=in`;
+        const r = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+        const data = await r.json();
+        const seen = new Set();
+        const suggestions = data
+          .map(d => {
+            const city = d.address?.city || d.address?.town || d.address?.village || d.address?.county || d.name || '';
+            const state = d.address?.state || '';
+            return { display: city + (state ? `, ${state}` : ''), value: city };
+          })
+          .filter(s => s.value && !seen.has(s.value) && seen.add(s.value))
+          .slice(0, 5);
+        renderOptions(suggestions);
+      } catch(e) { hideDropdown(); }
+    }, 320);
+  });
+
+  input.addEventListener('keydown', function(e) {
+    const opts = dropdown.querySelectorAll('.city-option');
+    if (!opts.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      currentFocus = Math.min(currentFocus + 1, opts.length - 1);
+      opts.forEach((o, i) => o.classList.toggle('focused', i === currentFocus));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      currentFocus = Math.max(currentFocus - 1, 0);
+      opts.forEach((o, i) => o.classList.toggle('focused', i === currentFocus));
+    } else if (e.key === 'Enter' && currentFocus >= 0) {
+      e.preventDefault();
+      this.value = opts[currentFocus].getAttribute('data-value');
+      hideDropdown();
+    } else if (e.key === 'Escape') {
+      hideDropdown();
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!wrapper.contains(e.target)) hideDropdown();
+  });
 }
 
 function sendQuoteWA() {
@@ -1818,19 +1935,20 @@ function renderFareTable() {
     <tr>
       <td>${r.from} → ${r.to}</td>
       <td><div class="ft-km">${r.km} km</div></td>
-      <td><div class="ft-fare">₹${fmt(r.sedan)}</div></td>
-      <td><div class="ft-fare">₹${fmt(r.suv)}</div></td>
-      <td><button class="ft-book-btn" onclick="bookRouteWithFare('${r.from}','${r.to}',${r.km},${r.sedan},${r.suv})">💬 ${t.ft_book||'Book'}</button></td>
+      <td><div class="ft-fare">~₹${fmt(r.sedan)}</div></td>
+      <td><div class="ft-fare">~₹${fmt(r.suv)}</div></td>
+      <td><button class="ft-book-btn" onclick="bookRouteWithFare('${r.from}','${r.to}',${r.km},${r.sedan},${r.suv})">💬 ${t.ft_book||'Get Quote'}</button></td>
     </tr>`).join('');
 
   wrap.innerHTML = `
+    <div class="ft-disclaimer">★ ${t.ft_note||'Indicative fares. Toll & permit included. Final fare confirmed on WhatsApp.'}</div>
     <table class="ft-table">
       <thead>
         <tr>
           <th>${t.ft_from||'From'} → ${t.ft_to||'To'}</th>
           <th>${t.ft_km||'Distance'}</th>
-          <th>🚗 ${t.ft_sedan||'Sedan'}</th>
-          <th>🚙 ${t.ft_suv||'SUV'}</th>
+          <th>🚗 ${t.ft_sedan_from||t.ft_sedan||'Sedan'}</th>
+          <th>🚙 ${t.ft_suv_from||t.ft_suv||'SUV'}</th>
           <th></th>
         </tr>
       </thead>
@@ -1855,6 +1973,8 @@ function bookRouteWithFare(from, to, km, sedan, suv) {
 document.addEventListener('DOMContentLoaded', function() {
   setLang('en');
   initDateTimeDefaults();
+  setupCityAutocomplete('qbFrom');
+  setupCityAutocomplete('qbTo');
 
   // Routes carousel — drag to scroll + pause on drag
   (function(){
