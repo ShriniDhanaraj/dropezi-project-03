@@ -1415,20 +1415,30 @@ function calcFare(distKm, vehicle, tripType, departureHour, fromTN, toTN) {
   const tollEst = Math.round(totalActualKm * TOLL_PER_KM / 10) * 10 || 0;
 
   // ── State permit ──────────────────────────────────────
-  // TN → Other State : ₹1,000  |  Other State → TN : ₹800  |  No crossing : ₹0
-  // Round trip crossing = both legs = ₹1,000 + ₹800 = ₹1,800
+  // Any interstate one-way crossing : ₹1,000 (TN outbound or non-TN interstate)
+  // Other State → TN (inbound)      : ₹800
+  // Within same state / Puducherry  : ₹0
+  // Round trip: both legs charged
   let permitCharge = 0;
   let permitDirection = '';
-  const crossesBorder = (fromTN && !toTN) || (!fromTN && toTN);
+  const crossesBorder = fromTN !== toTN;
   if (crossesBorder) {
     if (isRound) {
-      permitCharge    = 1800; // outbound + return border crossing
-      permitDirection = 'both ways';
+      if (fromTN || toTN) {
+        permitCharge    = 1500; // TN round trip permit
+        permitDirection = 'both ways';
+      } else {
+        permitCharge    = 2000; // ₹1,000 each way (non-TN interstate)
+        permitDirection = 'both ways';
+      }
+    } else if (!fromTN && !toTN) {
+      permitCharge    = 1000; // non-TN interstate (e.g. KA→KL, KA→AP)
+      permitDirection = 'Interstate';
     } else if (fromTN && !toTN) {
-      permitCharge    = 1000;
+      permitCharge    = 1000; // TN → Out of State
       permitDirection = 'TN → Out of State';
     } else {
-      permitCharge    = 800;
+      permitCharge    = 800;  // Other State → TN
       permitDirection = 'Into TN';
     }
   }
