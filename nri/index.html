@@ -148,8 +148,10 @@ img{max-width:100%}
 .nav-actions{display:flex;align-items:center;gap:10px}
 .nav-call{display:flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:8px 16px;border-radius:8px;white-space:nowrap;transition:background 0.2s}
 .nav-call:hover{background:var(--gold-dark)}
-.nav-wa{display:flex;align-items:center;justify-content:center;width:38px;height:38px;background:var(--wa);border-radius:8px;font-size:1.2rem;transition:background 0.2s}
+.nav-wa{display:flex;align-items:center;justify-content:center;gap:7px;height:38px;background:var(--wa);border-radius:8px;font-size:0.85rem;font-weight:700;padding:0 14px;white-space:nowrap;transition:background 0.2s}
 .nav-wa:hover{background:var(--wa-dark)}
+.nav-wa .wa-text{display:inline}
+@media(max-width:480px){.nav-wa{width:38px;padding:0;font-size:1.15rem}.nav-wa .wa-text{display:none}}
 
 /* ── HERO ── */
 .hero{min-height:90vh;background:linear-gradient(155deg,#0e1f3d 0%,#1a3260 50%,#0d3320 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 20px 60px;position:relative;overflow:hidden}
@@ -313,7 +315,7 @@ img{max-width:100%}
       <div class="nav-back">← dropezi.com</div>
     </a>
     <div class="nav-actions">
-      <a href="https://wa.me/916382624456" class="nav-wa" target="_blank" rel="noopener" style="width:auto;padding:8px 16px;gap:8px;font-size:0.85rem;font-weight:700;">💬 &nbsp;WhatsApp Us</a>
+      <a href="https://wa.me/916382624456" class="nav-wa" target="_blank" rel="noopener">💬<span class="wa-text">&nbsp;WhatsApp Us</span></a>
     </div>
   </div>
 </nav>
@@ -636,9 +638,9 @@ img{max-width:100%}
         <img src="../navbar-logo-crop.png" alt="DROPeZi"/>
       </div>
       <p class="footer-tagline">Endless Reach & Exceptional Care — TRUSTED</p>
-      <a href="https://wa.me/916382624456" target="_blank" class="footer-wa-btn">💬 &nbsp;WhatsApp Us</a>
+      <a href="https://wa.me/916382624456" target="_blank" class="footer-wa-btn">💬 &nbsp;+91 63826 24456</a>
       <div class="footer-social">
-        <a href="https://wa.me/916382624456" target="_blank" class="social-btn" title="WhatsApp">💬</a>
+        <a href="https://wa.me/916382624456" target="_blank" class="social-btn" title="WhatsApp" style="width:auto;padding:0 14px;gap:7px;font-size:0.82rem;font-weight:700;">💬&nbsp;WhatsApp</a>
       </div>
     </div>
     <div class="footer-links">
