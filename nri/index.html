@@ -287,6 +287,26 @@ img{max-width:100%}
 .section-navy .section-sub{color:rgba(255,255,255,0.65)}
 .gold-accent{color:var(--gold)}
 
+/* ── NRI MINI FORM ── */
+.nri-form{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:20px 18px 14px;margin:4px 0 20px}
+.nri-form-title{font-size:0.72rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px;text-align:center}
+.nri-row{display:flex;gap:10px;margin-bottom:10px}
+.nri-row .nri-field{flex:1;margin-bottom:0}
+.nri-field{margin-bottom:10px}
+.nri-label{display:block;color:rgba(255,255,255,0.55);font-size:0.7rem;font-weight:600;margin-bottom:5px;letter-spacing:0.5px;text-transform:uppercase}
+.nri-label-opt{color:rgba(255,255,255,0.3);font-weight:400;text-transform:none;font-size:0.68rem;letter-spacing:0}
+.nri-input{width:100%;background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.16);color:var(--white);padding:10px 12px;border-radius:9px;font-size:0.9rem;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s;box-sizing:border-box}
+.nri-input::placeholder{color:rgba(255,255,255,0.28)}
+.nri-input:focus{border-color:var(--gold)}
+.nri-input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:0.45}
+.nri-consent{display:none;align-items:flex-start;gap:10px;background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.28);border-radius:9px;padding:10px 12px;margin:6px 0 10px}
+.nri-consent.show{display:flex}
+.nri-consent input[type=checkbox]{width:18px;height:18px;flex-shrink:0;accent-color:var(--gold);margin-top:2px;cursor:pointer}
+.nri-consent label{color:rgba(255,255,255,0.75);font-size:0.78rem;line-height:1.5;cursor:pointer}
+.nri-consent label strong{color:var(--gold)}
+.nri-form-skip{font-size:0.7rem;color:rgba(255,255,255,0.28);text-align:center;margin-top:2px}
+@media(max-width:600px){.nri-row{flex-direction:column;gap:0}.nri-row .nri-field{margin-bottom:10px}}
+
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .dyn-cards{grid-template-columns:1fr;gap:10px}
@@ -324,7 +344,7 @@ img{max-width:100%}
 <section class="hero">
   <div class="hero-content">
     <div class="hero-eyebrow">
-      <span class="hero-flags">🇬🇧 🇦🇪 🇸🇬 🇺🇸 🇲🇾</span>
+      <span class="hero-flags">🇬🇧 🇦🇪 🇸🇬 🇺🇸 🇨🇦 🇲🇾</span>
       FOR NRI FAMILIES · SOUTH INDIA
     </div>
     <h1 class="hero-title">
@@ -427,6 +447,40 @@ img{max-width:100%}
           <div class="dyn-card-value" id="dyn-community"></div>
         </div>
       </div>
+      <!-- ── NRI Trip Details Mini Form ── -->
+      <div class="nri-form">
+        <div class="nri-form-title">📋 Fill trip details — your WhatsApp message will be pre-filled</div>
+        <div class="nri-row">
+          <div class="nri-field">
+            <label class="nri-label">📍 From City</label>
+            <input class="nri-input" id="nri-from" type="text" placeholder="e.g. Chennai" oninput="updateNriWABtn()"/>
+          </div>
+          <div class="nri-field">
+            <label class="nri-label">📍 To City</label>
+            <input class="nri-input" id="nri-to" type="text" placeholder="e.g. Coimbatore" oninput="updateNriWABtn()"/>
+          </div>
+        </div>
+        <div class="nri-row">
+          <div class="nri-field">
+            <label class="nri-label">📅 Travel Date</label>
+            <input class="nri-input" id="nri-date" type="date" oninput="updateNriWABtn()"/>
+          </div>
+          <div class="nri-field">
+            <label class="nri-label">👤 Contact Person Name</label>
+            <input class="nri-input" id="nri-name" type="text" placeholder="e.g. Amma / Appa" oninput="updateNriWABtn()"/>
+          </div>
+        </div>
+        <div class="nri-field">
+          <label class="nri-label">📱 WhatsApp for Callback &nbsp;<span class="nri-label-opt">(optional — your +91 or overseas number)</span></label>
+          <input class="nri-input" id="nri-phone" type="tel" placeholder="e.g. +91 98765 43210 or +44 7700 900123" oninput="onNriPhoneInput()"/>
+        </div>
+        <div class="nri-consent" id="nri-consent">
+          <input type="checkbox" id="nri-consent-check"/>
+          <label for="nri-consent-check">I allow <strong>DROPeZi</strong> to contact me on this number for my ride quote and booking confirmation.</label>
+        </div>
+        <div class="nri-form-skip">All fields optional — skip any and fill in on WhatsApp</div>
+      </div>
+
       <a href="#" id="dyn-wa-btn" class="dyn-wa-btn" target="_blank" rel="noopener">
         💬 &nbsp;Plan My Family's Trip on WhatsApp
       </a>
@@ -775,13 +829,66 @@ const COUNTRIES = {
 /* ─────────────────────────────────────────
    COUNTRY SELECTION LOGIC
 ───────────────────────────────────────── */
+var currentCountry = null;
+
 function buildWAUrl(msg) {
   return 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(msg);
+}
+
+function buildNriWAMsg(data) {
+  var from  = (document.getElementById('nri-from')  || {}).value || '';
+  var to    = (document.getElementById('nri-to')    || {}).value || '';
+  var date  = (document.getElementById('nri-date')  || {}).value || '';
+  var name  = (document.getElementById('nri-name')  || {}).value || '';
+  var phone = (document.getElementById('nri-phone') || {}).value || '';
+
+  from = from.trim(); to = to.trim(); name = name.trim(); phone = phone.trim();
+
+  var routeLine = 'Route: ' + (from || '[From City]') + ' → ' + (to || '[To City]');
+
+  var dateStr = '[Date]';
+  if (date) {
+    try {
+      var d = new Date(date + 'T00:00:00');
+      dateStr = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    } catch(e) { dateStr = date; }
+  }
+
+  var lines = [
+    'Hello DROPeZi 👋',
+    "I'm booking from " + data.label.replace(/ [\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF].*/, '').trim() + ' for my family in South India.',
+    '',
+    routeLine,
+    'Travel date: ' + dateStr,
+    'Contact person: ' + (name || '[Passenger Name]'),
+    phone ? 'Callback WhatsApp: ' + phone : 'Passenger contact: [+91 XXXXX XXXXX]',
+    '',
+    'Please share the fare and driver details. Thank you.'
+  ];
+
+  return lines.join('\n');
+}
+
+function updateNriWABtn() {
+  if (!currentCountry) return;
+  var btn = document.getElementById('dyn-wa-btn');
+  if (btn) btn.href = buildWAUrl(buildNriWAMsg(currentCountry));
+}
+
+function onNriPhoneInput() {
+  var phone = (document.getElementById('nri-phone') || {}).value || '';
+  var consent = document.getElementById('nri-consent');
+  if (consent) {
+    if (phone.trim().length > 0) consent.classList.add('show');
+    else consent.classList.remove('show');
+  }
+  updateNriWABtn();
 }
 
 function selectCountry(val) {
   const data = COUNTRIES[val];
   if (!data) return;
+  currentCountry = data;
 
   document.getElementById('dyn-country-name').textContent = data.label;
   document.getElementById('dyn-headline').textContent = data.headline;
@@ -789,12 +896,11 @@ function selectCountry(val) {
   document.getElementById('dyn-tz-note').textContent = data.tzNote;
   document.getElementById('dyn-booking').textContent = data.booking;
   document.getElementById('dyn-community').textContent = data.community;
-  document.getElementById('dyn-wa-btn').href = buildWAUrl(data.waMsg);
+  document.getElementById('dyn-wa-btn').href = buildWAUrl(buildNriWAMsg(data));
 
   const block = document.getElementById('dyn-block');
   const wasHidden = !block.classList.contains('visible');
   block.classList.add('visible');
-  // Always scroll panel into view on selection
   setTimeout(function() {
     block.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, wasHidden ? 120 : 60);
