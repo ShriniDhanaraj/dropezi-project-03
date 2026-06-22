@@ -44,10 +44,9 @@ img{max-width:100%}
 /* ── NAVBAR ── */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(14,31,61,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(240,165,0,0.2);padding:0 20px;height:64px;display:flex;align-items:center}
 .nav-inner{max-width:1140px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.nav-logo{display:flex;flex-direction:column;gap:2px}
-.nav-logo-text{color:var(--white);font-weight:800;font-size:1.25rem;letter-spacing:-0.5px;line-height:1}
-.nav-logo-text span{color:var(--gold)}
-.nav-back{font-size:0.72rem;color:rgba(255,255,255,0.45);transition:color 0.2s}
+.nav-logo{display:flex;flex-direction:row;align-items:center;gap:8px;flex-shrink:0}
+.nav-logo img{height:38px;width:auto;object-fit:contain;flex-shrink:0}
+.nav-back{font-size:0.7rem;color:rgba(255,255,255,0.4);white-space:nowrap;transition:color 0.2s}
 .nav-back:hover{color:var(--gold)}
 .nav-actions{display:flex;align-items:center;gap:10px}
 .nav-call{display:flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:8px 16px;border-radius:8px;white-space:nowrap;transition:background 0.2s}
@@ -214,7 +213,7 @@ img{max-width:100%}
     <a href="https://dropezi.com" class="nav-logo">
       <img src="https://dropezi-website.web.app/logo.webp" alt="DROPeZi Logo" onerror="this.style.display='none'"/>
       <img src="../navbar-logo-crop.png" alt="DROPeZi"/>
-      <div class="nav-back" style="display:block;font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:2px;">← dropezi.com</div>
+      <div class="nav-back">← dropezi.com</div>
     </a>
     <div class="nav-actions">
       <a href="https://wa.me/916382624456" class="nav-wa" target="_blank" rel="noopener" style="width:auto;padding:8px 16px;gap:8px;font-size:0.85rem;font-weight:700;">💬 &nbsp;WhatsApp Us</a>
