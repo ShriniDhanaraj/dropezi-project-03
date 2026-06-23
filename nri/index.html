@@ -161,6 +161,7 @@ img{max-width:100%}
 .hero-title{font-size:clamp(2rem,5.5vw,3.6rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:18px}
 .hero-title .hl{color:var(--gold)}
 .hero-sub{font-size:clamp(1rem,2.2vw,1.2rem);color:rgba(255,255,255,0.78);margin-bottom:12px;line-height:1.65;max-width:620px;margin-left:auto;margin-right:auto}
+.hero-tamil-line{font-size:clamp(0.95rem,2vw,1.1rem);color:rgba(240,165,0,0.8);margin-bottom:18px;font-weight:500;letter-spacing:0.3px}
 .hero-proof{font-size:0.82rem;color:rgba(255,255,255,0.45);margin-bottom:36px;letter-spacing:0.3px}
 .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
 .cta-wa{display:flex;align-items:center;gap:10px;background:var(--wa);color:var(--white);font-weight:800;font-size:1.05rem;padding:16px 32px;border-radius:var(--radius);box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:all 0.2s}
@@ -359,6 +360,7 @@ img{max-width:100%}
       Your Family in Tamil Nadu<br>
       Deserves a <span class="hl">Reliable Ride.</span>
     </h1>
+    <p class="hero-tamil-line">தமிழகத்தில் உங்கள் குடும்பத்திற்கு நம்பகமான பயணம்</p>
     <p class="hero-sub">
       Book intercity drop taxi across Tamil Nadu, Karnataka, and Kerala — right from your phone in the UK, UAE, Singapore, or the US. We handle everything on the ground.
     </p>
@@ -744,6 +746,7 @@ const COUNTRIES = {
     ].join('\n')
   },
   uae: {
+    key: 'uae',
     label: 'UAE 🇦🇪',
     headline: "You're only 1½ hrs behind IST — same-day bookings are easy to manage from Dubai.",
     tz: 'IST = UAE (GST) + 1:30',
@@ -863,17 +866,34 @@ function buildNriWAMsg(data) {
     } catch(e) { dateStr = date; }
   }
 
-  var lines = [
-    'Hello DROPeZi 👋',
-    "I'm booking from " + data.label.replace(/ [\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF].*/, '').trim() + ' for my family in South India.',
-    '',
-    routeLine,
-    'Travel date: ' + dateStr,
-    'Contact person: ' + (name || '[Passenger Name]'),
-    phone ? 'Callback WhatsApp: ' + phone : 'Passenger contact: [+91 XXXXX XXXXX]',
-    '',
-    'Please share the fare and driver details. Thank you.'
-  ];
+  var lines;
+  if (data.key === 'uae') {
+    // Tamil message for UAE (labourers & families from deep south TN)
+    var tamilRoute = 'பயண வழி: ' + (from || '[புறப்படும் நகரம்]') + ' → ' + (to || '[வரும் நகரம்]');
+    lines = [
+      'வணக்கம் DROPeZi 👋',
+      'நான் UAE-லிருந்து தமிழ்நாட்டில் உள்ள என் குடும்பத்திற்காக பயண முன்பதிவு செய்கிறேன்.',
+      '',
+      tamilRoute,
+      'பயண தேதி: ' + dateStr,
+      'தொடர்பு நபர்: ' + (name || '[பயணி பெயர்]'),
+      phone ? 'திரும்ப அழைக்க WhatsApp: ' + phone : 'பயணி தொடர்பு: [+91 XXXXX XXXXX]',
+      '',
+      'கட்டணம் மற்றும் வாகன விவரங்கள் தெரிவிக்கவும். நன்றி.'
+    ];
+  } else {
+    lines = [
+      'Hello DROPeZi 👋',
+      "I'm booking from " + data.label.replace(/ [\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF].*/, '').trim() + ' for my family in South India.',
+      '',
+      routeLine,
+      'Travel date: ' + dateStr,
+      'Contact person: ' + (name || '[Passenger Name]'),
+      phone ? 'Callback WhatsApp: ' + phone : 'Passenger contact: [+91 XXXXX XXXXX]',
+      '',
+      'Please share the fare and driver details. Thank you.'
+    ];
+  }
 
   return lines.join('\n');
 }
