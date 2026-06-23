@@ -60,11 +60,16 @@ img{max-width:100%}
 .nav-wa:hover{background:var(--wa-dark)}
 .nav-nri{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.8);font-size:0.78rem;font-weight:600;padding:6px 12px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;white-space:nowrap;transition:all 0.2s;letter-spacing:0.3px}
 .nav-nri:hover{color:var(--gold);border-color:rgba(240,165,0,0.5)}
-.nav-nri .nri-label{display:inline}
+.nri-globe-wrap{display:flex;flex-direction:column;align-items:center;line-height:1;flex-shrink:0}
+.nri-globe{display:inline-block;font-size:1.05rem;animation:globeSpin 5s linear infinite}
+@keyframes globeSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.nri-tag{display:none;font-size:0.44rem;font-weight:800;color:rgba(255,255,255,0.72);letter-spacing:1.2px;margin-top:1px;line-height:1}
+.nav-nri .nri-label{display:inline;font-size:0.78rem}
 @media(max-width:768px){
-  .nav-nri{padding:6px 8px;font-size:1.15rem;border-radius:8px;gap:0;overflow:hidden;max-width:38px;transition:max-width 0.45s ease,padding 0.45s ease,gap 0.45s ease,border-color 0.2s}
-  .nav-nri .nri-label{display:inline;opacity:0;max-width:0;overflow:hidden;font-size:0.78rem;transition:opacity 0.35s ease,max-width 0.45s ease}
-  .nav-nri.nri-intro{max-width:160px;padding:6px 12px;gap:5px;border-color:rgba(240,165,0,0.5)}
+  .nav-nri{padding:4px 8px;gap:0;overflow:hidden;max-width:44px;transition:max-width 0.45s ease,padding 0.45s ease,gap 0.45s ease,border-color 0.2s}
+  .nri-tag{display:block}
+  .nav-nri .nri-label{display:inline;opacity:0;max-width:0;overflow:hidden;white-space:nowrap;transition:opacity 0.35s ease,max-width 0.45s ease}
+  .nav-nri.nri-intro{max-width:160px;padding:4px 11px;gap:5px;border-color:rgba(240,165,0,0.5)}
   .nav-nri.nri-intro .nri-label{opacity:1;max-width:120px}
 }
 
@@ -361,7 +366,7 @@ img{max-width:100%}
         <option value="kn">ಕನ್ನಡ</option>
         <option value="ml">മലയാളം</option>
       </select>
-      <a href="https://dropezi.com/nri" class="nav-nri">🌍<span class="nri-label">&nbsp;NRI Families</span></a>
+      <a href="https://dropezi.com/nri" class="nav-nri"><span class="nri-globe-wrap"><span class="nri-globe">🌍</span><span class="nri-tag">NRI</span></span><span class="nri-label">&nbsp;NRI Families</span></a>
       <a href="tel:+916382624456" class="nav-call">
         <span>📞</span><span class="call-text" data-i18n="nav_call">Call Now</span>
       </a>
