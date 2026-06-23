@@ -2118,6 +2118,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
+// bfcache fix — iOS Safari restores page from frozen snapshot on back/forward nav;
+// DOMContentLoaded doesn't re-fire, so re-run setLang to repopulate i18n content.
+window.addEventListener('pageshow', function(e) {
+  if (e.persisted) {
+    setLang(currentLang || 'en');
+  }
+});
 </script>
 </body>
 </html>

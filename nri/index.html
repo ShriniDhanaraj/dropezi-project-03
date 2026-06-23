@@ -482,12 +482,16 @@ img{max-width:100%}
           </div>
         </div>
         <div class="nri-field">
-          <label class="nri-label">📱 WhatsApp for Callback &nbsp;<span class="nri-label-opt">(optional — your +91 or overseas number)</span></label>
-          <input class="nri-input" id="nri-phone" type="tel" placeholder="e.g. +91 98765 43210 or +44 7700 900123" oninput="onNriPhoneInput()"/>
+          <label class="nri-label">📱 Passenger's India Mobile &nbsp;<span class="nri-label-opt">(optional — +91 number, for DROPeZi to coordinate pickup)</span></label>
+          <input class="nri-input" id="nri-phone" type="tel" placeholder="+91 98765 43210" oninput="onNriPhoneInput()"/>
         </div>
         <div class="nri-consent" id="nri-consent">
           <input type="checkbox" id="nri-consent-check"/>
-          <label for="nri-consent-check">I allow <strong>DROPeZi</strong> to contact me on this number for my ride quote and booking confirmation.</label>
+          <label for="nri-consent-check">I allow <strong>DROPeZi</strong> to contact the passenger on this +91 number for pickup coordination and ride updates.</label>
+        </div>
+        <div class="nri-consent show" id="nri-consent-nurture" style="margin-top:8px">
+          <input type="checkbox" id="nri-consent-nurture-check"/>
+          <label for="nri-consent-nurture-check">Keep me updated — occasional travel tips and special fares for South India trips. &nbsp;<span style="color:rgba(255,255,255,0.4);font-size:0.72rem">(We never spam. Unsubscribe anytime.)</span></label>
         </div>
         <div class="nri-form-skip">All fields optional — skip any and fill in on WhatsApp</div>
       </div>
