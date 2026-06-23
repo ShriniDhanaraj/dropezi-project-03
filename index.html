@@ -61,7 +61,12 @@ img{max-width:100%}
 .nav-nri{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.8);font-size:0.78rem;font-weight:600;padding:6px 12px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;white-space:nowrap;transition:all 0.2s;letter-spacing:0.3px}
 .nav-nri:hover{color:var(--gold);border-color:rgba(240,165,0,0.5)}
 .nav-nri .nri-label{display:inline}
-@media(max-width:768px){.nav-nri{padding:6px 8px;font-size:1.15rem;border-radius:8px;gap:0}.nav-nri .nri-label{display:none}}
+@media(max-width:768px){
+  .nav-nri{padding:6px 8px;font-size:1.15rem;border-radius:8px;gap:0;overflow:hidden;max-width:38px;transition:max-width 0.45s ease,padding 0.45s ease,gap 0.45s ease,border-color 0.2s}
+  .nav-nri .nri-label{display:inline;opacity:0;max-width:0;overflow:hidden;font-size:0.78rem;transition:opacity 0.35s ease,max-width 0.45s ease}
+  .nav-nri.nri-intro{max-width:160px;padding:6px 12px;gap:5px;border-color:rgba(240,165,0,0.5)}
+  .nav-nri.nri-intro .nri-label{opacity:1;max-width:120px}
+}
 
 /* ── HERO ── */
 .hero{min-height:100vh;background:linear-gradient(160deg,#0e1f3d 0%,#1a3260 45%,#0d3320 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 20px 60px;position:relative;overflow:hidden}
@@ -2031,6 +2036,19 @@ document.addEventListener('DOMContentLoaded', function() {
       navbar.style.background = 'rgba(14,31,61,0.97)';
     }
   });
+
+  // NRI button intro animation — mobile only
+  if (window.innerWidth <= 768) {
+    var nriBtn = document.querySelector('.nav-nri');
+    if (nriBtn) {
+      setTimeout(function() {
+        nriBtn.classList.add('nri-intro');
+        setTimeout(function() {
+          nriBtn.classList.remove('nri-intro');
+        }, 2500);
+      }, 900);
+    }
+  }
 });
 </script>
 </body>
