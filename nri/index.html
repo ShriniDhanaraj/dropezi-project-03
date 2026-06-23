@@ -939,6 +939,53 @@ function toggleFaq(qEl) {
 }
 
 /* ─────────────────────────────────────────
+   CITY SUGGESTIONS (canonical, prefix-match first)
+───────────────────────────────────────── */
+var NRI_CITY_SUGGESTIONS = [
+  // Tamil Nadu
+  { value:'Chennai',        display:'Chennai, Tamil Nadu' },
+  { value:'Madurai',        display:'Madurai, Tamil Nadu' },
+  { value:'Coimbatore',     display:'Coimbatore, Tamil Nadu' },
+  { value:'Trichy',         display:'Trichy, Tamil Nadu' },
+  { value:'Salem',          display:'Salem, Tamil Nadu' },
+  { value:'Vellore',        display:'Vellore, Tamil Nadu' },
+  { value:'Ooty',           display:'Ooty, Tamil Nadu' },
+  { value:'Thanjavur',      display:'Thanjavur, Tamil Nadu' },
+  { value:'Tirunelveli',    display:'Tirunelveli, Tamil Nadu' },
+  { value:'Kanyakumari',    display:'Kanyakumari, Tamil Nadu' },
+  { value:'Erode',          display:'Erode, Tamil Nadu' },
+  { value:'Tiruppur',       display:'Tiruppur, Tamil Nadu' },
+  { value:'Dindigul',       display:'Dindigul, Tamil Nadu' },
+  { value:'Nagercoil',      display:'Nagercoil, Tamil Nadu' },
+  { value:'Cuddalore',      display:'Cuddalore, Tamil Nadu' },
+  { value:'Kumbakonam',     display:'Kumbakonam, Tamil Nadu' },
+  { value:'Karur',          display:'Karur, Tamil Nadu' },
+  { value:'Namakkal',       display:'Namakkal, Tamil Nadu' },
+  // Puducherry
+  { value:'Pondicherry',    display:'Pondicherry, Puducherry' },
+  // Karnataka
+  { value:'Bangalore',      display:'Bangalore, Karnataka' },
+  { value:'Mysore',         display:'Mysore, Karnataka' },
+  { value:'Mangalore',      display:'Mangalore, Karnataka' },
+  { value:'Hubli',          display:'Hubli, Karnataka' },
+  // Kerala
+  { value:'Kochi',          display:'Kochi, Kerala' },
+  { value:'Trivandrum',     display:'Trivandrum, Kerala' },
+  { value:'Kozhikode',      display:'Kozhikode, Kerala' },
+  { value:'Thrissur',       display:'Thrissur, Kerala' },
+  { value:'Palakkad',       display:'Palakkad, Kerala' },
+  { value:'Kollam',         display:'Kollam, Kerala' },
+  { value:'Alappuzha',      display:'Alappuzha, Kerala' },
+  { value:'Kannur',         display:'Kannur, Kerala' },
+  // Andhra Pradesh / Telangana
+  { value:'Tirupati',       display:'Tirupati, Andhra Pradesh' },
+  { value:'Hyderabad',      display:'Hyderabad, Telangana' },
+  { value:'Vijayawada',     display:'Vijayawada, Andhra Pradesh' },
+  { value:'Vizag',          display:'Vizag, Andhra Pradesh' },
+  { value:'Guntur',         display:'Guntur, Andhra Pradesh' },
+];
+
+/* ─────────────────────────────────────────
    CITY AUTOCOMPLETE (Nominatim, India)
 ───────────────────────────────────────── */
 function setupNriCityAutocomplete(inputId) {
@@ -960,15 +1007,17 @@ function setupNriCityAutocomplete(inputId) {
   }
 
   function renderOptions(suggestions) {
+    // suggestions: array of { value, display } objects
     dropdown.innerHTML = '';
     if (!suggestions.length) { hideDropdown(); return; }
     suggestions.forEach(function(s) {
       var opt = document.createElement('div');
       opt.className = 'nri-city-option';
-      opt.textContent = s;
+      opt.textContent = s.display;
+      opt.setAttribute('data-value', s.value);
       opt.addEventListener('mousedown', function(e) {
         e.preventDefault();
-        input.value = s;
+        input.value = s.value;
         hideDropdown();
         updateNriWABtn();
       });
@@ -982,29 +1031,39 @@ function setupNriCityAutocomplete(inputId) {
     clearTimeout(debounceTimer);
     var query = this.value.trim();
     if (query.length < 3) { hideDropdown(); return; }
+    var q = query.toLowerCase();
+
+    // 1. Prefix-match hardcoded cities first
+    var hardcoded = NRI_CITY_SUGGESTIONS.filter(function(c) {
+      return c.value.toLowerCase().indexOf(q) === 0;
+    }).slice(0, 5);
+    if (hardcoded.length >= 3) { renderOptions(hardcoded); return; }
+
+    // 2. Fallback: Nominatim with client-side prefix filter
     debounceTimer = setTimeout(function() {
       var url = 'https://nominatim.openstreetmap.org/search?q=' +
         encodeURIComponent(query + ' India') +
-        '&format=json&limit=8&addressdetails=1&countrycodes=in';
+        '&format=json&limit=10&addressdetails=1&countrycodes=in';
       fetch(url, { headers: { 'Accept-Language': 'en' } })
         .then(function(r) { return r.json(); })
         .then(function(data) {
           var seen = {};
-          var results = [];
+          hardcoded.forEach(function(c) { seen[c.value.toLowerCase()] = true; });
+          var nominatim = [];
           data.forEach(function(item) {
             var addr = item.address || {};
             var city = addr.city || addr.town || addr.village || addr.county || '';
             var state = addr.state || '';
             if (!city) return;
-            var label = state ? city + ', ' + state : city;
-            if (!seen[label.toLowerCase()]) {
-              seen[label.toLowerCase()] = true;
-              results.push(label);
-            }
+            if (city.toLowerCase().indexOf(q) !== 0) return; // prefix filter
+            if (seen[city.toLowerCase()]) return;
+            seen[city.toLowerCase()] = true;
+            nominatim.push({ value: city, display: state ? city + ', ' + state : city });
           });
-          renderOptions(results.slice(0, 5));
+          var combined = hardcoded.concat(nominatim.slice(0, 5 - hardcoded.length));
+          if (combined.length) renderOptions(combined); else hideDropdown();
         })
-        .catch(function() { hideDropdown(); });
+        .catch(function() { if (hardcoded.length) renderOptions(hardcoded); else hideDropdown(); });
     }, 320);
   });
 
@@ -1024,7 +1083,7 @@ function setupNriCityAutocomplete(inputId) {
     } else if (e.key === 'Enter') {
       if (currentFocus >= 0 && opts[currentFocus]) {
         e.preventDefault();
-        input.value = opts[currentFocus].textContent;
+        input.value = opts[currentFocus].getAttribute('data-value') || opts[currentFocus].textContent;
         hideDropdown();
         updateNriWABtn();
       }
