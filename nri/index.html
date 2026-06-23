@@ -323,6 +323,11 @@ img{max-width:100%}
 @media(max-width:400px){
   .country-grid{grid-template-columns:repeat(2,1fr)}
 }
+/* ── City autocomplete dropdown (NRI form) ── */
+.nri-city-dropdown{display:none;position:absolute;top:100%;left:0;right:0;background:#1a3260;border:1px solid rgba(240,165,0,0.45);border-top:none;border-radius:0 0 10px 10px;z-index:300;max-height:210px;overflow-y:auto}
+.nri-city-option{padding:10px 14px;color:rgba(255,255,255,0.85);font-size:0.88rem;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.07)}
+.nri-city-option:last-child{border-bottom:none}
+.nri-city-option:hover,.nri-city-option.nci-focused{background:rgba(240,165,0,0.18);color:#fff}
 </style>
 </head>
 <body>
@@ -453,12 +458,12 @@ img{max-width:100%}
         <div class="nri-form-title">📋 Fill trip details — your WhatsApp message will be pre-filled</div>
         <div class="nri-row">
           <div class="nri-field">
-            <label class="nri-label">📍 From City</label>
-            <input class="nri-input" id="nri-from" type="text" placeholder="e.g. Chennai" oninput="updateNriWABtn()"/>
+            <label class="nri-label">📍 Pickup City</label>
+            <input class="nri-input" id="nri-from" type="text" placeholder="Type 3 letters — e.g. Che…" oninput="updateNriWABtn()" autocomplete="off"/>
           </div>
           <div class="nri-field">
-            <label class="nri-label">📍 To City</label>
-            <input class="nri-input" id="nri-to" type="text" placeholder="e.g. Coimbatore" oninput="updateNriWABtn()"/>
+            <label class="nri-label">📍 Drop City</label>
+            <input class="nri-input" id="nri-to" type="text" placeholder="Type 3 letters — e.g. Coi…" oninput="updateNriWABtn()" autocomplete="off"/>
           </div>
         </div>
         <div class="nri-row">
@@ -932,6 +937,128 @@ function toggleFaq(qEl) {
     answerEl.classList.add('open');
   }
 }
+
+/* ─────────────────────────────────────────
+   CITY AUTOCOMPLETE (Nominatim, India)
+───────────────────────────────────────── */
+function setupNriCityAutocomplete(inputId) {
+  var input = document.getElementById(inputId);
+  if (!input) return;
+  var wrapper = input.parentNode;
+  wrapper.style.position = 'relative';
+  var dropdown = document.createElement('div');
+  dropdown.className = 'nri-city-dropdown';
+  wrapper.appendChild(dropdown);
+
+  var debounceTimer;
+  var currentFocus = -1;
+
+  function hideDropdown() {
+    dropdown.style.display = 'none';
+    dropdown.innerHTML = '';
+    currentFocus = -1;
+  }
+
+  function renderOptions(suggestions) {
+    dropdown.innerHTML = '';
+    if (!suggestions.length) { hideDropdown(); return; }
+    suggestions.forEach(function(s) {
+      var opt = document.createElement('div');
+      opt.className = 'nri-city-option';
+      opt.textContent = s;
+      opt.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        input.value = s;
+        hideDropdown();
+        updateNriWABtn();
+      });
+      dropdown.appendChild(opt);
+    });
+    dropdown.style.display = 'block';
+    currentFocus = -1;
+  }
+
+  input.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    var query = this.value.trim();
+    if (query.length < 3) { hideDropdown(); return; }
+    debounceTimer = setTimeout(function() {
+      var url = 'https://nominatim.openstreetmap.org/search?q=' +
+        encodeURIComponent(query + ' India') +
+        '&format=json&limit=8&addressdetails=1&countrycodes=in';
+      fetch(url, { headers: { 'Accept-Language': 'en' } })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var seen = {};
+          var results = [];
+          data.forEach(function(item) {
+            var addr = item.address || {};
+            var city = addr.city || addr.town || addr.village || addr.county || '';
+            var state = addr.state || '';
+            if (!city) return;
+            var label = state ? city + ', ' + state : city;
+            if (!seen[label.toLowerCase()]) {
+              seen[label.toLowerCase()] = true;
+              results.push(label);
+            }
+          });
+          renderOptions(results.slice(0, 5));
+        })
+        .catch(function() { hideDropdown(); });
+    }, 320);
+  });
+
+  input.addEventListener('keydown', function(e) {
+    var opts = dropdown.querySelectorAll('.nri-city-option');
+    if (!opts.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      currentFocus = Math.min(currentFocus + 1, opts.length - 1);
+      opts.forEach(function(o) { o.classList.remove('nci-focused'); });
+      opts[currentFocus].classList.add('nci-focused');
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      currentFocus = Math.max(currentFocus - 1, 0);
+      opts.forEach(function(o) { o.classList.remove('nci-focused'); });
+      opts[currentFocus].classList.add('nci-focused');
+    } else if (e.key === 'Enter') {
+      if (currentFocus >= 0 && opts[currentFocus]) {
+        e.preventDefault();
+        input.value = opts[currentFocus].textContent;
+        hideDropdown();
+        updateNriWABtn();
+      }
+    } else if (e.key === 'Escape') {
+      hideDropdown();
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!wrapper.contains(e.target)) hideDropdown();
+  });
+}
+
+/* Set future-only date constraint and init autocomplete on load */
+/* Default = India's current date (IST = UTC+5:30) regardless of visitor's timezone */
+(function() {
+  function getISTDateStr() {
+    var utcMs = Date.now() + new Date().getTimezoneOffset() * 60000;
+    var istMs = utcMs + 330 * 60000; // IST = UTC + 5h30m
+    var d = new Date(istMs);
+    var yyyy = d.getFullYear();
+    var mm = String(d.getMonth() + 1).padStart(2, '0');
+    var dd = String(d.getDate()).padStart(2, '0');
+    return yyyy + '-' + mm + '-' + dd;
+  }
+  var dateInput = document.getElementById('nri-date');
+  if (dateInput) {
+    var todayIST = getISTDateStr();
+    dateInput.min   = todayIST;  // block past dates
+    dateInput.value = todayIST;  // default = today in India
+  }
+  setupNriCityAutocomplete('nri-from');
+  setupNriCityAutocomplete('nri-to');
+})();
 
 /* ─────────────────────────────────────────
    HERO CTA + FINAL CTA — scroll to country selector
