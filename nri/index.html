@@ -145,13 +145,13 @@ img{max-width:100%}
 .nav-logo img{height:38px;width:auto;object-fit:contain;flex-shrink:0}
 .nav-back{font-size:0.7rem;color:rgba(255,255,255,0.4);white-space:nowrap;transition:color 0.2s}
 .nav-back:hover{color:var(--gold)}
-.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .nav-call{display:flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:8px 16px;border-radius:8px;white-space:nowrap;transition:background 0.2s}
 .nav-call:hover{background:var(--gold-dark)}
 .nav-wa{display:flex;align-items:center;justify-content:center;gap:7px;height:38px;background:var(--wa);border-radius:8px;font-size:0.85rem;font-weight:700;padding:0 14px;white-space:nowrap;transition:background 0.2s}
 .nav-wa:hover{background:var(--wa-dark)}
 .nav-wa .wa-text{display:inline}
-@media(max-width:480px){.nav-wa{width:38px;padding:0;font-size:1.15rem}.nav-wa .wa-text{display:none}}
+@media(max-width:480px){.nav-wa{width:38px;padding:0;font-size:1.15rem}.nav-wa .wa-text{display:none}.nav-back{display:none}}
 
 /* ── HERO ── */
 .hero{min-height:90vh;background:linear-gradient(155deg,#0e1f3d 0%,#1a3260 50%,#0d3320 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 20px 60px;position:relative;overflow:hidden}

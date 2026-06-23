@@ -51,7 +51,7 @@ img{max-width:100%}
 .nav-logo img{height:40px;width:auto}
 .nav-logo-text{color:var(--white);font-weight:800;font-size:1.25rem;letter-spacing:-0.5px}
 .nav-logo-text span{color:var(--gold)}
-.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .lang-select{background:rgba(255,255,255,0.1);border:1px solid rgba(240,165,0,0.4);color:var(--white);padding:6px 10px;border-radius:8px;font-size:0.82rem;cursor:pointer;outline:none;font-family:inherit}
 .lang-select option{background:var(--navy);color:var(--white)}
 .nav-call{display:flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;padding:8px 16px;border-radius:8px;white-space:nowrap;transition:background 0.2s}
@@ -61,8 +61,8 @@ img{max-width:100%}
 .nav-nri{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.8);font-size:0.78rem;font-weight:600;padding:6px 12px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;white-space:nowrap;transition:all 0.2s;letter-spacing:0.3px}
 .nav-nri:hover{color:var(--gold);border-color:rgba(240,165,0,0.5)}
 .nri-globe-wrap{display:flex;flex-direction:column;align-items:center;line-height:1;flex-shrink:0}
-.nri-globe{display:inline-block;font-size:1.05rem;animation:globeSpin 5s linear infinite}
-@keyframes globeSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.nri-globe{display:inline-block;font-size:1.05rem;animation:globeSpinH 4s linear infinite}
+@keyframes globeSpinH{from{transform:perspective(80px) rotateY(0deg)}to{transform:perspective(80px) rotateY(360deg)}}
 .nri-tag{display:none;font-size:0.44rem;font-weight:800;color:rgba(255,255,255,0.72);letter-spacing:1.2px;margin-top:1px;line-height:1}
 .nav-nri .nri-label{display:inline;font-size:0.78rem}
 @media(max-width:768px){
