@@ -15,6 +15,19 @@
 <link rel="icon" type="image/x-icon" href="./favicon.ico"/>
 <link rel="icon" type="image/png" href="./favicon.png"/>
 <link rel="apple-touch-icon" href="./favicon.png"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How is the fare calculated?","acceptedAnswer":{"@type":"Answer","text":"Sedan at ₹15/km, SUV at ₹20/km. A driver charge of ₹400/day is added. Tolls and state permit fees are included in your quote. Minimum 130 km is billed."}},
+{"@type":"Question","name":"What is the permit charge for inter-state travel?","acceptedAnswer":{"@type":"Answer","text":"TN to other state: ₹1,000. Other state to TN: ₹800. Within Tamil Nadu including Puducherry: ₹0. Non-TN interstate routes such as KA to KL: ₹1,000."}},
+{"@type":"Question","name":"How do I book a DROPeZi taxi?","acceptedAnswer":{"@type":"Answer","text":"WhatsApp +91 63826 24456 or call. Share your pickup city, drop city, date and time. We confirm the fare in 2 minutes. No app or form needed."}},
+{"@type":"Question","name":"When do I pay?","acceptedAnswer":{"@type":"Answer","text":"After the trip, directly to the driver by cash or UPI. No advance payment required."}},
+{"@type":"Question","name":"What is DROPeZi's cancellation policy?","acceptedAnswer":{"@type":"Answer","text":"Free cancellation if cancelled at least 2 hours before the trip. Cancellation after the trip starts — driver charge plus distance covered applies."}},
+{"@type":"Question","name":"What vehicles does DROPeZi offer?","acceptedAnswer":{"@type":"Answer","text":"Sedan (Swift Dzire or Etios, up to 4 passengers) at ₹15/km, SUV (Innova or Ertiga, up to 6 passengers) at ₹20/km, and Premium vehicles on request."}},
+{"@type":"Question","name":"Are there any hidden charges?","acceptedAnswer":{"@type":"Answer","text":"No. The quoted fare is the final fare. Toll and permit charges are included. Only parking fees, if any, are paid directly by the customer."}},
+{"@type":"Question","name":"Is DROPeZi available 24/7?","acceptedAnswer":{"@type":"Answer","text":"Yes. Call or WhatsApp +91 63826 24456 at any time, day or night."}},
+{"@type":"Question","name":"Can I book a round trip with DROPeZi?","acceptedAnswer":{"@type":"Answer","text":"Yes. Round trips receive a 10% discount on the ride fare. Use the Fare Estimator on the website and select Round Trip."}}
+]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -313,6 +326,45 @@ img{max-width:100%}
 @media(max-width:768px){.float-bar{display:flex}}
 .float-call{flex:1;background:var(--gold);display:flex;align-items:center;justify-content:center;gap:8px;color:var(--navy);font-weight:800;font-size:0.95rem;font-family:'Noto Sans Tamil','Inter',sans-serif}
 .float-wa{flex:1;background:var(--wa);display:flex;align-items:center;justify-content:center;gap:8px;color:var(--white);font-weight:800;font-size:0.95rem;font-family:'Noto Sans Tamil','Inter',sans-serif}
+
+/* ── FAQ ACCORDION ── */
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border-bottom:1px solid #e8e4d9}
+.faq-item:first-child{border-top:1px solid #e8e4d9}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:18px 48px 18px 0;font-size:1rem;font-weight:700;color:var(--navy);cursor:pointer;position:relative;font-family:'Noto Sans Tamil','Inter',sans-serif;transition:color 0.2s;display:block;line-height:1.4}
+.faq-q:hover{color:var(--gold-dark)}
+.faq-icon{position:absolute;right:0;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold);font-size:1.25rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:transform 0.25s,background 0.2s;line-height:1;flex-shrink:0}
+.faq-item.open .faq-icon{transform:translateY(-50%) rotate(45deg);background:var(--gold);color:var(--navy)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s ease;font-size:0.92rem;color:var(--text-mid);line-height:1.7;font-family:'Noto Sans Tamil','Inter',sans-serif;padding-right:48px}
+.faq-item.open .faq-a{max-height:240px;padding-bottom:18px}
+
+/* ── CHATBOT WIDGET ── */
+.chatbot-toggle{position:fixed;right:20px;bottom:80px;z-index:992;width:56px;height:56px;border-radius:50%;background:var(--navy);border:2.5px solid var(--gold);color:var(--white);font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(14,31,61,0.45);transition:transform 0.2s,box-shadow 0.2s;padding:0}
+.chatbot-toggle:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(14,31,61,0.55)}
+@media(min-width:769px){.chatbot-toggle{bottom:28px;right:24px}}
+.chatbot-panel{position:fixed;right:20px;bottom:148px;z-index:992;width:340px;max-height:520px;background:var(--navy);border:1px solid rgba(240,165,0,0.4);border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.45);display:none;flex-direction:column;overflow:hidden;font-family:'Noto Sans Tamil','Inter',sans-serif}
+.chatbot-panel.open{display:flex}
+@media(max-width:768px){.chatbot-panel{right:0;left:0;bottom:62px;width:100%;border-radius:16px 16px 0 0;max-height:65vh}}
+@media(min-width:769px){.chatbot-panel{bottom:96px;right:24px}}
+.chatbot-header{background:linear-gradient(90deg,var(--navy-light),#0e1f3d);padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(240,165,0,0.3);flex-shrink:0}
+.chatbot-avatar{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.chatbot-header-info{flex:1;min-width:0}
+.chatbot-header-name{color:var(--white);font-weight:700;font-size:0.92rem}
+.chatbot-header-status{color:var(--gold);font-size:0.72rem;display:flex;align-items:center;gap:5px;margin-top:2px}
+.chatbot-header-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#40916c;flex-shrink:0}
+.chatbot-close{background:none;border:none;color:rgba(255,255,255,0.55);font-size:1.3rem;cursor:pointer;padding:4px;line-height:1;transition:color 0.2s;flex-shrink:0}
+.chatbot-close:hover{color:var(--white)}
+.chatbot-msgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.chatbot-msgs::-webkit-scrollbar{width:3px}
+.chatbot-msgs::-webkit-scrollbar-thumb{background:rgba(240,165,0,0.25);border-radius:4px}
+.chat-msg{max-width:90%;padding:10px 13px;border-radius:12px;font-size:0.84rem;line-height:1.55;word-break:break-word}
+.chat-msg-bot{background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.9);align-self:flex-start;border-radius:4px 12px 12px 12px}
+.chat-msg-user{background:rgba(240,165,0,0.18);color:var(--gold);align-self:flex-end;border-radius:12px 4px 12px 12px}
+.chatbot-chips{padding:8px 12px 12px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.07)}
+.chat-chip{background:rgba(255,255,255,0.07);border:1px solid rgba(240,165,0,0.3);color:rgba(255,255,255,0.85);padding:7px 11px;border-radius:20px;font-size:0.78rem;cursor:pointer;transition:all 0.18s;font-family:'Noto Sans Tamil','Inter',sans-serif;white-space:nowrap}
+.chat-chip:hover{background:rgba(240,165,0,0.2);border-color:var(--gold);color:var(--white)}
+.chat-chip-wa{background:var(--wa);border-color:var(--wa);color:var(--white)}
+.chat-chip-wa:hover{background:var(--wa-dark);border-color:var(--wa-dark)}
 
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
@@ -897,6 +949,19 @@ img{max-width:100%}
 
 <!-- ══ TESTIMONIALS — hidden until Google/JustDial reviews available ══ -->
 
+<!-- ══ FAQ ══ -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <h2 class="section-title" id="faq-section-title">Frequently Asked Questions</h2>
+    <div class="section-accent"></div>
+    <div class="faq-list" id="faqAccordion"></div>
+    <p style="text-align:center;margin-top:36px;font-size:0.9rem;color:var(--text-mid)">
+      <span id="faq-cta-text">Still have questions?</span>&nbsp;
+      <a href="https://wa.me/916382624456" target="_blank" style="color:var(--wa);font-weight:700;text-decoration:underline" id="faq-wa-link">WhatsApp us →</a>
+    </p>
+  </div>
+</section>
+
 <!-- ══ COVERAGE ══ -->
 <section class="section section-alt" id="coverage">
   <div class="container">
@@ -940,6 +1005,21 @@ img{max-width:100%}
   </div>
   <div class="footer-copy">© 2025 DROPeZi. All rights reserved. | Tamil Nadu, India | DPDP Act Compliant</div>
 </footer>
+
+<!-- ══ CHATBOT WIDGET ══ -->
+<button class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()" aria-label="Chat with DROPeZi" title="Chat with us">🤖</button>
+<div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-label="DROPeZi Chat">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar">🚗</div>
+    <div class="chatbot-header-info">
+      <div class="chatbot-header-name">DROPeZi Assistant</div>
+      <div class="chatbot-header-status" id="chatbot-status-line">Online — instant replies</div>
+    </div>
+    <button class="chatbot-close" onclick="toggleChatbot()" aria-label="Close chat">✕</button>
+  </div>
+  <div class="chatbot-msgs" id="chatbotMsgs"></div>
+  <div class="chatbot-chips" id="chatbotChips"></div>
+</div>
 
 <!-- ══ FLOATING MOBILE BAR ══ -->
 <div class="float-bar">
@@ -1234,8 +1314,12 @@ function setLang(lang) {
   // Update html lang
   document.documentElement.lang = lang;
 
-  // Re-render fare table with new language
+  // Re-render fare table and FAQ with new language
   renderFareTable();
+  renderFAQ();
+  // Reset chatbot so it starts fresh in new language
+  const chatMsgs = document.getElementById('chatbotMsgs');
+  if (chatMsgs) chatMsgs.innerHTML = '';
 }
 
 // ══════════════════════════════════════════════
@@ -2118,6 +2202,308 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
+// ══════════════════════════════════════════════
+// FAQ ACCORDION
+// ══════════════════════════════════════════════
+const FAQ_TITLES = {
+  ta:"அடிக்கடி கேட்கப்படும் கேள்விகள்",
+  en:"Frequently Asked Questions",
+  hi:"अक्सर पूछे जाने वाले प्रश्न",
+  kn:"ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು",
+  ml:"പതിവായി ചോദിക്കുന്ന ചോദ്യങ്ങൾ"
+};
+const FAQ_CTA = {
+  ta:"இன்னும் கேள்விகள் உள்ளதா?",en:"Still have questions?",hi:"और सवाल हैं?",kn:"ಇನ್ನೂ ಪ್ರಶ್ನೆಗಳಿವೆಯೇ?",ml:"ഇനിയും ചോദ്യങ്ങളുണ്ടോ?"
+};
+const FAQ_DATA = {
+  ta:[
+    {q:"கட்டணம் எவ்வாறு கணக்கிடப்படுகிறது?",a:"Sedan-க்கு ₹15/km, SUV-க்கு ₹20/km. ஒவ்வொரு நாளும் ₹400 ஓட்டுனர் கட்டணம் சேர்க்கப்படும். Toll மற்றும் Permit மேற்கோளில் சேர்க்கப்பட்டிருக்கும். குறைந்தபட்சம் 130 km கட்டணம் வசூலிக்கப்படும்."},
+    {q:"மாநில வரம்பு கடக்கும் போது Permit கட்டணம் என்ன?",a:"TN-லிருந்து வேறு மாநிலத்திற்கு: ₹1,000. வேறு மாநிலத்திலிருந்து TN-க்கு: ₹800. TN-க்குள் பயணம் (Puducherry உட்பட): ₹0. KA ↔ KL / KA ↔ AP போன்ற மாநில இடை பயணம்: ₹1,000."},
+    {q:"முன்பதிவு எவ்வாறு செய்வது?",a:"WhatsApp +91 63826 24456 அல்லது அழைப்பு மூலம் முன்பதிவு செய்யலாம். படிவங்கள் தேவையில்லை — ஏறும் இடம், இறங்கும் இடம், தேதி & நேரம் கொடுங்கள். 2 நிமிடத்தில் கட்டண உறுதி கிடைக்கும்."},
+    {q:"பணம் எப்போது செலுத்த வேண்டும்?",a:"பயணம் முடிந்த பிறகு ஓட்டுனரிடம் நேரடியாக பணம் அல்லது UPI மூலம் செலுத்தலாம். முன்கூட்டியே செலுத்த வேண்டியதில்லை."},
+    {q:"ரத்து கொள்கை என்ன?",a:"பயணம் தொடங்க 2 மணி நேரத்திற்கு முன்பு ரத்து செய்தால் கட்டணம் இல்லை. பயணம் தொடங்கிய பிறகு ரத்து செய்தால் ஓட்டுனர் கட்டணம் + வந்த தூர கட்டணம் பொருந்தும்."},
+    {q:"என்ன வாகனங்கள் உள்ளன?",a:"🚗 Sedan (Swift Dzire / Etios, 4 பேர்) — ₹15/km. 🚙 SUV (Innova / Ertiga, 6 பேர்) — ₹20/km. ✨ Premium (Crysta / Tempo Traveller) — தனிப்பட்ட மேற்கோள்."},
+    {q:"ஓட்டுனர்கள் தமிழ் பேசுவார்களா?",a:"ஆம். தமிழ்நாடு வழிகளில் அனைத்து ஓட்டுனர்களும் தமிழ் பேசுவார்கள். கர்நாடகா / கேரளா வழிகளில் ஆங்கிலம் / கன்னடம் / மலையாளம் பேசுவார்கள்."},
+    {q:"மறைக்கப்பட்ட கட்டணங்கள் உள்ளதா?",a:"இல்லை. நாங்கள் கொடுக்கும் மேற்கோளே இறுதி கட்டணம். Toll மற்றும் Permit சேர்க்கப்பட்டிருக்கும். நிறுத்துமிட கட்டணம் (Parking) மட்டுமே வாடிக்கையாளர் நேரடியாக செலுத்த வேண்டும்."},
+    {q:"24/7 சேவை கிடைக்குமா?",a:"ஆம். எந்த நேரத்திலும் +91 63826 24456 என்ற எண்ணில் அழைக்கலாம் அல்லது WhatsApp-ல் செய்தி அனுப்பலாம்."},
+    {q:"திரும்பும் பயணம் (Round Trip) செய்யலாமா?",a:"ஆம். Round Trip-க்கு Ride Fare-ல் 10% தள்ளுபடி கிடைக்கும். Fare Estimator-ல் 'Round Trip' தேர்வு செய்து கணக்கிடுங்கள்."},
+  ],
+  en:[
+    {q:"How is the fare calculated?",a:"Sedan at ₹15/km, SUV at ₹20/km. A driver charge of ₹400/day is added. Tolls and state permit fees are included in your quote. Minimum 130 km is billed."},
+    {q:"What is the permit charge for inter-state travel?",a:"TN → Other state: ₹1,000. Other state → TN: ₹800. Within Tamil Nadu (incl. Puducherry): ₹0. Non-TN interstate routes (KA↔KL, KA↔AP, etc.): ₹1,000."},
+    {q:"How do I book?",a:"WhatsApp us at +91 63826 24456 or call. No forms needed — share your pickup city, drop city, date and time. We confirm the total fare in 2 minutes."},
+    {q:"When do I pay?",a:"After the trip, directly to the driver — cash or UPI. No advance payment required."},
+    {q:"What is the cancellation policy?",a:"Free cancellation if cancelled at least 2 hours before the trip. Cancellation after the trip starts — driver charge plus distance covered applies."},
+    {q:"What vehicles do you offer?",a:"🚗 Sedan (Swift Dzire / Etios, up to 4 passengers) at ₹15/km. 🚙 SUV (Innova / Ertiga, up to 6 passengers) at ₹20/km. ✨ Premium (Crysta / Tempo Traveller) — custom quote on request."},
+    {q:"Do your drivers speak Tamil?",a:"Yes — all Tamil Nadu drivers speak Tamil. For routes in Karnataka and Kerala, drivers speak English and/or Kannada/Malayalam."},
+    {q:"Are there any hidden charges?",a:"None. The quoted fare is the final fare — tolls and permit included. Only parking fees (if any) are paid directly by the customer at the parking facility."},
+    {q:"Are you available 24/7?",a:"Yes. Call or WhatsApp +91 63826 24456 at any time, day or night."},
+    {q:"Can I book a round trip?",a:"Absolutely. Round trips get a 10% discount on the ride fare. Use the Fare Estimator above, select Round Trip, and see the total instantly."},
+  ],
+  hi:[
+    {q:"किराया कैसे गिना जाता है?",a:"Sedan के लिए ₹15/km, SUV के लिए ₹20/km। प्रतिदिन ₹400 ड्राइवर चार्ज जोड़ा जाता है। Toll और Permit पहले से कोट में शामिल हैं। न्यूनतम 130 km का किराया लागू होता है।"},
+    {q:"राज्य पार करने पर Permit चार्ज क्या है?",a:"TN से दूसरे राज्य: ₹1,000। दूसरे राज्य से TN: ₹800। TN के अंदर (Puducherry सहित): ₹0। KA↔KL / KA↔AP: ₹1,000।"},
+    {q:"बुकिंग कैसे करें?",a:"+91 63826 24456 पर WhatsApp करें या कॉल करें। कोई फॉर्म नहीं — पिकअप, ड्रॉप, तारीख और समय बताएं। 2 मिनट में किराया कन्फर्म मिलेगा।"},
+    {q:"भुगतान कब करना होगा?",a:"यात्रा के बाद ड्राइवर को सीधे — नकद या UPI। पहले से भुगतान की जरूरत नहीं।"},
+    {q:"रद्द करने की नीति क्या है?",a:"यात्रा से 2 घंटे पहले रद्द करने पर कोई शुल्क नहीं। यात्रा शुरू होने के बाद रद्द करने पर ड्राइवर चार्ज + तय की गई दूरी का किराया लागू होगा।"},
+    {q:"कौन से वाहन उपलब्ध हैं?",a:"🚗 Sedan (₹15/km, 4 सवारी): Dzire, Etios। 🚙 SUV (₹20/km, 6 सवारी): Innova, Ertiga। ✨ Premium (Crysta/Tempo): कस्टम कोट।"},
+    {q:"क्या ड्राइवर हिंदी बोलते हैं?",a:"तमिलनाडु के ड्राइवर तमिल बोलते हैं। अनुरोध पर हिंदी बोलने वाले ड्राइवर की व्यवस्था की कोशिश की जाएगी।"},
+    {q:"क्या छिपे हुए शुल्क हैं?",a:"नहीं। दिया गया किराया ही अंतिम किराया है। Toll और Permit शामिल हैं। Parking चार्ज (यदि हो) सीधे ग्राहक द्वारा दिया जाएगा।"},
+    {q:"क्या आप 24/7 उपलब्ध हैं?",a:"हाँ। +91 63826 24456 पर कभी भी कॉल करें या WhatsApp करें।"},
+    {q:"क्या राउंड ट्रिप बुकिंग होती है?",a:"हाँ। राउंड ट्रिप पर राइड किराये पर 10% छूट मिलती है। Fare Estimator में Round Trip चुनें।"},
+  ],
+  kn:[
+    {q:"ದರ ಹೇಗೆ ಲೆಕ್ಕ ಹಾಕಲಾಗುತ್ತದೆ?",a:"Sedan ₹15/km, SUV ₹20/km. ಪ್ರತಿ ದಿನ ₹400 ಚಾಲಕ ಶುಲ್ಕ ಸೇರ್ಪಡೆ. Toll ಮತ್ತು Permit ಕೋಟ್‌ನಲ್ಲಿ ಸೇರಿದೆ. ಕನಿಷ್ಠ 130 km ಬಿಲ್ ಆಗುತ್ತದೆ."},
+    {q:"ರಾಜ್ಯ ದಾಟಿದರೆ Permit ಶುಲ್ಕ ಎಷ್ಟು?",a:"TN → ಬೇರೆ ರಾಜ್ಯ: ₹1,000. ಬೇರೆ ರಾಜ್ಯ → TN: ₹800. TN ಒಳಗೆ (Puducherry ಸೇರಿ): ₹0. KA↔KL / KA↔AP: ₹1,000."},
+    {q:"ಬುಕಿಂಗ್ ಹೇಗೆ ಮಾಡಬೇಕು?",a:"+91 63826 24456 ಗೆ WhatsApp ಕಳಿಸಿ ಅಥವಾ ಕರೆ ಮಾಡಿ. ಪಿಕಪ್, ಡ್ರಾಪ್, ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ತಿಳಿಸಿ. 2 ನಿಮಿಷದಲ್ಲಿ ದರ ದೃಢೀಕರಣ ಸಿಗುತ್ತದೆ."},
+    {q:"ಹಣ ಯಾವಾಗ ಕೊಡಬೇಕು?",a:"ಪ್ರಯಾಣ ಮುಗಿದ ನಂತರ ಚಾಲಕರಿಗೆ ನೇರವಾಗಿ — ನಗದು ಅಥವಾ UPI ಮೂಲಕ. ಮುಂಗಡ ಪಾವತಿ ಅಗತ್ಯವಿಲ್ಲ."},
+    {q:"ರದ್ದು ನೀತಿ ಏನು?",a:"ಪ್ರಯಾಣಕ್ಕೆ 2 ಗಂಟೆ ಮೊದಲು ರದ್ದು ಮಾಡಿದರೆ ಶುಲ್ಕ ಇಲ್ಲ. ಪ್ರಯಾಣ ಪ್ರಾರಂಭದ ನಂತರ ರದ್ದು — ಚಾಲಕ ಶುಲ್ಕ + ಕ್ರಮಿಸಿದ ದೂರ ಅನ್ವಯ."},
+    {q:"ಯಾವ ವಾಹನಗಳು ಲಭ್ಯ?",a:"🚗 Sedan (₹15/km, 4 ಜನ): Dzire, Etios. 🚙 SUV (₹20/km, 6 ಜನ): Innova, Ertiga. ✨ Premium (Crysta/Tempo): ಕಸ್ಟಮ್ ಕೋಟ್."},
+    {q:"ಚಾಲಕರು ಕನ್ನಡ ಮಾತನಾಡುತ್ತಾರೆಯೇ?",a:"ಕರ್ನಾಟಕ ಮಾರ್ಗಗಳಲ್ಲಿ ಚಾಲಕರು ಕನ್ನಡ ಮತ್ತು/ಅಥವಾ ಆಂಗ್ಲ ಭಾಷೆ ಮಾತನಾಡುತ್ತಾರೆ."},
+    {q:"ಮರೆಯಾದ ಶುಲ್ಕ ಇದೆಯೇ?",a:"ಇಲ್ಲ. ಕೋಟ್ ಮಾಡಿದ ದರವೇ ಅಂತಿಮ. Toll ಮತ್ತು Permit ಸೇರಿದೆ. Parking (ಇದ್ದರೆ) ನೇರವಾಗಿ ಗ್ರಾಹಕರು ಪಾವತಿಸಬೇಕು."},
+    {q:"24/7 ಸೇವೆ ಇದೆಯೇ?",a:"ಹೌದು. +91 63826 24456 ಗೆ ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಕರೆ ಮಾಡಿ ಅಥವಾ WhatsApp ಮಾಡಿ."},
+    {q:"Round Trip ಬುಕಿಂಗ್ ಸಾಧ್ಯವೇ?",a:"ಹೌದು. Round Trip ಗೆ Ride Fare ನಲ್ಲಿ 10% ರಿಯಾಯಿತಿ ಇದೆ. Fare Estimator ನಲ್ಲಿ Round Trip ಆಯ್ಕೆ ಮಾಡಿ."},
+  ],
+  ml:[
+    {q:"ചാർജ് എങ്ങനെ കണക്കാക്കുന്നു?",a:"Sedan ₹15/km, SUV ₹20/km. ദിവസം ₹400 ഡ്രൈവർ ചാർജ് ഉണ്ട്. Toll, Permit ക്വോട്ടിൽ ഉൾപ്പെടുത്തിയിരിക്കുന്നു. കുറഞ്ഞത് 130 km ബിൽ ചെയ്യും."},
+    {q:"മറ്റൊരു സംസ്ഥാനത്തേക്ക് പോകുമ്പോൾ Permit ചാർജ് എന്ത്?",a:"TN → മറ്റ് സംസ്ഥാനം: ₹1,000. മറ്റ് സംസ്ഥാനം → TN: ₹800. TN-ക്കകത്ത് (Puducherry ഉൾപ്പെടെ): ₹0. KA↔KL / KA↔AP: ₹1,000."},
+    {q:"ബുക്ക് ചെയ്യുന്നതെങ്ങനെ?",a:"+91 63826 24456 ൽ WhatsApp ചെയ്യൂ അല്ലെങ്കിൽ വിളിക്കൂ. ഫോം ഇല്ല — ലൊക്കേഷൻ, തീയതി, സമയം പറഞ്ഞാൽ 2 മിനിറ്റിൽ ചാർജ് കൺഫേം ആകും."},
+    {q:"പണം എപ്പോൾ കൊടുക്കണം?",a:"യാത്ര കഴിഞ്ഞ ശേഷം ഡ്രൈവർക്ക് നേരിട്ട് — കാഷ് അല്ലെങ്കിൽ UPI. മുൻകൂർ പണം ആവശ്യമില്ല."},
+    {q:"റദ്ദ് നയം എന്ത്?",a:"യാത്രയ്ക്ക് 2 മണിക്കൂർ മുൻപ് റദ്ദ് ചെയ്താൽ ചാർജ് ഇല്ല. യാത്ര ആരംഭിച്ചതിനുശേഷം — ഡ്രൈവർ ചാർജ് + സഞ്ചരിച്ച ദൂരം ബാധകം."},
+    {q:"ഏതൊക്കെ വാഹനങ്ങൾ ഉണ്ട്?",a:"🚗 Sedan (₹15/km, 4 പേർ): Dzire, Etios. 🚙 SUV (₹20/km, 6 പേർ): Innova, Ertiga. ✨ Premium (Crysta/Tempo): കസ്റ്റം ക്വോട്ട്."},
+    {q:"ഡ്രൈവർമാർ മലയാളം സംസാരിക്കുമോ?",a:"കേരളത്തിലേക്കുള്ള റൂട്ടുകളിൽ ഡ്രൈവർമാർ മലയാളം / ഇംഗ്ലീഷ് സംസാരിക്കും."},
+    {q:"മറഞ്ഞ ചാർജ് ഉണ്ടോ?",a:"ഇല്ല. ക്വോട്ട് ചെയ്ത ചാർജ് തന്നെ അന്തിമം. Toll, Permit ഉൾപ്പെടുത്തിയിരിക്കുന്നു. Parking (ഉണ്ടെങ്കിൽ) നേരിട്ട് കസ്റ്റമർ നൽകണം."},
+    {q:"24/7 സേവനം ഉണ്ടോ?",a:"ഉണ്ട്. +91 63826 24456 ൽ ഏതു സമയത്തും വിളിക്കൂ അല്ലെങ്കിൽ WhatsApp ചെയ്യൂ."},
+    {q:"Round Trip ബുക്ക് ചെയ്യാമോ?",a:"ആകാം. Round Trip-ന് Ride Fare-ൽ 10% കിഴിവ് ലഭിക്കും. Fare Estimator-ൽ Round Trip സെലക്ട് ചെയ്യൂ."},
+  ]
+};
+
+function renderFAQ() {
+  const accordion = document.getElementById('faqAccordion');
+  const titleEl   = document.getElementById('faq-section-title');
+  const ctaEl     = document.getElementById('faq-cta-text');
+  if (!accordion) return;
+  const lang  = currentLang || 'en';
+  const items = FAQ_DATA[lang] || FAQ_DATA.en;
+  if (titleEl) titleEl.textContent = FAQ_TITLES[lang] || FAQ_TITLES.en;
+  if (ctaEl)   ctaEl.textContent   = FAQ_CTA[lang]   || FAQ_CTA.en;
+  accordion.innerHTML = items.map((item, i) => `
+    <div class="faq-item" id="faq-item-${i}">
+      <button class="faq-q" onclick="toggleFAQ(${i})" aria-expanded="false">
+        ${item.q}
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-a">${item.a}</div>
+    </div>`).join('');
+}
+
+function toggleFAQ(idx) {
+  const item   = document.getElementById('faq-item-' + idx);
+  if (!item) return;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => {
+    el.classList.remove('open');
+    const btn = el.querySelector('.faq-q');
+    if (btn) btn.setAttribute('aria-expanded','false');
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    const btn = item.querySelector('.faq-q');
+    if (btn) btn.setAttribute('aria-expanded','true');
+  }
+}
+
+// ══════════════════════════════════════════════
+// CHATBOT WIDGET
+// ══════════════════════════════════════════════
+const CHATBOT_STRINGS = {
+  ta:{
+    greeting:"வணக்கம்! நான் DROPeZi உதவியாளர். 👇 ஒரு விருப்பம் தேர்வு செய்யுங்கள்:",
+    menu_fare:"📍 கட்டண மதிப்பீடு",menu_book:"📋 முன்பதிவு செய்வது எப்படி",menu_pricing:"💰 கட்டணம் & Permit",menu_vehicles:"🚗 வாகன வகைகள்",menu_cancel:"❌ ரத்து கொள்கை",menu_interstate:"🗺️ மாநில வரம்பு பயணம்",menu_talk:"📞 நேரடியாக பேசுங்கள்",
+    back:"⬅ முதல் பக்கம்",wa_book:"💬 WhatsApp-ல் முன்பதிவு",
+    resp_fare:"உங்கள் பயண கட்டணத்தை கணக்கிட, இந்த பக்கத்திலுள்ள Fare Estimator பயன்படுத்துங்கள் — Sedan & SUV கட்டணம் உடனே கிடைக்கும்!",resp_fare_btn:"🔢 Fare Estimator பார்க்க",
+    resp_book:"முன்பதிவு மிகவும் எளிது:\n1️⃣ WhatsApp +91 63826 24456\n2️⃣ ஏறும் இடம், இறங்கும் இடம், தேதி & நேரம் கொடுங்கள்\n3️⃣ 2 நிமிடத்தில் கட்டண உறுதி கிடைக்கும்\n4️⃣ பயண நாளன்று ஓட்டுனர் விவரம் அனுப்பப்படும்",
+    resp_pricing:"🚗 Sedan: ₹15/km\n🚙 SUV: ₹20/km\n👤 ஓட்டுனர் கட்டணம்: ₹400/நாள்\n🛣️ Toll: ~₹0.80/km\n📋 குறைந்தபட்சம் 130 km\n\nToll & Permit மேற்கோளில் சேர்க்கப்பட்டிருக்கும்.",
+    resp_vehicles:"3 வகை வாகனங்கள்:\n🚗 Sedan — ₹15/km (1–4 பயணிகள்): Dzire, Etios\n🚙 SUV — ₹20/km (1–6 பயணிகள்): Innova, Ertiga\n✨ Premium — தனிப்பட்ட மேற்கோள்: Crysta, Tempo",
+    resp_cancel:"✅ 2 மணி நேரத்திற்கு முன்பு ரத்து செய்தால் — கட்டணம் இல்லை.\n⚠️ பயணம் தொடங்கிய பிறகு ரத்து செய்தால் — ஓட்டுனர் கட்டணம் + வந்த தூர கட்டணம் பொருந்தும்.",
+    resp_interstate:"மாநில வரம்பு Permit கட்டணம்:\n📋 TN → வேறு மாநிலம்: ₹1,000\n📋 வேறு மாநிலம் → TN: ₹800\n📋 TN-க்குள் (Puducherry உட்பட): ₹0\n📋 KA ↔ KL / KA ↔ AP: ₹1,000\n\nமேற்கோளில் Permit தொகை சேர்க்கப்பட்டிருக்கும்.",
+    resp_talk:"இப்போதே தொடர்பு கொள்ளுங்கள்!\n📞 அழைப்பு: +91 63826 24456\n💬 WhatsApp: 24/7 கிடைக்கும்",
+    status:"ஆன்லைன் — உடனடி பதில்"
+  },
+  en:{
+    greeting:"Hello! I'm DROPeZi's assistant. 👇 What can I help you with?",
+    menu_fare:"📍 Get Fare Estimate",menu_book:"📋 How to Book",menu_pricing:"💰 Pricing & Permits",menu_vehicles:"🚗 Vehicle Options",menu_cancel:"❌ Cancellation Policy",menu_interstate:"🗺️ Inter-State Travel",menu_talk:"📞 Talk to Us Now",
+    back:"⬅ Main Menu",wa_book:"💬 Book on WhatsApp",
+    resp_fare:"Use the Fare Estimator on this page to instantly calculate Sedan & SUV fares for your route — just enter your cities, date, and time!",resp_fare_btn:"🔢 Go to Fare Estimator",
+    resp_book:"Booking is simple:\n1️⃣ WhatsApp us at +91 63826 24456\n2️⃣ Share pickup, drop, date & time\n3️⃣ Get the total fare in 2 minutes\n4️⃣ Driver details sent on travel day",
+    resp_pricing:"🚗 Sedan: ₹15/km\n🚙 SUV: ₹20/km\n👤 Driver charge: ₹400/day\n🛣️ Tolls: ~₹0.80/km (est.)\n📋 Minimum 130 km billed\n\nToll & permit included in your quote.",
+    resp_vehicles:"We have 3 vehicle types:\n🚗 Sedan — ₹15/km (1–4 passengers): Dzire, Etios\n🚙 SUV — ₹20/km (1–6 passengers): Innova, Ertiga\n✨ Premium — Custom quote: Crysta, Tempo Traveller",
+    resp_cancel:"✅ Cancel 2+ hours before — no charge.\n⚠️ Cancel after trip starts — driver charge + distance covered applies.",
+    resp_interstate:"Inter-state permit charges:\n📋 TN → Other state: ₹1,000\n📋 Other state → TN: ₹800\n📋 Within TN (incl. Puducherry): ₹0\n📋 KA ↔ KL / KA ↔ AP: ₹1,000\n\nAll permit charges are included in your quote.",
+    resp_talk:"Reach us right now!\n📞 Call: +91 63826 24456\n💬 WhatsApp: Available 24/7",
+    status:"Online — instant replies"
+  },
+  hi:{
+    greeting:"नमस्ते! मैं DROPeZi का सहायक हूँ। 👇 आप क्या जानना चाहते हैं?",
+    menu_fare:"📍 किराया अनुमान",menu_book:"📋 बुकिंग कैसे करें",menu_pricing:"💰 किराया व Permit",menu_vehicles:"🚗 वाहन विकल्प",menu_cancel:"❌ रद्द नीति",menu_interstate:"🗺️ अंतर्राज्यीय यात्रा",menu_talk:"📞 अभी बात करें",
+    back:"⬅ मुख्य मेनू",wa_book:"💬 WhatsApp बुकिंग",
+    resp_fare:"इस पेज पर Fare Estimator से Sedan और SUV का किराया तुरंत जानें!",resp_fare_btn:"🔢 Fare Estimator देखें",
+    resp_book:"बुकिंग बेहद आसान:\n1️⃣ +91 63826 24456 पर WhatsApp करें\n2️⃣ पिकअप, ड्रॉप, तारीख व समय बताएं\n3️⃣ 2 मिनट में किराया मिलेगा\n4️⃣ यात्रा के दिन ड्राइवर विवरण मिलेगा",
+    resp_pricing:"🚗 Sedan: ₹15/km\n🚙 SUV: ₹20/km\n👤 ड्राइवर चार्ज: ₹400/दिन\n🛣️ Toll: ~₹0.80/km\n📋 न्यूनतम 130 km\n\nToll व Permit कोट में शामिल।",
+    resp_vehicles:"3 प्रकार के वाहन:\n🚗 Sedan – ₹15/km (1-4 सवारी)\n🚙 SUV – ₹20/km (1-6 सवारी)\n✨ Premium – कस्टम कोट",
+    resp_cancel:"✅ 2 घंटे पहले रद्द — कोई शुल्क नहीं।\n⚠️ यात्रा शुरू होने के बाद — ड्राइवर चार्ज लागू।",
+    resp_interstate:"अंतर्राज्यीय Permit:\n📋 TN → अन्य राज्य: ₹1,000\n📋 अन्य राज्य → TN: ₹800\n📋 TN के अंदर: ₹0\n📋 KA ↔ KL: ₹1,000",
+    resp_talk:"अभी संपर्क करें!\n📞 कॉल: +91 63826 24456\n💬 WhatsApp: 24/7 उपलब्ध",
+    status:"ऑनलाइन — तुरंत जवाब"
+  },
+  kn:{
+    greeting:"ನಮಸ್ಕಾರ! ನಾನು DROPeZi ಸಹಾಯಕ. 👇 ಏನು ತಿಳಿಯಬೇಕು?",
+    menu_fare:"📍 ದರ ಅಂದಾಜು",menu_book:"📋 ಬುಕ್ ಮಾಡುವುದು ಹೇಗೆ",menu_pricing:"💰 ದರ & Permit",menu_vehicles:"🚗 ವಾಹನ ಆಯ್ಕೆಗಳು",menu_cancel:"❌ ರದ್ದು ನೀತಿ",menu_interstate:"🗺️ ಅಂತರ್-ರಾಜ್ಯ ಪ್ರಯಾಣ",menu_talk:"📞 ನೇರವಾಗಿ ಮಾತನಾಡಿ",
+    back:"⬅ ಮುಖ್ಯ ಮೆನು",wa_book:"💬 WhatsApp ಬುಕಿಂಗ್",
+    resp_fare:"ಈ ಪುಟದ Fare Estimator ಬಳಸಿ Sedan ಮತ್ತು SUV ದರ ತಕ್ಷಣ ತಿಳಿಯಿರಿ!",resp_fare_btn:"🔢 Fare Estimator ನೋಡಿ",
+    resp_book:"ಬುಕಿಂಗ್ ತುಂಬಾ ಸುಲಭ:\n1️⃣ +91 63826 24456 ಗೆ WhatsApp ಮಾಡಿ\n2️⃣ ಪಿಕಪ್, ಡ್ರಾಪ್, ದಿನಾಂಕ ತಿಳಿಸಿ\n3️⃣ 2 ನಿಮಿಷದಲ್ಲಿ ದರ ಸಿಗುತ್ತದೆ\n4️⃣ ಪ್ರಯಾಣ ದಿನ ಚಾಲಕ ವಿವರ ಕಳಿಸಲಾಗುತ್ತದೆ",
+    resp_pricing:"🚗 Sedan: ₹15/km\n🚙 SUV: ₹20/km\n👤 ಚಾಲಕ ಶುಲ್ಕ: ₹400/ದಿನ\n🛣️ Toll: ~₹0.80/km\n📋 ಕನಿಷ್ಠ 130 km\n\nToll & Permit ಕೋಟ್‌ನಲ್ಲಿ ಸೇರಿದೆ.",
+    resp_vehicles:"3 ವಾಹನ ವಿಧಗಳು:\n🚗 Sedan – ₹15/km (1-4 ಜನ)\n🚙 SUV – ₹20/km (1-6 ಜನ)\n✨ Premium – ಕಸ್ಟಮ್ ಕೋಟ್",
+    resp_cancel:"✅ 2 ಗಂಟೆ ಮೊದಲು ರದ್ದು — ಶುಲ್ಕ ಇಲ್ಲ.\n⚠️ ಪ್ರಯಾಣ ಪ್ರಾರಂಭದ ನಂತರ — ಚಾಲಕ ಶುಲ್ಕ ಅನ್ವಯ.",
+    resp_interstate:"ಅಂತರ್-ರಾಜ್ಯ Permit:\n📋 TN → ಬೇರೆ ರಾಜ್ಯ: ₹1,000\n📋 ಬೇರೆ ರಾಜ್ಯ → TN: ₹800\n📋 TN ಒಳಗೆ: ₹0\n📋 KA ↔ KL / KA ↔ AP: ₹1,000",
+    resp_talk:"ಈಗ ಸಂಪರ್ಕ ಮಾಡಿ!\n📞 ಕರೆ: +91 63826 24456\n💬 WhatsApp: 24/7",
+    status:"ಆನ್‌ಲೈನ್ — ತಕ್ಷಣ ಉತ್ತರ"
+  },
+  ml:{
+    greeting:"ഹലോ! ഞാൻ DROPeZi അസിസ്റ്റന്റ് ആണ്. 👇 എങ്ങനെ സഹായിക്കട്ടെ?",
+    menu_fare:"📍 ചാർജ് കണക്കാക്കൂ",menu_book:"📋 ബുക്ക് ചെയ്യുന്നതെങ്ങനെ",menu_pricing:"💰 ചാർജ് & Permit",menu_vehicles:"🚗 വാഹന ഓപ്ഷനുകൾ",menu_cancel:"❌ റദ്ദ് നയം",menu_interstate:"🗺️ ഇന്റർ-സ്റ്റേറ്റ് യാത്ര",menu_talk:"📞 ഇപ്പോൾ സംസാരിക്കൂ",
+    back:"⬅ ഹോം",wa_book:"💬 WhatsApp ബുക്കിംഗ്",
+    resp_fare:"ഈ പേജിലെ Fare Estimator ഉപയോഗിച്ച് Sedan, SUV ചാർജ് ഉടനടി കണ്ടെത്തൂ!",resp_fare_btn:"🔢 Fare Estimator കാണൂ",
+    resp_book:"ബുക്കിംഗ് വളരെ എളുപ്പം:\n1️⃣ +91 63826 24456 ൽ WhatsApp ചെയ്യൂ\n2️⃣ ലൊക്കേഷൻ, തീയതി, സമയം പറയൂ\n3️⃣ 2 മിനിറ്റിൽ ചാർജ് അറിയൂ\n4️⃣ യാത്ര ദിനത്തിൽ ഡ്രൈവർ വിവരം ലഭിക്കും",
+    resp_pricing:"🚗 Sedan: ₹15/km\n🚙 SUV: ₹20/km\n👤 ഡ്രൈവർ ചാർജ്: ₹400/ദിവസം\n🛣️ Toll: ~₹0.80/km\n📋 ഏറ്റവും കുറഞ്ഞത് 130 km\n\nToll & Permit ക്വോട്ടിൽ ഉൾപ്പെടുത്തിയിരിക്കുന്നു.",
+    resp_vehicles:"3 വാഹന ഓപ്ഷനുകൾ:\n🚗 Sedan – ₹15/km (1-4 പേർ)\n🚙 SUV – ₹20/km (1-6 പേർ)\n✨ Premium – കസ്റ്റം ക്വോട്ട്",
+    resp_cancel:"✅ 2 മണിക്കൂർ മുൻപ് റദ്ദ് — ചാർജ് ഇല്ല.\n⚠️ യാത്ര ആരംഭിച്ചതിനുശേഷം — ഡ്രൈവർ ചാർജ് ബാധകം.",
+    resp_interstate:"ഇന്റർ-സ്റ്റേറ്റ് Permit:\n📋 TN → മറ്റ് സംസ്ഥാനം: ₹1,000\n📋 മറ്റ് സംസ്ഥാനം → TN: ₹800\n📋 TN-ക്കകത്ത്: ₹0\n📋 KA ↔ KL / KA ↔ AP: ₹1,000",
+    resp_talk:"ഇപ്പോൾ ബന്ധപ്പെടൂ!\n📞 വിളിക്കൂ: +91 63826 24456\n💬 WhatsApp: 24/7",
+    status:"ഓൺലൈൻ — ഉടനടി മറുപടി"
+  }
+};
+
+let chatOpen = false;
+
+function toggleChatbot() {
+  chatOpen = !chatOpen;
+  const panel  = document.getElementById('chatbotPanel');
+  const toggle = document.getElementById('chatbotToggle');
+  if (chatOpen) {
+    panel.classList.add('open');
+    toggle.textContent = '✕';
+    // Start fresh if no messages yet, or if messages area is empty
+    if (!document.querySelector('#chatbotMsgs .chat-msg')) {
+      startChat();
+    }
+  } else {
+    panel.classList.remove('open');
+    toggle.textContent = '🤖';
+  }
+}
+
+function startChat() {
+  const s = CHATBOT_STRINGS[currentLang] || CHATBOT_STRINGS.en;
+  const statusEl = document.getElementById('chatbot-status-line');
+  if (statusEl) statusEl.textContent = s.status || 'Online — instant replies';
+  addBotMsg(s.greeting);
+  showMainMenu();
+}
+
+function addBotMsg(text) {
+  const msgs = document.getElementById('chatbotMsgs');
+  if (!msgs) return;
+  const div = document.createElement('div');
+  div.className = 'chat-msg chat-msg-bot';
+  div.innerHTML = text.replace(/\n/g,'<br>');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addUserMsg(text) {
+  const msgs = document.getElementById('chatbotMsgs');
+  if (!msgs) return;
+  const div = document.createElement('div');
+  div.className = 'chat-msg chat-msg-user';
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function setChips(chips) {
+  const el = document.getElementById('chatbotChips');
+  if (!el) return;
+  el.innerHTML = chips.map(c =>
+    `<button class="chat-chip${c.wa?' chat-chip-wa':''}" onclick="${c.fn}">${c.label}</button>`
+  ).join('');
+}
+
+function showMainMenu() {
+  const s = CHATBOT_STRINGS[currentLang] || CHATBOT_STRINGS.en;
+  setChips([
+    {label:s.menu_fare,       fn:"chatAction('fare')"},
+    {label:s.menu_book,       fn:"chatAction('book')"},
+    {label:s.menu_pricing,    fn:"chatAction('pricing')"},
+    {label:s.menu_vehicles,   fn:"chatAction('vehicles')"},
+    {label:s.menu_cancel,     fn:"chatAction('cancel')"},
+    {label:s.menu_interstate, fn:"chatAction('interstate')"},
+    {label:s.menu_talk,       fn:"chatAction('talk')",wa:true},
+  ]);
+}
+
+function chatAction(action) {
+  const s     = CHATBOT_STRINGS[currentLang] || CHATBOT_STRINGS.en;
+  const waMsg = (i18n[currentLang]||i18n.en).wa_msg;
+  const waUrl = getWAUrl(waMsg);
+  const lmap  = {fare:s.menu_fare,book:s.menu_book,pricing:s.menu_pricing,vehicles:s.menu_vehicles,cancel:s.menu_cancel,interstate:s.menu_interstate,talk:s.menu_talk};
+  if (lmap[action]) addUserMsg(lmap[action]);
+
+  const backChips = [
+    {label:s.wa_book, fn:"openWA('"+waUrl+"')", wa:true},
+    {label:s.back,    fn:"chatBack()"},
+  ];
+
+  if (action === 'fare') {
+    addBotMsg(s.resp_fare);
+    setChips([{label:s.resp_fare_btn, fn:"chatScrollToEstimator()"}, ...backChips]);
+  } else if (action === 'book') {
+    addBotMsg(s.resp_book);
+    setChips(backChips);
+  } else if (action === 'pricing') {
+    addBotMsg(s.resp_pricing);
+    setChips(backChips);
+  } else if (action === 'vehicles') {
+    addBotMsg(s.resp_vehicles);
+    setChips(backChips);
+  } else if (action === 'cancel') {
+    addBotMsg(s.resp_cancel);
+    setChips(backChips);
+  } else if (action === 'interstate') {
+    addBotMsg(s.resp_interstate);
+    setChips(backChips);
+  } else if (action === 'talk') {
+    addBotMsg(s.resp_talk);
+    openWA(waUrl);
+    setChips(backChips);
+  }
+}
+
+function chatBack() {
+  const s = CHATBOT_STRINGS[currentLang] || CHATBOT_STRINGS.en;
+  addBotMsg(s.greeting);
+  showMainMenu();
+}
+
+function chatScrollToEstimator() {
+  if (chatOpen) toggleChatbot();
+  const el = document.getElementById('book');
+  if (el) {
+    const y = el.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }
+}
 
 // bfcache fix — iOS Safari restores page from frozen snapshot on back/forward nav;
 // DOMContentLoaded doesn't re-fire, so re-run setLang to repopulate i18n content.
