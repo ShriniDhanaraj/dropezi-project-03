@@ -337,10 +337,19 @@ img{max-width:100%}
 .faq-item.open .faq-icon{transform:translateY(-50%) rotate(45deg);background:var(--gold);color:var(--navy)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s ease;font-size:0.92rem;color:var(--text-mid);line-height:1.7;font-family:'Noto Sans Tamil','Inter',sans-serif;padding-right:48px}
 .faq-item.open .faq-a{max-height:240px;padding-bottom:18px}
+.faq-section-toggle{width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;padding:0;font-family:inherit}
+.faq-section-toggle:hover .section-title{color:var(--gold-dark)}
+.faq-section-icon{color:var(--gold);font-size:1.1rem;transition:transform 0.3s;display:inline-block;flex-shrink:0}
+.faq-section-icon.open{transform:rotate(180deg)}
+.faq-body{max-height:0;overflow:hidden;transition:max-height 0.5s ease}
+.faq-body.faq-open{max-height:5000px}
 
 /* ── CHATBOT WIDGET ── */
 .chatbot-toggle{position:fixed;right:20px;bottom:80px;z-index:992;width:56px;height:56px;border-radius:50%;background:var(--navy);border:2.5px solid var(--gold);color:var(--white);font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(14,31,61,0.45);transition:transform 0.2s,box-shadow 0.2s;padding:0}
 .chatbot-toggle:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(14,31,61,0.55)}
+.chatbot-toggle .chat-x{display:none;color:var(--gold);font-size:20px;font-weight:700;line-height:1;align-items:center;justify-content:center}
+.chatbot-toggle.chat-open svg{opacity:0;pointer-events:none;position:absolute}
+.chatbot-toggle.chat-open .chat-x{display:flex}
 @media(min-width:769px){.chatbot-toggle{bottom:28px;right:24px}}
 .chatbot-panel{position:fixed;right:20px;bottom:148px;z-index:992;width:340px;max-height:520px;background:var(--navy);border:1px solid rgba(240,165,0,0.4);border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.45);display:none;flex-direction:column;overflow:hidden;font-family:'Noto Sans Tamil','Inter',sans-serif}
 .chatbot-panel.open{display:flex}
@@ -952,13 +961,18 @@ img{max-width:100%}
 <!-- ══ FAQ ══ -->
 <section class="section section-alt" id="faq">
   <div class="container">
-    <h2 class="section-title" id="faq-section-title">Frequently Asked Questions</h2>
-    <div class="section-accent"></div>
-    <div class="faq-list" id="faqAccordion"></div>
-    <p style="text-align:center;margin-top:36px;font-size:0.9rem;color:var(--text-mid)">
-      <span id="faq-cta-text">Still have questions?</span>&nbsp;
-      <a href="https://wa.me/916382624456" target="_blank" style="color:var(--wa);font-weight:700;text-decoration:underline" id="faq-wa-link">WhatsApp us →</a>
-    </p>
+    <button class="faq-section-toggle" onclick="toggleFAQSection()" aria-expanded="false" id="faqSectionBtn">
+      <h2 class="section-title" id="faq-section-title" style="margin:0">Frequently Asked Questions</h2>
+      <span class="faq-section-icon" id="faqSectionIcon" aria-hidden="true">▼</span>
+    </button>
+    <div class="faq-body" id="faqBody">
+      <div class="section-accent"></div>
+      <div class="faq-list" id="faqAccordion"></div>
+      <p style="text-align:center;margin-top:36px;font-size:0.9rem;color:var(--text-mid)">
+        <span id="faq-cta-text">Still have questions?</span>&nbsp;
+        <a href="https://wa.me/916382624456" target="_blank" style="color:var(--wa);font-weight:700;text-decoration:underline" id="faq-wa-link">WhatsApp us →</a>
+      </p>
+    </div>
   </div>
 </section>
 
@@ -1007,7 +1021,7 @@ img{max-width:100%}
 </footer>
 
 <!-- ══ CHATBOT WIDGET ══ -->
-<button class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()" aria-label="Chat with DROPeZi" title="Chat with us"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="38" height="38" style="display:block;margin:auto"><defs><clipPath id="aboveRoof"><rect x="0" y="0" width="60" height="24.5"/></clipPath><style>.bot-g{transform-box:fill-box;transform-origin:center bottom;animation:popUp .75s cubic-bezier(.34,1.56,.64,1) .35s both,bob 2.2s ease-in-out 1.2s infinite}@keyframes popUp{from{transform:translateY(28px)}to{transform:translateY(0)}}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.2px)}}.eye-grp{transform-box:fill-box;transform-origin:center;animation:blink 3.8s ease-in-out 2s infinite}@keyframes blink{0%,44%,56%,100%{transform:scaleY(1)}50%{transform:scaleY(.08)}}</style></defs><rect x="3" y="34" width="54" height="17" rx="5" fill="#0e1f3d"/><rect x="12" y="23" width="36" height="13" rx="5" fill="#162a50"/><rect x="3" y="34" width="54" height="2.5" rx="1" fill="#f0a500"/><rect x="15" y="25" width="12" height="10" rx="2" fill="rgba(147,210,255,0.6)"/><rect x="30" y="25" width="12" height="10" rx="2" fill="rgba(147,210,255,0.6)"/><rect x="27.5" y="25" width="2" height="10" fill="#0e1f3d" opacity=".45"/><circle cx="13.5" cy="51" r="6" fill="#111827"/><circle cx="13.5" cy="51" r="2.5" fill="#f0a500"/><circle cx="46.5" cy="51" r="6" fill="#111827"/><circle cx="46.5" cy="51" r="2.5" fill="#f0a500"/><path d="M6,43 Q13.5,37 21,43" stroke="#162a50" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M39,43 Q46.5,37 54,43" stroke="#162a50" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="2.5" y="40" width="6" height="4" rx="1.5" fill="#fef3c7" opacity=".9"/><rect x="51.5" y="40" width="6" height="4" rx="1.5" fill="#fca5a5" opacity=".8"/><rect x="25.5" y="43" width="9" height="1.5" rx="1" fill="#f0a500" opacity=".35"/><g clip-path="url(#aboveRoof)"><g class="bot-g"><line x1="30" y1="4" x2="30" y2="9.5" stroke="#f0a500" stroke-width="2.2" stroke-linecap="round"/><circle cx="30" cy="3" r="2.8" fill="#f0a500"/><rect x="20" y="9" width="20" height="16" rx="4" fill="#f0a500"/><rect x="17" y="13" width="3.5" height="5.5" rx="1.5" fill="#c98900"/><rect x="39.5" y="13" width="3.5" height="5.5" rx="1.5" fill="#c98900"/><rect x="21.5" y="11.5" width="7" height="7" rx="2" fill="#0e1f3d" opacity=".88"/><rect x="31.5" y="11.5" width="7" height="7" rx="2" fill="#0e1f3d" opacity=".88"/><g class="eye-grp"><ellipse cx="25" cy="15" rx="2.6" ry="2.6" fill="white"/><circle cx="25.5" cy="15.5" r="1.3" fill="#0e1f3d"/><circle cx="26.1" cy="14.6" r="0.7" fill="white" opacity=".75"/></g><g class="eye-grp"><ellipse cx="35" cy="15" rx="2.6" ry="2.6" fill="white"/><circle cx="35.5" cy="15.5" r="1.3" fill="#0e1f3d"/><circle cx="36.1" cy="14.6" r="0.7" fill="white" opacity=".75"/></g><path d="M24,21.5 Q30,26 36,21.5" stroke="#0e1f3d" stroke-width="1.8" fill="none" stroke-linecap="round"/><rect x="25" y="24.5" width="10" height="5" rx="2" fill="#c98900"/></g></g></svg></button>
+<button class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()" aria-label="Chat with DROPeZi" title="Chat with us"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="38" height="38" style="display:block;margin:auto"><defs><clipPath id="aboveRoof"><rect x="0" y="0" width="60" height="24.5"/></clipPath><style>.bot-g{transform-box:fill-box;transform-origin:center bottom;animation:riseAndBob 8s linear 0.5s infinite}@keyframes riseAndBob{0%{transform:translateY(28px);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}10%{transform:translateY(0);animation-timing-function:ease-in-out}13%{transform:translateY(-2.2px);animation-timing-function:ease-in-out}16%{transform:translateY(0);animation-timing-function:ease-in-out}19%{transform:translateY(-2.2px);animation-timing-function:ease-in-out}22%{transform:translateY(0)}55%{transform:translateY(0);animation-timing-function:ease-in}65%{transform:translateY(28px)}100%{transform:translateY(28px)}}.eye-grp{transform-box:fill-box;transform-origin:center;animation:blink 3.8s ease-in-out 2s infinite}@keyframes blink{0%,44%,56%,100%{transform:scaleY(1)}50%{transform:scaleY(.08)}}</style></defs><rect x="3" y="34" width="54" height="17" rx="5" fill="#0e1f3d"/><rect x="12" y="23" width="36" height="13" rx="5" fill="#162a50"/><rect x="3" y="34" width="54" height="2.5" rx="1" fill="#f0a500"/><rect x="15" y="25" width="12" height="10" rx="2" fill="rgba(147,210,255,0.6)"/><rect x="30" y="25" width="12" height="10" rx="2" fill="rgba(147,210,255,0.6)"/><rect x="27.5" y="25" width="2" height="10" fill="#0e1f3d" opacity=".45"/><circle cx="13.5" cy="51" r="6" fill="#111827"/><circle cx="13.5" cy="51" r="2.5" fill="#f0a500"/><circle cx="46.5" cy="51" r="6" fill="#111827"/><circle cx="46.5" cy="51" r="2.5" fill="#f0a500"/><path d="M6,43 Q13.5,37 21,43" stroke="#162a50" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M39,43 Q46.5,37 54,43" stroke="#162a50" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="2.5" y="40" width="6" height="4" rx="1.5" fill="#fef3c7" opacity=".9"/><rect x="51.5" y="40" width="6" height="4" rx="1.5" fill="#fca5a5" opacity=".8"/><rect x="25.5" y="43" width="9" height="1.5" rx="1" fill="#f0a500" opacity=".35"/><g clip-path="url(#aboveRoof)"><g class="bot-g"><line x1="30" y1="4" x2="30" y2="9.5" stroke="#f0a500" stroke-width="2.2" stroke-linecap="round"/><circle cx="30" cy="3" r="2.8" fill="#f0a500"/><rect x="20" y="9" width="20" height="16" rx="4" fill="#f0a500"/><rect x="17" y="13" width="3.5" height="5.5" rx="1.5" fill="#c98900"/><rect x="39.5" y="13" width="3.5" height="5.5" rx="1.5" fill="#c98900"/><rect x="21.5" y="11.5" width="7" height="7" rx="2" fill="#0e1f3d" opacity=".88"/><rect x="31.5" y="11.5" width="7" height="7" rx="2" fill="#0e1f3d" opacity=".88"/><g class="eye-grp"><ellipse cx="25" cy="15" rx="2.6" ry="2.6" fill="white"/><circle cx="25.5" cy="15.5" r="1.3" fill="#0e1f3d"/><circle cx="26.1" cy="14.6" r="0.7" fill="white" opacity=".75"/></g><g class="eye-grp"><ellipse cx="35" cy="15" rx="2.6" ry="2.6" fill="white"/><circle cx="35.5" cy="15.5" r="1.3" fill="#0e1f3d"/><circle cx="36.1" cy="14.6" r="0.7" fill="white" opacity=".75"/></g><path d="M24,21.5 Q30,26 36,21.5" stroke="#0e1f3d" stroke-width="1.8" fill="none" stroke-linecap="round"/><rect x="25" y="24.5" width="10" height="5" rx="2" fill="#c98900"/></g></g></svg><span class="chat-x">✕</span></button>
 <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-label="DROPeZi Chat">
   <div class="chatbot-header">
     <div class="chatbot-avatar"><img src="./logo.webp" alt="DROPeZi" style="width:100%;height:100%;object-fit:contain"/></div>
@@ -2314,6 +2328,16 @@ function toggleFAQ(idx) {
   }
 }
 
+function toggleFAQSection() {
+  const body = document.getElementById('faqBody');
+  const icon = document.getElementById('faqSectionIcon');
+  const btn  = document.getElementById('faqSectionBtn');
+  if (!body) return;
+  const isOpen = body.classList.toggle('faq-open');
+  if (icon) icon.classList.toggle('open', isOpen);
+  if (btn)  btn.setAttribute('aria-expanded', String(isOpen));
+}
+
 // ══════════════════════════════════════════════
 // CHATBOT WIDGET
 // ══════════════════════════════════════════════
@@ -2393,14 +2417,14 @@ function toggleChatbot() {
   const toggle = document.getElementById('chatbotToggle');
   if (chatOpen) {
     panel.classList.add('open');
-    toggle.textContent = '✕';
+    toggle.classList.add('chat-open');
     // Start fresh if no messages yet, or if messages area is empty
     if (!document.querySelector('#chatbotMsgs .chat-msg')) {
       startChat();
     }
   } else {
     panel.classList.remove('open');
-    toggle.textContent = '🤖';
+    toggle.classList.remove('chat-open');
   }
 }
 
